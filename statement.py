@@ -319,14 +319,17 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     @ModelView.button
     @Workflow.transition('canceled')
     def cancel(cls, lines):
+        Line = Pool().get('account.bank.reconciliation')
+
         unlink = []
         for line in lines:
             unlink += line.bank_lines
-        Line = Pool().get('account.bank.reconciliation')
-        Line.write(unlink, {'bank_statement_line': None})
+        Line.write(unlink, {
+                'bank_statement_line': None,
+                })
         cls.write(lines, {
             'state': 'canceled',
-        })
+            })
 
     @classmethod
     def validate(cls, lines):
