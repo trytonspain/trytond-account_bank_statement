@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--The COPYRIGHT file at the top level of this repository
+contains the full copyright notices and license terms. -->
+<form string="Bank Statement Line">
+    <group id="general" col="6" colspan="4">
+	    <label name="date"/>
+	    <field name="date"/>
+	    <label name="description"/>
+	    <field name="description"/>
+	    <label name="company"/>
+	    <field name="company"/>
+        <label name="journal"/>
+        <field name="journal"/>
+        <label name="statement_currency"/>
+        <field name="statement_currency"/>
+    </group>
+    <group id="amounts" col="6" colspan="4">
+	    <label name="company_amount"/>
+	    <field name="company_amount"/>
+	    <label name="amount"/>
+	    <field name="amount"/>
+        <label name="moves_amount"/>
+        <field name="moves_amount"/>
+    </group>
+	<field name="bank_lines" colspan="4" widget="many2many"/>
+    <group id="status" colspan="4" col="8">
+	    <label name="state"/>
+	    <field name="state"/>
+        <button name="search_reconcile" string="Search"/>
+        <button name="cancel" string="Cancel"/>
+        <button name="draft" string="Draft"/>
+        <button name="confirm" string="Confirm"/>
+        <button name="post" string="Post"/>
+    </group>
+</form>

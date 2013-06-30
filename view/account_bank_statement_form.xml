@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--The COPYRIGHT file at the top level of this repository
+contains the full copyright notices and license terms. -->
+<form string="Bank Statement">
+    <group id="header" colspan="4" col="6">
+        <label name="date"/>
+        <field name="date"/>
+        <label name="journal"/>
+        <field name="journal"/>
+        <label name="company"/>
+        <field name="company"/>
+    </group>
+	<field name="lines" colspan="4"/>
+    <group id="status" col="6" colspan="4">
+        <label name="state"/>
+        <field name="state"/>
+        <button name="confirm" string="Confirm" icon="tryton-go-next"/>
+        <button name="cancel" string="Cancel" icon="tryton-cancel"/>
+        <button name="draft" string="Draft" icon="tryton-clear"/>
+    </group>
+</form>

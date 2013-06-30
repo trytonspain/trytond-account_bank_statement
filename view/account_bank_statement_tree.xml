@@ -1,0 +1,6 @@
+<tree string="Bank Statement">
+	 <field name="date"/>
+	 <field name="journal"/>
+	 <field name="lines"/>
+	 <field name="state"/>
+</tree>

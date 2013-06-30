@@ -1,0 +1,10 @@
+<tree string="Bank Statement Line">
+     <field name="journal"/>
+	 <field name="date"/>
+	 <field name="description"/>
+	 <field name="amount"/>
+     <field name="statement_currency"/>
+	 <field name="state"/>
+     <field name="reconciled"/>
+     <button name="post" string="Post"/>
+</tree>
