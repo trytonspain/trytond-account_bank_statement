@@ -255,9 +255,24 @@
         <menuitem name="Bank Statements"
             parent="account.menu_account_configuration"
             id="menu_bank_statement_configuration" sequence="70"/>
+        
+        <record model="ir.ui.menu-res.group" id="menu_account_bank_statement_config_group">
+            <field name="menu" ref="menu_bank_statement_configuration"/>
+            <field name="group" ref="group_account_bank_statement_admin"/>
+        </record>
 
         <menuitem name="Bank Statements" parent="account.menu_account"
             id="menu_bank_statements" sequence="45"/>
+
+        <record model="ir.ui.menu-res.group" id="menu_account_bank_statement_group_admin">
+            <field name="menu" ref="menu_bank_statements"/>
+            <field name="group" ref="group_account_bank_statement_admin"/>
+        </record>
+        
+        <record model="ir.ui.menu-res.group" id="menu_account_bank_statement_group_user">
+            <field name="menu" ref="menu_bank_statements"/>
+            <field name="group" ref="group_account_bank_statement"/>
+        </record>
 
         <menuitem action="act_account_bank_statement"
             id="menu_account_bank_statement"

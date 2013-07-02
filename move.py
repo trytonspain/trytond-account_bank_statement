@@ -83,7 +83,7 @@ class Line:
         cursor.execute(
             'SELECT id FROM ('
                 'SELECT  id, '
-                    'CASE WHEN bl.reconciled = ABS(credit-debit) THEN  true '
+                    'CASE WHEN bl.reconciled = (debit-credit) THEN  true '
                         ' ELSE false END as bank_reconciled'
                     ' FROM "'
                         + cls._table + '" LEFT JOIN '
@@ -117,12 +117,12 @@ class Line:
 
     def check_bank_lines(self):
         BankLine = Pool().get('account.bank.reconciliation')
-        if self.bank_amount != self.credit - self.debit:
+        if self.bank_amount != self.debit - self.credit:
             bank_lines = [x for x in self.bank_lines
                 if not x.bank_statement_line]
             BankLine.delete(bank_lines)
             bank_line = BankLine()
-            bank_line.amount = self.bank_amount - (self.credit - self.debit)
+            bank_line.amount = self.bank_amount - (self.debit - self.credit)
             bank_line.move_line = self
             bank_line.save()
 
