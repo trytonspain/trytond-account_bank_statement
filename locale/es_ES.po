@@ -327,7 +327,7 @@ msgstr "Abrir líneas de extracto bancario (Inicio)"
 
 msgctxt "model:ir.action,name:act_account_bank_reconciliation"
 msgid "Bank Reconciliation"
-msgstr "Reconciliación bancaria"
+msgstr "Reconciliación bancario"
 
 msgctxt "model:ir.action,name:act_account_bank_statement"
 msgid "Bank Statement"
@@ -343,11 +343,11 @@ msgstr "Diarios de extractos bancarios"
 
 msgctxt "model:ir.action,name:act_bank_statement_lines"
 msgid "Statement Lines"
-msgstr "Líneas de extracto bancario"
+msgstr "Líneas del extracto"
 
 msgctxt "model:ir.action,name:act_move_line_bank_reconcile_form"
 msgid "Account Move Lines Bank Reconcile"
-msgstr "Conciliación de líneas de extracto bancario"
+msgstr "Líneas de reconciliación de apuntes contables"
 
 msgctxt "model:ir.action,name:act_open_reconcile_bank_lines"
 msgid "Open Bank Reconcile Lines"
