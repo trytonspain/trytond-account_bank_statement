@@ -10,6 +10,14 @@ msgstr ""
 "Línia de concialiació bancaria amb Import \"%(amount)s\" en línia del "
 "extracte \"%(statement_line)s\" no pot ser eliminada"
 
+msgctxt "error:account.bank.statement.journal:"
+msgid ""
+"You cannot modify the currency to journal that already has a statement on "
+"date %(date)s"
+msgstr ""
+"No pot modificar la moneda del diari perque hi ha un extracte en la data "
+"%(date)s"
+
 msgctxt "error:account.bank.statement.line:"
 msgid ""
 "Line \"%(line)s\" with state \"%(state)s\" can not be canceled. To cancel "
@@ -127,6 +135,46 @@ msgid "Write Date"
 msgstr "Data modificació"
 
 msgctxt "field:account.bank.statement,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:account.bank.statement.journal,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:account.bank.statement.journal,create_date:"
+msgid "Create Date"
+msgstr "Data creació"
+
+msgctxt "field:account.bank.statement.journal,create_uid:"
+msgid "Create User"
+msgstr "Usuari creació"
+
+msgctxt "field:account.bank.statement.journal,currency:"
+msgid "Currency"
+msgstr "Moneda"
+
+msgctxt "field:account.bank.statement.journal,id:"
+msgid "ID"
+msgstr "Identificador"
+
+msgctxt "field:account.bank.statement.journal,journal:"
+msgid "Journal"
+msgstr "Diari"
+
+msgctxt "field:account.bank.statement.journal,name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:account.bank.statement.journal,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:account.bank.statement.journal,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:account.bank.statement.journal,write_uid:"
 msgid "Write User"
 msgstr "Usuari modificació"
 
@@ -262,17 +310,25 @@ msgctxt "model:account.bank.statement,name:"
 msgid "Bank Statement"
 msgstr "Extracte bancari"
 
+msgctxt "model:account.bank.statement.journal,name:"
+msgid "Bank Statement Journal"
+msgstr "Diari extractes bancaris"
+
 msgctxt "model:account.bank.statement.line,name:"
 msgid "Bank Statement Line"
 msgstr "Línia d'extracte bancari"
 
+msgctxt "model:account.journal.type,name:journal_type_statement"
+msgid "Bank Statement"
+msgstr "Extracte bancari"
+
 msgctxt "model:account.move.open_bank_reconcile_lines.start,name:"
 msgid "Open Bank Reconcile Lines (Start)"
-msgstr "Obrir línies de conciliació bancaria (Inici)"
+msgstr "Obre línies de conciliació bancaria (Inici)"
 
 msgctxt "model:ir.action,name:act_account_bank_reconciliation"
 msgid "Bank Reconciliation"
-msgstr "Conciliació bancaria"
+msgstr "Reconciliació bancari"
 
 msgctxt "model:ir.action,name:act_account_bank_statement"
 msgid "Bank Statement"
@@ -282,17 +338,21 @@ msgctxt "model:ir.action,name:act_account_bank_statement_line"
 msgid "Bank Statement Line"
 msgstr "Línia d'extracte bancari"
 
+msgctxt "model:ir.action,name:act_bank_statement_journal_form"
+msgid "Bank Statement Journals"
+msgstr "Diaris extractes bancaris"
+
 msgctxt "model:ir.action,name:act_bank_statement_lines"
 msgid "Statement Lines"
-msgstr "Línies extracte"
+msgstr "Línies del extracte"
 
 msgctxt "model:ir.action,name:act_move_line_bank_reconcile_form"
 msgid "Account Move Lines Bank Reconcile"
-msgstr "Línies de conciliació bancaria"
+msgstr "Linies de reconciliació de moviments comptables"
 
 msgctxt "model:ir.action,name:act_open_reconcile_bank_lines"
 msgid "Open Bank Reconcile Lines"
-msgstr "Obrir línies de conciliació bancaria"
+msgstr "Obre línies de conciliació bancaria"
 
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_move_bank_reconclie_domain_all"
@@ -311,6 +371,18 @@ msgstr "Extractes bancaris"
 msgctxt "model:ir.ui.menu,name:menu_account_bank_statement_line"
 msgid "Bank Statement Lines"
 msgstr "Línies d'extracte bancari"
+
+msgctxt "model:ir.ui.menu,name:menu_bank_statement_configuration"
+msgid "Bank Statements"
+msgstr "Extractes bancaris"
+
+msgctxt "model:ir.ui.menu,name:menu_bank_statement_journal_form"
+msgid "Bank Statement Journals"
+msgstr "Diaris extractes bancaris"
+
+msgctxt "model:ir.ui.menu,name:menu_bank_statements"
+msgid "Bank Statements"
+msgstr "Extractes bancaris"
 
 msgctxt "model:ir.ui.menu,name:menu_open_reconcile_bank_lines"
 msgid "Reconcile Bank Lines"
