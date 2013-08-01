@@ -1,11 +1,11 @@
 #The COPYRIGHT file at the top level of this repository contains the full
 #copyright notices and license terms.
 
-from decimal import Decimal
 from trytond.model import Workflow, ModelView, ModelSQL, fields
 from trytond.pyson import Eval, If, Not, Equal
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
+import datetime
 
 __metaclass__ = PoolMeta
 __all__ = ['Statement', 'StatementLine']
@@ -73,6 +73,10 @@ class Statement(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_state():
         return 'draft'
+
+    @staticmethod
+    def default_date():
+        return datetime.datetime.now()
 
     @classmethod
     @ModelView.button
