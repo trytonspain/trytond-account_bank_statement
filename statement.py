@@ -357,7 +357,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def search(cls, args, offset=0, limit=None, order=None, count=False,
-            query_string=False):
+            query=False):
         """
         Override default search function so that if the user sorts by one field
         only, then 'sequence' is always added as a second sort field. This is
@@ -370,4 +370,4 @@ class StatementLine(Workflow, ModelSQL, ModelView):
         if len(order) == 1:
             order.append(('sequence', order[0][1]))
         return super(StatementLine, cls).search(args, offset, limit, order,
-            count, query_string)
+            count, query)
