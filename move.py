@@ -127,7 +127,7 @@ class Line:
             bank_line.save()
 
     @classmethod
-    def get_bank_amounts(cls, lines,  names):
+    def get_bank_amounts(cls, lines, names):
         res = {}
         for name in names:
             res[name] = {}
