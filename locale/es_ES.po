@@ -45,10 +45,6 @@ msgstr ""
 "\"%(statment_line)s\" con importe \"%(amount)s\". Rompa la conciliación "
 "bancario y pruebe otra vez."
 
-msgctxt "error:account.statement.journal:"
-msgid "You cannot modify currency to journal that already has Statement"
-msgstr "No puedes modificar moneda a revista que ya tiene Declaración"
-
 msgctxt "field:account.account,bank_reconcile:"
 msgid "Bank conciliation"
 msgstr "Conciliación bancaria"
@@ -109,6 +105,14 @@ msgctxt "field:account.bank.statement,date:"
 msgid "Date"
 msgstr "Fecha"
 
+msgctxt "field:account.bank.statement,end_balance:"
+msgid "End Balance"
+msgstr "Fin balance"
+
+msgctxt "field:account.bank.statement,end_date:"
+msgid "End Date"
+msgstr "Fecha final"
+
 msgctxt "field:account.bank.statement,id:"
 msgid "ID"
 msgstr "Identificador"
@@ -124,6 +128,14 @@ msgstr "Líneas"
 msgctxt "field:account.bank.statement,rec_name:"
 msgid "Name"
 msgstr "Nombre"
+
+msgctxt "field:account.bank.statement,start_balance:"
+msgid "Start Balance"
+msgstr "Inicio balance"
+
+msgctxt "field:account.bank.statement,start_date:"
+msgid "Start Date"
+msgstr "Fecha incial"
 
 msgctxt "field:account.bank.statement,state:"
 msgid "State"
@@ -301,6 +313,18 @@ msgctxt "field:account.move.open_bank_reconcile_lines.start,id:"
 msgid "ID"
 msgstr "Identificador"
 
+msgctxt "help:account.bank.statement,date:"
+msgid "Created date bank statement"
+msgstr "Fecha de creación del extracto bancario"
+
+msgctxt "help:account.bank.statement,end_date:"
+msgid "End date bank statement"
+msgstr "Fecha final del extracto bancario"
+
+msgctxt "help:account.bank.statement,start_date:"
+msgid "Start date bank statement"
+msgstr "Fecha inicio del extracto bancario"
+
 msgctxt "model:account.bank.reconciliation,name:"
 msgid "Account Bank Reconciliation"
 msgstr "Reconciliación de extracto bancario"
@@ -422,6 +446,90 @@ msgstr "Borrador"
 msgctxt "selection:account.bank.statement.line,state:"
 msgid "Posted"
 msgstr "Realizado"
+
+msgctxt "view:account.bank.reconciliation:"
+msgid "Bank Reconciliation"
+msgstr "Reconciliación bancario"
+
+msgctxt "view:account.bank.statement.journal:"
+msgid "Statement Journal"
+msgstr "Diario del extracto"
+
+msgctxt "view:account.bank.statement.journal:"
+msgid "Statement Journals"
+msgstr "Diario del extracto"
+
+msgctxt "view:account.bank.statement.line:"
+msgid "Bank Statement Line"
+msgstr "Línea de extracto bancario"
+
+msgctxt "view:account.bank.statement.line:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "view:account.bank.statement.line:"
+msgid "Confirm"
+msgstr "Confirma"
+
+msgctxt "view:account.bank.statement.line:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "view:account.bank.statement.line:"
+msgid "Post"
+msgstr "Post"
+
+msgctxt "view:account.bank.statement.line:"
+msgid "Search"
+msgstr "Buscar"
+
+msgctxt "view:account.bank.statement:"
+msgid "Bank Statement"
+msgstr "Extracto bancario"
+
+msgctxt "view:account.bank.statement:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "view:account.bank.statement:"
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgctxt "view:account.bank.statement:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "view:account.move.line:"
+msgid "Account Move Line"
+msgstr "Línea del movimiento"
+
+msgctxt "view:account.move.line:"
+msgid "Account Move Lines"
+msgstr "Líneas de los movimientos"
+
+msgctxt "view:account.move.line:"
+msgid "Bank Amount"
+msgstr "Importe de banco"
+
+msgctxt "view:account.move.line:"
+msgid "Credit"
+msgstr "Crédito"
+
+msgctxt "view:account.move.line:"
+msgid "Debit"
+msgstr "Débito"
+
+msgctxt "view:account.move.line:"
+msgid "Other Info"
+msgstr "Otra información"
+
+msgctxt "view:account.move.line:"
+msgid "Unreconciled Bank Amount"
+msgstr "Desconciliación bancaria"
+
+msgctxt "view:account.move.open_bank_reconcile_lines.start:"
+msgid "Open Bank Reconcile Lines"
+msgstr "Abrir líneas de extracto bancario"
 
 msgctxt "wizard_button:account.move.open_bank_reconcile_lines,start,end:"
 msgid "Cancel"
