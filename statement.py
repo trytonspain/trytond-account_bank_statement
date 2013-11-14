@@ -5,16 +5,18 @@ from trytond.model import Workflow, ModelView, ModelSQL, fields
 from trytond.pyson import Eval, If, Not, Equal
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
+from decimal import Decimal
 import datetime
 
 __metaclass__ = PoolMeta
 __all__ = ['Statement', 'StatementLine']
 
+_STATES = {'readonly': Eval('state') != 'draft'}
+_DEPENDS = ['state']
 CONFIRMED_STATES = {
     'readonly': Not(Equal(Eval('state'), 'draft'))
     }
 CONFIRMED_DEPENDS = ['state']
-
 POSTED_STATES = {
     'readonly': Not(Equal(Eval('state'), 'confirmed'))
     }
@@ -27,13 +29,24 @@ class Statement(Workflow, ModelSQL, ModelView):
     _rec_name = 'date'
 
     company = fields.Many2One('company.company', 'Company', required=True,
-        select=True, domain=[
+        states=_STATES, depends=['state'], select=True, domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', 0)),
             ])
-    date = fields.DateTime('Date', required=True)
+    date = fields.DateTime('Date', required=True, states=_STATES, 
+        depends=['state'], help='Created date bank statement')
+    start_date = fields.Date('Start Date', required=True,
+        states=_STATES, depends=['state'], help='Start date bank statement')
+    end_date = fields.Date('End Date', required=True,
+        states=_STATES, depends=['state'], help='End date bank statement')
+    start_balance = fields.Numeric('Start Balance', required=True,
+        digits=(16, Eval('currency_digits', 2)),
+        states=_STATES, depends=['state', 'currency_digits'])
+    end_balance = fields.Numeric('End Balance', required=True,
+        digits=(16, Eval('currency_digits', 2)),
+        states=_STATES, depends=['state', 'currency_digits'])
     journal = fields.Many2One('account.bank.statement.journal', 'Journal',
-        required=True)
+        states=_STATES, depends=['state'], required=True)
     lines = fields.One2Many('account.bank.statement.line', 'statement',
         'Lines')
     state = fields.Selection([
@@ -77,6 +90,29 @@ class Statement(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_date():
         return datetime.datetime.now()
+
+    @staticmethod
+    def default_start_date():
+        return datetime.datetime.now()
+
+    @staticmethod
+    def default_end_date():
+        return datetime.datetime.now()
+
+    @staticmethod
+    def default_start_balance():
+        return Decimal('0.0')
+
+    @staticmethod
+    def default_end_balance():
+        return Decimal('0.0')
+
+    @classmethod
+    def default_journal(cls):
+        Journal = Pool().get('account.bank.statement.journal')
+        journals = Journal.search(cls.journal.domain)
+        if len(journals) == 1:
+            return journals[0].id
 
     @classmethod
     @ModelView.button

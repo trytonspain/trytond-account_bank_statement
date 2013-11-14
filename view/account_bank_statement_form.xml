@@ -10,7 +10,17 @@ contains the full copyright notices and license terms. -->
         <label name="company"/>
         <field name="company"/>
     </group>
-	<field name="lines" colspan="4"/>
+    <group id="details" col="8" colspan="4">
+        <label name="start_date"/>
+        <field name="start_date"/>
+        <label name="end_date"/>
+        <field name="end_date"/>
+        <label name="start_balance"/>
+        <field name="start_balance"/>
+        <label name="end_balance"/>
+        <field name="end_balance"/>
+    </group>
+    <field name="lines" colspan="4"/>
     <group id="status" col="6" colspan="4">
         <label name="state"/>
         <field name="state"/>

@@ -1,6 +1,8 @@
 <tree string="Bank Statement">
-	 <field name="date"/>
-	 <field name="journal"/>
-	 <field name="lines"/>
-	 <field name="state"/>
+    <field name="date"/>
+    <field name="start_date"/>
+    <field name="end_date"/>
+    <field name="journal"/>
+    <field name="lines"/>
+    <field name="state"/>
 </tree>
