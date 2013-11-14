@@ -315,7 +315,7 @@ msgstr "Identificador"
 
 msgctxt "help:account.bank.statement,date:"
 msgid "Created date bank statement"
-msgstr "Crea un extracte bancari"
+msgstr "Data creació del extracte bancari"
 
 msgctxt "help:account.bank.statement,end_date:"
 msgid "End date bank statement"
@@ -323,7 +323,7 @@ msgstr "Data final del extracte bancari"
 
 msgctxt "help:account.bank.statement,start_date:"
 msgid "Start date bank statement"
-msgstr "Inicia extracte bancari"
+msgstr "Data inicial extracte bancari"
 
 msgctxt "model:account.bank.reconciliation,name:"
 msgid "Account Bank Reconciliation"
