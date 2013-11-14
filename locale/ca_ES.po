@@ -477,7 +477,7 @@ msgstr "Esborrany"
 
 msgctxt "view:account.bank.statement.line:"
 msgid "Post"
-msgstr "Confirma"
+msgstr "Post"
 
 msgctxt "view:account.bank.statement.line:"
 msgid "Search"
