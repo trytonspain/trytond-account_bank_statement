@@ -33,7 +33,7 @@ class Statement(Workflow, ModelSQL, ModelView):
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', 0)),
             ])
-    date = fields.DateTime('Date', required=True, states=_STATES, 
+    date = fields.DateTime('Date', required=True, states=_STATES,
         depends=['state'], help='Created date bank statement')
     start_date = fields.Date('Start Date', required=True,
         states=_STATES, depends=['state'], help='Start date bank statement')
@@ -49,6 +49,8 @@ class Statement(Workflow, ModelSQL, ModelView):
         states=_STATES, depends=['state'], required=True)
     lines = fields.One2Many('account.bank.statement.line', 'statement',
         'Lines')
+    currency_digits = fields.Function(fields.Integer('Currency Digits',
+            on_change_with=['journal']), 'on_change_with_currency_digits')
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
@@ -102,6 +104,11 @@ class Statement(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_start_balance():
         return Decimal('0.0')
+
+    def on_change_with_currency_digits(self, name=None):
+        if self.journal:
+            return self.journal.currency.digits
+        return 2
 
     @staticmethod
     def default_end_balance():
