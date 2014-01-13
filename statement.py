@@ -396,7 +396,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def search_journal(cls, name, clause):
-        return [('statement.journal',) + clause[1:]]
+        return [('statement.journal',) + tuple(clause[1:])]
 
     @classmethod
     def search(cls, args, offset=0, limit=None, order=None, count=False,
