@@ -7,6 +7,9 @@ from trytond.pool import Pool, PoolMeta
 from trytond.wizard import Wizard, StateView, StateAction, Button
 from trytond.transaction import Transaction
 from decimal import Decimal
+from sql import Literal
+from sql.conditionals import Case
+from sql.aggregate import Sum
 
 __metaclass__ = PoolMeta
 __all__ = ['Line', 'Move', 'OpenBankReconcileLines',
@@ -79,23 +82,28 @@ class Line:
     def search_bank_reconciled(cls, name, clause):
         pool = Pool()
         BankReconcile = pool.get('account.bank.reconciliation')
+        move = cls.__table__()
+        bank_reconcile = BankReconcile.__table__()
+        #If filtering by not reconciled show all moves without bank_line (Fast)
+        if clause[1] == '=' and clause[2] is False:
+            query = bank_reconcile.select(bank_reconcile.move_line, where=(
+                    bank_reconcile.bank_statement_line == None))
+        else:
+            subquery = bank_reconcile.select(bank_reconcile.move_line,
+                Sum(Case((bank_reconcile.bank_statement_line == None,
+                            Literal(0)),
+                    else_=bank_reconcile.amount)).as_('reconciled'),
+                group_by=bank_reconcile.move_line)
+            Operator = fields.SQL_OPERATORS[clause[1]]
+            query = move.join(subquery, condition=(
+                    subquery.move_line == move.id)).select(move.id,
+                        where=(Operator((subquery.reconciled - (move.debit -
+                                    move.credit) == Literal(0)), clause[2])
+                        ))
+
         cursor = Transaction().cursor
-        cursor.execute(
-            'SELECT id FROM ('
-                'SELECT  id, '
-                    'CASE WHEN bl.reconciled = (debit-credit) THEN  true '
-                        ' ELSE false END as bank_reconciled'
-                    ' FROM "'
-                        + cls._table + '" LEFT JOIN '
-                    '(SELECT move_line AS id , '
-                        'SUM(amount) AS reconciled '
-                    'FROM "' + BankReconcile._table + '" '
-                    'WHERE '
-                        'bank_statement_line IS NOT null '
-                    'GROUP BY move_line ) AS bl USING(id) '
-            ') as l WHERE ' +
-                clause[0] + clause[1] + str(clause[2]))
-        return [('id', 'in', [x[0] for x in cursor.fetchall()])]
+        cursor.execute(*query)
+        return [('id', 'in', query)]
 
     @classmethod
     def _get_origin(cls):
@@ -146,6 +154,20 @@ class Line:
                 if res['unreconciled_amount'][line.id] == _ZERO:
                     res['bank_reconciled'][line.id] = True
         return res
+
+    def on_change_with_bank_amount(self):
+        amount = Decimal('0.0')
+        for line in self.bank_lines:
+            if line.bank_statement_line:
+                amount += line.amount
+        return amount
+
+    def on_change_with_unreconciled_amount(self):
+        amount = Decimal('0.0')
+        for line in self.bank_lines:
+            if not line.bank_statement_line and line.amount:
+                amount += line.amount
+        return amount
 
 
 class OpenBankReconcileLinesStart(ModelView):
