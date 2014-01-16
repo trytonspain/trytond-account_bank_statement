@@ -137,7 +137,7 @@ Create Journal::
     >>> sequence.save()
     >>> AccountJournal = Model.get('account.journal')
     >>> account_journal = AccountJournal(name='Statement',
-    ...     type='bank_statement',
+    ...     type='cash',
     ...     credit_account=cash,
     ...     debit_account=cash,
     ...     sequence=sequence)

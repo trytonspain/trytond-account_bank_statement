@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<!-- The COPYRIGHT file at the top level of this repository contains the full 
-copyright notices and license terms. -->
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
 <tryton>
     <data>
         <record model="ir.ui.view" id="bank_statement_journal_view_form">
@@ -8,22 +8,19 @@ copyright notices and license terms. -->
             <field name="type">form</field>
             <field name="name">account_bank_statement_journal_form</field>
         </record>
+
         <record model="ir.ui.view" id="bank_statement_journal_view_tree">
             <field name="model">account.bank.statement.journal</field>
             <field name="type">tree</field>
             <field name="name">account_bank_statement_journal_tree</field>
         </record>
-        <record model="account.journal.type" id="journal_type_statement">
-            <field name="name">Bank Statement</field>
-            <field name="code">bank_statement</field>
-        </record>
 
-        <record model="ir.action.act_window" 
+        <record model="ir.action.act_window"
                 id="act_bank_statement_journal_form">
             <field name="name">Bank Statement Journals</field>
             <field name="res_model">account.bank.statement.journal</field>
         </record>
-        <record model="ir.action.act_window.view" 
+        <record model="ir.action.act_window.view"
                 id="act_bank_statement_journal_form_view1">
             <field name="sequence" eval="10"/>
             <field name="view" ref="bank_statement_journal_view_tree"/>
@@ -37,18 +34,18 @@ copyright notices and license terms. -->
         </record>
 
         <menuitem parent="menu_bank_statement_configuration" sequence="1"
-            action="act_bank_statement_journal_form" 
+            action="act_bank_statement_journal_form"
             id="menu_bank_statement_journal_form"/>
 
         <record model="ir.model.access" id="access_bank_statement_journal">
-            <field name="model" 
+            <field name="model"
                 search="[('model', '=', 'account.bank.statement.journal')]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
             <field name="perm_delete" eval="False"/>
         </record>
-        <record model="ir.model.access" 
+        <record model="ir.model.access"
                 id="access_bank_statement_journal_admin">
             <field name="model"
                 search="[('model', '=', 'account.bank.statement.journal')]"/>
@@ -58,6 +55,5 @@ copyright notices and license terms. -->
             <field name="perm_create" eval="True"/>
             <field name="perm_delete" eval="True"/>
         </record>
-
     </data>
 </tryton>

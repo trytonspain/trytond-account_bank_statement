@@ -46,7 +46,7 @@ msgstr ""
 "conciliació bancaria i provar una altra vegada."
 
 msgctxt "field:account.account,bank_reconcile:"
-msgid "Bank conciliation"
+msgid "Bank Conciliation"
 msgstr "Conciliació bancaria"
 
 msgctxt "field:account.bank.reconciliation,amount:"

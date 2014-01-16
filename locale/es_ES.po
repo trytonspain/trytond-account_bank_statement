@@ -46,7 +46,7 @@ msgstr ""
 "bancario y pruebe otra vez."
 
 msgctxt "field:account.account,bank_reconcile:"
-msgid "Bank conciliation"
+msgid "Bank Conciliation"
 msgstr "Conciliación bancaria"
 
 msgctxt "field:account.bank.reconciliation,amount:"

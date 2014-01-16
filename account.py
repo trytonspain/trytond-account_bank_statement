@@ -11,8 +11,8 @@ __all__ = ['Account']
 class Account:
     __name__ = 'account.account'
 
-    bank_reconcile = fields.Boolean('Bank conciliation')
+    bank_reconcile = fields.Boolean('Bank Conciliation')
 
     @staticmethod
-    def default_bank_conciliation():
+    def default_bank_reconcile():
         return False
