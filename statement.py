@@ -73,11 +73,11 @@ class Statement(Workflow, ModelSQL, ModelView):
                     },
                 'draft': {
                     'invisible': ~Eval('state').in_(['canceled']),
-                    'icon': 'tryton-go-next',
+                    'icon': 'tryton-clear',
                     },
                 'cancel': {
                     'invisible': Eval('state').in_(['canceled']),
-                    'icon': 'tryton-go-next',
+                    'icon': 'tryton-cancel',
                     },
                 })
 
@@ -248,14 +248,15 @@ class StatementLine(Workflow, ModelSQL, ModelView):
                 'post': {
                     'invisible': Eval('state').in_([
                             'draft', 'canceled', 'posted']),
-                    'icon': 'tryton-go-next',
+                    'icon': 'tryton-ok',
                     },
                 'cancel': {
                     'invisible': Eval('state').in_(['canceled']),
-                    'icon': 'tryton-go-next',
+                    'icon': 'tryton-cancel',
                     },
                 'draft': {
                     'invisible': ~Eval('state').in_(['canceled']),
+                    'icon': 'tryton-clear',
                     },
                 'search_reconcile': {
                     'invisible': ~Eval('state').in_(['confirmed']),
