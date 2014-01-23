@@ -237,6 +237,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
                 ('confirmed', 'posted'),
                 ('posted', 'confirmed'),
                 ('canceled', 'draft'),
+                ('draft', 'canceled'),
                 ('confirmed', 'canceled'),
                 ('posted', 'canceled'),
                 ))
