@@ -101,8 +101,6 @@ class Line:
                                     move.credit) == Literal(0)), clause[2])
                         ))
 
-        cursor = Transaction().cursor
-        cursor.execute(*query)
         return [('id', 'in', query)]
 
     @classmethod
