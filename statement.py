@@ -274,7 +274,8 @@ class StatementLine(Workflow, ModelSQL, ModelView):
 
     def _search_bank_line_reconciliation(self):
         BankLines = Pool().get('account.bank.reconciliation')
-        lines = BankLines.search([('amount', '=', self.company_amount)])
+        lines = BankLines.search([('amount', '=', self.company_amount),
+            ('bank_statement_line', '=', None)])
         if len(lines) == 1:
             line, = lines
             line.bank_statement_line = self
