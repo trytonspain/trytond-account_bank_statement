@@ -133,6 +133,35 @@
             <field name="view" ref="account_bank_statement_form_view"/>
             <field name="act_window" ref="act_account_bank_statement"/>
         </record>
+        <record model="ir.action.act_window.domain"
+            id="act_account_bank_statement_domain_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="act_window" ref="act_account_bank_statement"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_account_bank_statement_domain_confirmed">
+            <field name="name">Confirmed</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain">[('state', '=', 'confirmed')]</field>
+            <field name="act_window" ref="act_account_bank_statement"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_account_bank_statement_domain_canceled">
+            <field name="name">Canceled</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain">[('state', '=', 'canceled')]</field>
+            <field name="act_window" ref="act_account_bank_statement"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_account_bank_statement_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_account_bank_statement"/>
+        </record>
+
         <record model="ir.ui.view" id="account_bank_statement_line_form_view">
             <field name="model">account.bank.statement.line</field>
             <field name="type">form</field>
@@ -158,7 +187,41 @@
             <field name="view" ref="account_bank_statement_line_form_view"/>
             <field name="act_window" ref="act_account_bank_statement_line"/>
         </record>
-
+        <record model="ir.action.act_window.domain"
+            id="act_account_bank_statement_line_domain_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="act_window" ref="act_account_bank_statement_line"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_account_bank_statement_line_domain_confirmed">
+            <field name="name">Confirmed</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain">[('state', '=', 'confirmed')]</field>
+            <field name="act_window" ref="act_account_bank_statement_line"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_account_bank_statement_line_domain_posted">
+            <field name="name">Posted</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain">[('state', '=', 'posted')]</field>
+            <field name="act_window" ref="act_account_bank_statement_line"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_account_bank_statement_line_domain_canceled">
+            <field name="name">Canceled</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain">[('state', '=', 'canceled')]</field>
+            <field name="act_window" ref="act_account_bank_statement_line"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_account_bank_statement_line_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_account_bank_statement_line"/>
+        </record>
 
         <!-- Permissions -->
         <record model="ir.model.access" id="access_account_bank_statement">
