@@ -48,7 +48,7 @@ class Statement(Workflow, ModelSQL, ModelView):
     journal = fields.Many2One('account.bank.statement.journal', 'Journal',
         states=_STATES, depends=['state'], required=True)
     lines = fields.One2Many('account.bank.statement.line', 'statement',
-        'Lines')
+        'Lines', readonly=True)
     currency_digits = fields.Function(fields.Integer('Currency Digits',
             on_change_with=['journal']), 'on_change_with_currency_digits')
     state = fields.Selection([
