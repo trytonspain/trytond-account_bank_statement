@@ -34,8 +34,8 @@ class AccountBankReconciliation(ModelView, ModelSQL):
     def write(cls, lines, vals):
         res = super(AccountBankReconciliation, cls).write(lines, vals)
         move_lines = set([x.move_line for x in lines])
-        for move in move_lines:
-            move.check_bank_lines()
+        for move_line in move_lines:
+            move_line.check_bank_lines()
         return res
 
     @classmethod
