@@ -128,7 +128,7 @@ class Line:
                 if not x.bank_statement_line]
             BankLine.delete(bank_lines)
             bank_line = BankLine()
-            bank_line.amount = self.bank_amount - (self.debit - self.credit)
+            bank_line.amount = (self.debit - self.credit) - self.bank_amount
             bank_line.move_line = self
             bank_line.save()
 
