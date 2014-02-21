@@ -80,6 +80,10 @@ class Statement(Workflow, ModelSQL, ModelView):
                     'icon': 'tryton-cancel',
                     },
                 })
+        cls._error_messages.update({
+                'cannot_delete': ('Statement "%s" cannot be deleted because it '
+                    'contains lines.'),
+                })
 
     @staticmethod
     def default_company():
@@ -159,6 +163,12 @@ class Statement(Workflow, ModelSQL, ModelView):
                     raise "ups"
             lines += statement.lines
         StatementLine.cancel(lines)
+
+    @classmethod
+    def delete(cls, statements):
+        for statement in statements:
+            if statement.lines:
+                cls.raise_user_error('cannot_delete', statement.rec_name)
 
 
 class StatementLine(Workflow, ModelSQL, ModelView):
@@ -266,9 +276,10 @@ class StatementLine(Workflow, ModelSQL, ModelView):
         cls._error_messages.update({
                 'different_amounts': ('Moves Amount "%(moves_amount)s" does '
                     'not match Amount "%(amount)s" in line "%(line)s".'),
-                'cannot_cancel_statement': ('Line "%(line)s" with state '
-                '"%(state)s" can not be canceled. To cancel line ensure that '
-                ' field "state" it is equal to "Canceled" or "Draft"')
+                'cannot_cancel_statement_line': ('Line "%(line)s" cannot be '
+                    'cancelled.'),
+                'cannot_delete': ('Line "%s" cannot be deleted because '
+                    'it is not in Draft or Cancelled state.'),
                 })
 
     def _search_bank_line_reconciliation(self):
@@ -416,3 +427,9 @@ class StatementLine(Workflow, ModelSQL, ModelView):
             order.append(('sequence', order[0][1]))
         return super(StatementLine, cls).search(args, offset, limit, order,
             count, query)
+
+    @classmethod
+    def delete(cls, lines):
+        for line in lines:
+            if line.state not in ('draft', 'cancel'):
+                cls.raise_user_error('cannot_delete', line.rec_name)
