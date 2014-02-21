@@ -235,7 +235,6 @@ class StatementLine(Workflow, ModelSQL, ModelView):
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'posted'),
-                ('posted', 'confirmed'),
                 ('canceled', 'draft'),
                 ('draft', 'canceled'),
                 ('confirmed', 'canceled'),
@@ -243,7 +242,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
                 ))
         cls._buttons.update({
                 'confirm': {
-                    'invisible': ~Eval('state').in_(['draft', 'posted']),
+                    'invisible': ~Eval('state').in_(['draft']),
                     'icon': 'tryton-go-next',
                     },
                 'post': {
