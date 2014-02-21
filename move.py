@@ -121,6 +121,13 @@ class Line:
                         'amount': bank_line.amount,
                         })
 
+    @classmethod
+    def copy(cls, lines, default=None):
+        if default is None:
+            default = {}
+        default['bank_lines'] = None
+        super(Line, cls).copy(lines, default)
+
     def check_bank_lines(self):
         BankLine = Pool().get('account.bank.reconciliation')
         if self.bank_amount != self.debit - self.credit:
