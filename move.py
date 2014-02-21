@@ -53,7 +53,7 @@ class Line:
     __name__ = 'account.move.line'
 
     bank_lines = fields.One2Many('account.bank.reconciliation', 'move_line',
-        'Conciliation Lines')
+        'Conciliation Lines', readonly=True)
     bank_amount = fields.Function(fields.Numeric('Bank Amount',
             digits=(16, Eval('currency_digits', 2)),
             on_change_with=['bank_lines'],
