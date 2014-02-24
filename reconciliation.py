@@ -42,7 +42,7 @@ class AccountBankReconciliation(ModelView, ModelSQL):
     def delete(cls, lines):
         unallowed = [x for x in lines if x.bank_statement_line]
         if unallowed:
-            line, = unallowed
+            line = unallowed[0]
             line.raise_user_error('delete_reconciled', {
                 'amount': line.amount,
                 'statement_line': line.bank_statement_line.rec_name
