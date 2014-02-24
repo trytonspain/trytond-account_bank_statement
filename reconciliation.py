@@ -4,6 +4,7 @@
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Eval
 from trytond.const import OPERATORS
+from trytond.transaction import Transaction
 
 __all__ = ['AccountBankReconciliation']
 
@@ -40,13 +41,14 @@ class AccountBankReconciliation(ModelView, ModelSQL):
 
     @classmethod
     def delete(cls, lines):
-        unallowed = [x for x in lines if x.bank_statement_line]
-        if unallowed:
-            line = unallowed[0]
-            line.raise_user_error('delete_reconciled', {
-                'amount': line.amount,
-                'statement_line': line.bank_statement_line.rec_name
-                })
+        if not Transaction().context.get('from_account_bank_statement_line'):
+            unallowed = [x for x in lines if x.bank_statement_line]
+            if unallowed:
+                line = unallowed[0]
+                line.raise_user_error('delete_reconciled', {
+                    'amount': line.amount,
+                    'statement_line': line.bank_statement_line.rec_name
+                    })
         super(AccountBankReconciliation, cls).delete(lines)
 
     def __getattr__(self, name):
