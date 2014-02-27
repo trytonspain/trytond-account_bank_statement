@@ -169,6 +169,7 @@ class Statement(Workflow, ModelSQL, ModelView):
         for statement in statements:
             if statement.lines:
                 cls.raise_user_error('cannot_delete', statement.rec_name)
+        super(Statement, cls).delete(statements)
 
 
 class StatementLine(Workflow, ModelSQL, ModelView):
@@ -431,5 +432,6 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     @classmethod
     def delete(cls, lines):
         for line in lines:
-            if line.state not in ('draft', 'cancel'):
+            if line.state not in ('draft', 'canceled'):
                 cls.raise_user_error('cannot_delete', line.rec_name)
+        super(StatementLine, cls).delete(lines)
