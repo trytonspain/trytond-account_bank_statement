@@ -49,7 +49,7 @@ msgstr ""
 
 msgctxt "error:account.bank.statement:"
 msgid "Statement \"%s\" cannot be deleted because it contains lines."
-msgstr "El extracto \"%s\" no se puede eliminar porqué contiene líneas."
+msgstr "No se puede eliminar el extracto \"%s\" porqué contiene líneas."
 
 msgctxt "error:account.move.line:"
 msgid ""
@@ -436,7 +436,7 @@ msgstr "Borrador"
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_account_bank_statement_line_domain_posted"
 msgid "Posted"
-msgstr "Realizado"
+msgstr "Contabilizado"
 
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_move_bank_reconclie_domain_all"
@@ -506,7 +506,7 @@ msgstr "Borrador"
 
 msgctxt "selection:account.bank.statement.line,state:"
 msgid "Posted"
-msgstr "Realizado"
+msgstr "Contabilizado"
 
 msgctxt "view:account.bank.reconciliation:"
 msgid "Bank Reconciliation"
@@ -538,7 +538,7 @@ msgstr "Borrador"
 
 msgctxt "view:account.bank.statement.line:"
 msgid "Post"
-msgstr "Realizar"
+msgstr "Contabilizar"
 
 msgctxt "view:account.bank.statement.line:"
 msgid "Search"

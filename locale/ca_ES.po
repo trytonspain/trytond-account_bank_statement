@@ -48,7 +48,7 @@ msgstr ""
 
 msgctxt "error:account.bank.statement:"
 msgid "Statement \"%s\" cannot be deleted because it contains lines."
-msgstr "L'extracte \"%s\" no es pot eliminar perqué conté línies."
+msgstr "No es pot eliminar l'extracte \"%s\" perquè conté linies."
 
 msgctxt "error:account.move.line:"
 msgid ""
@@ -118,7 +118,7 @@ msgstr "Usuari creació"
 
 msgctxt "field:account.bank.statement,currency_digits:"
 msgid "Currency Digits"
-msgstr "Decimals de moneda"
+msgstr "Decimals de la moneda"
 
 msgctxt "field:account.bank.statement,date:"
 msgid "Date"
@@ -435,7 +435,7 @@ msgstr "Esborrany"
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_account_bank_statement_line_domain_posted"
 msgid "Posted"
-msgstr "Realitzat"
+msgstr "Comptabilitzat"
 
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_move_bank_reconclie_domain_all"
@@ -505,7 +505,7 @@ msgstr "Esborrany"
 
 msgctxt "selection:account.bank.statement.line,state:"
 msgid "Posted"
-msgstr "Realitzat"
+msgstr "Comptabilitzat"
 
 msgctxt "view:account.bank.reconciliation:"
 msgid "Bank Reconciliation"
@@ -537,7 +537,7 @@ msgstr "Esborrany"
 
 msgctxt "view:account.bank.statement.line:"
 msgid "Post"
-msgstr "Realitza"
+msgstr "Comptabilitzar"
 
 msgctxt "view:account.bank.statement.line:"
 msgid "Search"
