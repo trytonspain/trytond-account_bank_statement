@@ -99,11 +99,11 @@ class Statement(Workflow, ModelSQL, ModelView):
 
     @staticmethod
     def default_start_date():
-        return datetime.datetime.now()
+        return Pool().get('ir.date').today()
 
     @staticmethod
     def default_end_date():
-        return datetime.datetime.now()
+        return Pool().get('ir.date').today()
 
     @staticmethod
     def default_start_balance():
