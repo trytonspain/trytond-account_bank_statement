@@ -142,12 +142,11 @@ class Line:
     @classmethod
     def get_bank_amounts(cls, lines, names):
         res = {}
-        for name in names:
-            res[name] = {}
+        all_names = ('bank_amount', 'unreconciled_amount', 'bank_reconciled')
+        for name in all_names:
+            res[name] = {}.fromkeys([x.id for x in lines], 0)
 
         for line in lines:
-            for name in names:
-                res[name][line.id] = 0
             for bank_line in line.bank_lines:
                 if 'bank_amount' in names and bank_line.bank_statement_line:
                     res['bank_amount'][line.id] += bank_line.amount
@@ -158,6 +157,9 @@ class Line:
                 res['bank_reconciled'][line.id] = False
                 if res['unreconciled_amount'][line.id] == _ZERO:
                     res['bank_reconciled'][line.id] = True
+        for name in all_names:
+            if not name in names:
+                del res[name]
         return res
 
     def on_change_with_bank_amount(self):
