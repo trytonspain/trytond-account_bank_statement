@@ -32,12 +32,13 @@ class AccountBankReconciliation(ModelView, ModelSQL):
                 })
 
     @classmethod
-    def write(cls, lines, vals):
-        res = super(AccountBankReconciliation, cls).write(lines, vals)
-        move_lines = set([x.move_line for x in lines])
-        for move_line in move_lines:
-            move_line.check_bank_lines()
-        return res
+    def write(cls, *args):
+        super(AccountBankReconciliation, cls).write(*args)
+        actions = iter(args)
+        for lines, _ in zip(actions, actions):
+            move_lines = set([x.move_line for x in lines])
+            for move_line in move_lines:
+                move_line.check_bank_lines()
 
     @classmethod
     def delete(cls, lines):

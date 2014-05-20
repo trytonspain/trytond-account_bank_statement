@@ -77,17 +77,22 @@ class BankJournal(ModelSQL, ModelView):
                         })
 
     @classmethod
-    def write(cls, journals, vals):
-        if not 'currency' in vals:
-            return super(BankJournal, cls).write(journals, vals)
-
+    def write(cls, *args):
         Statement = Pool().get('account.bank.statement')
-        for journal in journals:
-            statements = Statement.search([('journal', '=', journal),
-                ('state', 'in', ['confirmed', 'posted'])], limit=1)
-            if not statements:
+        actions = iter(args)
+        args = []
+        for journals, values in  zip(actions, actions):
+            if 'currency' not in values:
+                super(BankJournal, cls).write(journals, values)
                 continue
-            statement, = statements
-            cls.raise_user_error('currency_modify', statement.date)
 
-        return super(BankJournal, cls).write(journals, vals)
+            for journal in journals:
+                statements = Statement.search([('journal', '=', journal),
+                    ('state', 'in', ['confirmed', 'posted'])], limit=1)
+                if not statements:
+                    continue
+                statement, = statements
+                cls.raise_user_error('currency_modify', statement.date)
+            args.extend((journals, values))
+
+        super(BankJournal, cls).write(*args)
