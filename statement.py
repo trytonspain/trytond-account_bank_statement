@@ -109,6 +109,7 @@ class Statement(Workflow, ModelSQL, ModelView):
     def default_start_balance():
         return Decimal('0.0')
 
+    @fields.depends('journal')
     def on_change_with_currency_digits(self, name=None):
         if self.journal:
             return self.journal.currency.digits
