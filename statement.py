@@ -49,8 +49,8 @@ class Statement(Workflow, ModelSQL, ModelView):
         states=_STATES, depends=['state'], required=True)
     lines = fields.One2Many('account.bank.statement.line', 'statement',
         'Lines')
-    currency_digits = fields.Function(fields.Integer('Currency Digits',
-            on_change_with=['journal']), 'on_change_with_currency_digits')
+    currency_digits = fields.Function(fields.Integer('Currency Digits'),
+        'on_change_with_currency_digits')
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
@@ -217,7 +217,6 @@ class StatementLine(Workflow, ModelSQL, ModelView):
         'get_accounting_vals')
     moves_amount = fields.Function(fields.Numeric('Moves Amount',
             digits=(16, Eval('currency_digits', 2)),
-            on_change_with=['bank_lines', 'state'],
             depends=['currency_digits']),
             'get_accounting_vals')
     journal = fields.Function(fields.Many2One('account.bank.statement.journal',
@@ -230,7 +229,6 @@ class StatementLine(Workflow, ModelSQL, ModelView):
             'get_company_currency')
     company_moves_amount = fields.Function(fields.Numeric('Moves Amount',
             digits=(16, Eval('company_currency_digits', 2)),
-            on_change_with=['bank_lines'],
             depends=['company_currency_digits', 'bank_lines']),
             'get_accounting_vals')
     company_amount = fields.Function(fields.Numeric('Company Amount',
@@ -356,6 +354,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
                 res['company_amount'][line.id] = amount
         return res
 
+    @fields.depends('bank_lines', 'state')
     def on_change_with_moves_amount(self):
         return sum([x.amount for x in self.bank_lines if x.amount])
 

@@ -56,12 +56,10 @@ class Line:
         'Conciliation Lines', readonly=True)
     bank_amount = fields.Function(fields.Numeric('Bank Amount',
             digits=(16, Eval('currency_digits', 2)),
-            on_change_with=['bank_lines'],
             depends=['currency_digits']),
             'get_bank_amounts')
     unreconciled_amount = fields.Function(fields.Numeric('Unreconciled Amount',
             digits=(16, Eval('currency_digits', 2)),
-            on_change_with=['bank_lines'],
             depends=['currency_digits']),
             'get_bank_amounts')
     bank_reconciled = fields.Function(fields.Boolean('Bank Reconciled'),
@@ -162,6 +160,7 @@ class Line:
                 del res[name]
         return res
 
+    @fields.depends('bank_lines')
     def on_change_with_bank_amount(self):
         amount = Decimal('0.0')
         for line in self.bank_lines:
@@ -169,6 +168,7 @@ class Line:
                 amount += line.amount
         return amount
 
+    @fields.depends('bank_lines')
     def on_change_with_unreconciled_amount(self):
         amount = Decimal('0.0')
         for line in self.bank_lines:
