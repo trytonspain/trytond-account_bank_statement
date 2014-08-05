@@ -81,8 +81,8 @@ class Statement(Workflow, ModelSQL, ModelView):
                     },
                 })
         cls._error_messages.update({
-                'cannot_delete': ('Statement "%s" cannot be deleted because it '
-                    'contains lines.'),
+                'cannot_delete': ('Statement "%s" cannot be deleted because '
+                    'it contains lines.'),
                 })
 
     @staticmethod
@@ -145,7 +145,7 @@ class Statement(Workflow, ModelSQL, ModelView):
         for statement in statements:
             for line in statement.lines:
                 if not line.state in ('draft', 'canceled'):
-                    line.raise_user_error('cannot_cancel_statement', {
+                    line.raise_user_error('cannot_cancel_statement_line', {
                         'line': line.rec_name,
                         'state': line.state,
                     })
