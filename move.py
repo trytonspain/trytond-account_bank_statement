@@ -68,7 +68,7 @@ class Line:
     @classmethod
     def __setup__(cls):
         super(Line, cls).__setup__()
-        cls._check_modify_exclude += ['bank_lines']
+        cls._check_modify_exclude.add('bank_lines')
         cls._error_messages.update({
                 'line_reconciled': ('Line "%(line)s" already reconciled with '
                 'bank staement line "%(statment_line)s" with amont '
