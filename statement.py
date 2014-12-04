@@ -342,16 +342,18 @@ class StatementLine(Workflow, ModelSQL, ModelView):
         Currency = Pool().get('currency.currency')
         for line in lines:
             amount = line.on_change_with_moves_amount()
+            company_amount = line.amount
+            if line.statement_currency != line.company_currency:
+                with Transaction().set_context(date=line.date.date()):
+                    company_amount = Currency.compute(
+                        line.statement_currency, company_amount,
+                        line.company_currency)
             if 'moves_amount' in names:
                 res['moves_amount'][line.id] = amount
-            if 'reconciled' in names:
-                res['reconciled'][line.id] = (amount == line.amount)
             if 'company_amount' in names:
-                amount = line.amount
-                if line.statement_currency != line.company_currency:
-                    amount = Currency.compute(line.statement_currency, amount,
-                    line.company_currency)
-                res['company_amount'][line.id] = amount
+                res['company_amount'][line.id] = company_amount
+            if 'reconciled' in names:
+                res['reconciled'][line.id] = (amount == company_amount)
         return res
 
     @fields.depends('bank_lines', 'state')
