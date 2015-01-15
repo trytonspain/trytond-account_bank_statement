@@ -172,6 +172,11 @@ class Statement(Workflow, ModelSQL, ModelView):
                 cls.raise_user_error('cannot_delete', statement.rec_name)
         super(Statement, cls).delete(statements)
 
+    def search_reconcile(self):
+        for line in self.lines:
+            StatementLine = Pool().get('account.bank.statement.line')
+            StatementLine.search_reconcile([line])
+
 
 class StatementLine(Workflow, ModelSQL, ModelView):
     'Bank Statement Line'
