@@ -1,4 +1,4 @@
-.. inheritref:: account/account_bank_statement:section:extractos_bancarios
+.. inheritref:: account_bank_statement/account_bank_statement:section:extractos_bancarios
 
 -------------------
 Extractos bancarios
