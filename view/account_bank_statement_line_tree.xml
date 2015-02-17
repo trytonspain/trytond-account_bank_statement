@@ -1,10 +1,14 @@
 <tree string="Bank Statement Line">
-     <field name="journal"/>
-	 <field name="date"/>
-	 <field name="description"/>
-	 <field name="amount"/>
-     <field name="statement_currency"/>
-	 <field name="state"/>
-     <field name="reconciled"/>
-     <button name="post" string="Post"/>
+    <field name="journal"/>
+    <field name="date"/>
+    <field name="description"/>
+    <field name="amount"/>
+    <field name="statement_currency"/>
+    <field name="state"/>
+    <field name="reconciled"/>
+    <button name="post" string="Post"/>
+    <button name="search_reconcile" string="Search" tree_invisible="1"/>
+    <button name="cancel" string="Cancel" tree_invisible="1"/>
+    <button name="draft" string="Draft" tree_invisible="1"/>
+    <button name="confirm" string="Confirm" tree_invisible="1"/>
 </tree>
