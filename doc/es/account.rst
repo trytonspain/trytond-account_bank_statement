@@ -1,7 +1,7 @@
-#:before:account/account:section:asientos_y_movimientos#
+#:inside:account/account:section:conciliar#
 
-Extractos bancarios
-===================
+Extractos bancarios y conciliación bancaria
+===========================================
 
 .. inheritref:: account/account:toctree:account_bank_statement
 
