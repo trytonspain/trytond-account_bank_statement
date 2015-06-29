@@ -48,7 +48,7 @@ Gestión de extractos
 
 Una vez creado el *Diario de extractos bancarios* ya podremos proceder a la
 gestión de los extractos accediendo al menú |menu_statements|. Desde allí
-podemos crear nuevos extracto bancarios e introducir todas sus líneas, una
+podemos crear nuevos extractos bancarios e introducir todas sus líneas, una
 por cada movimiento del extracto. Los campos |start_date_statement|,
 |end_date_statement|, |start_balance_statement| y |end_balance_statement| no se
 tienen en cuenta en el proceso, aunque es recomendable rellenar estos campos a
