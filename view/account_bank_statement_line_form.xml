@@ -3,16 +3,17 @@
 contains the full copyright notices and license terms. -->
 <form string="Bank Statement Line">
     <group id="general" col="6" colspan="4">
-	    <label name="date"/>
-	    <field name="date"/>
-	    <label name="description"/>
-	    <field name="description"/>
-	    <label name="company"/>
-	    <field name="company"/>
+        <label name="date"/>
+        <field name="date"/>
+        <label name="company"/>
+        <field name="company"/>
         <label name="journal"/>
         <field name="journal"/>
         <label name="statement_currency"/>
         <field name="statement_currency"/>
+        <newline/>
+        <label name="description"/>
+        <field name="description" colspan="5"/>
     </group>
     <group id="amounts" col="6" colspan="4">
 	    <label name="company_amount"/>
