@@ -198,6 +198,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     sequence = fields.Integer('Sequence')
     description = fields.Char('Description', required=True,
         states=CONFIRMED_STATES)
+    notes = fields.Char('Notes', states=POSTED_STATES)
     amount = fields.Numeric('Amount', digits=(16, Eval('currency_digits', 2)),
         depends=['currency_digits'], required=True, states=CONFIRMED_STATES)
     currency_digits = fields.Function(fields.Integer('currency digits'),

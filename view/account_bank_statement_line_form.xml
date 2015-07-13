@@ -14,6 +14,8 @@ contains the full copyright notices and license terms. -->
         <newline/>
         <label name="description"/>
         <field name="description" colspan="5"/>
+        <label name="notes"/>
+        <field name="notes" colspan="5"/>
     </group>
     <group id="amounts" col="6" colspan="4">
 	    <label name="company_amount"/>
