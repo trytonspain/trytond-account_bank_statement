@@ -1,5 +1,5 @@
-#The COPYRIGHT file at the top level of this repository contains the full
-#copyright notices and license terms.
+# The COPYRIGHT file at the top level of this repository contains the full
+# copyright notices and license terms.
 
 from trytond.model import Workflow, ModelView, ModelSQL, fields
 from trytond.pyson import Eval, If, Not, Equal
@@ -60,6 +60,7 @@ class Statement(Workflow, ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(Statement, cls).__setup__()
+        cls._order.insert(0, ('date', 'DESC'))
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'canceled'),
@@ -144,7 +145,7 @@ class Statement(Workflow, ModelSQL, ModelView):
         lines = []
         for statement in statements:
             for line in statement.lines:
-                if not line.state in ('draft', 'canceled'):
+                if line.state not in ('draft', 'canceled'):
                     line.raise_user_error('cannot_cancel_statement_line', {
                         'line': line.rec_name,
                         'state': line.state,
@@ -160,7 +161,7 @@ class Statement(Workflow, ModelSQL, ModelView):
         lines = []
         for statement in statements:
             for line in statement.lines:
-                if not line.state in ('canceled', 'draft'):
+                if line.state not in ('canceled', 'draft'):
                     raise "ups"
             lines += statement.lines
         StatementLine.cancel(lines)
