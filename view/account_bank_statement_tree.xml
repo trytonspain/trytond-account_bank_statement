@@ -1,5 +1,6 @@
 <tree string="Bank Statement">
-    <field name="date"/>
+    <field name="date" widget="date"/>
+    <field name="date" widget="time" string="Time"/>
     <field name="start_date"/>
     <field name="end_date"/>
     <field name="journal"/>
