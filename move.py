@@ -2,10 +2,9 @@
 #copyright notices and license terms.
 
 from trytond.model import ModelView, fields
-from trytond.pyson import Eval, PYSONEncoder
+from trytond.pyson import Eval, If, Bool, PYSONEncoder
 from trytond.pool import Pool, PoolMeta
 from trytond.wizard import Wizard, StateView, StateAction, Button
-from trytond.transaction import Transaction
 from decimal import Decimal
 from sql import Literal
 from sql.conditionals import Case
@@ -125,6 +124,11 @@ class Line:
             default = {}
         default['bank_lines'] = None
         super(Line, cls).copy(lines, default)
+
+    @classmethod
+    def view_attributes(cls):
+        return [('/tree', 'colors',
+                If(Bool(Eval('bank_reconciled')), 'black', 'red'))]
 
     def check_bank_lines(self):
         BankLine = Pool().get('account.bank.reconciliation')
