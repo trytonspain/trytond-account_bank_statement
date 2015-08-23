@@ -137,21 +137,27 @@
             id="act_account_bank_statement_domain_draft">
             <field name="name">Draft</field>
             <field name="sequence" eval="10"/>
-            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'draft')]"
+                pyson="1"/>
             <field name="act_window" ref="act_account_bank_statement"/>
         </record>
         <record model="ir.action.act_window.domain"
             id="act_account_bank_statement_domain_confirmed">
             <field name="name">Confirmed</field>
             <field name="sequence" eval="20"/>
-            <field name="domain">[('state', '=', 'confirmed')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'confirmed')]"
+                pyson="1"/>
             <field name="act_window" ref="act_account_bank_statement"/>
         </record>
         <record model="ir.action.act_window.domain"
             id="act_account_bank_statement_domain_canceled">
             <field name="name">Canceled</field>
             <field name="sequence" eval="30"/>
-            <field name="domain">[('state', '=', 'canceled')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'canceled')]"
+                pyson="1"/>
             <field name="act_window" ref="act_account_bank_statement"/>
         </record>
         <record model="ir.action.act_window.domain"
@@ -191,28 +197,36 @@
             id="act_account_bank_statement_line_domain_draft">
             <field name="name">Draft</field>
             <field name="sequence" eval="10"/>
-            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'draft')]"
+                pyson="1"/>
             <field name="act_window" ref="act_account_bank_statement_line"/>
         </record>
         <record model="ir.action.act_window.domain"
             id="act_account_bank_statement_line_domain_confirmed">
             <field name="name">Confirmed</field>
             <field name="sequence" eval="20"/>
-            <field name="domain">[('state', '=', 'confirmed')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'confirmed')]"
+                pyson="1"/>
             <field name="act_window" ref="act_account_bank_statement_line"/>
         </record>
         <record model="ir.action.act_window.domain"
             id="act_account_bank_statement_line_domain_posted">
             <field name="name">Posted</field>
             <field name="sequence" eval="30"/>
-            <field name="domain">[('state', '=', 'posted')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'posted')]"
+                pyson="1"/>
             <field name="act_window" ref="act_account_bank_statement_line"/>
         </record>
         <record model="ir.action.act_window.domain"
             id="act_account_bank_statement_line_domain_canceled">
             <field name="name">Canceled</field>
             <field name="sequence" eval="30"/>
-            <field name="domain">[('state', '=', 'canceled')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'canceled')]"
+                pyson="1"/>
             <field name="act_window" ref="act_account_bank_statement_line"/>
         </record>
         <record model="ir.action.act_window.domain"
@@ -284,7 +298,6 @@
             <field name="name">move_line_bank_reconcile_form</field>
         </record>
 
-
         <record model="ir.action.act_window" id="act_move_line_bank_reconcile_form">
             <field name="name">Account Move Lines Bank Reconcile</field>
             <field name="res_model">account.move.line</field>
@@ -303,7 +316,9 @@
         <record model="ir.action.act_window.domain" id="act_move_bank_reconclie_domain_unreconcile">
             <field name="name">Unreconcile</field>
             <field name="sequence" eval="100"/>
-            <field name="domain">[('bank_reconciled', '=', None)]</field>
+            <field name="domain"
+                eval="[('bank_reconciled', '=', None)]"
+                pyson="1"/>
             <field name="act_window" ref="act_move_line_bank_reconcile_form"/>
         </record>
         <record model="ir.action.act_window.domain" id="act_move_bank_reconclie_domain_all">
@@ -350,7 +365,9 @@
         <record model="ir.action.act_window" id="act_bank_statement_lines">
             <field name="name">Statement Lines</field>
             <field name="res_model">account.bank.statement.line</field>
-            <field name="domain">[('statement', '=', Eval('active_id'))]</field>
+            <field name="domain"
+                eval="[('statement', '=', Eval('active_id'))]"
+                pyson="1"/>
         </record>
         <record model="ir.action.keyword" id="keyword_bank_statement_lines">
             <field name="keyword">form_relate</field>
