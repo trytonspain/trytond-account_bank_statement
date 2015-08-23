@@ -125,11 +125,6 @@ class Line:
         default['bank_lines'] = None
         super(Line, cls).copy(lines, default)
 
-    @classmethod
-    def view_attributes(cls):
-        return [('/tree', 'colors',
-                If(Bool(Eval('bank_reconciled')), 'black', 'red'))]
-
     def check_bank_lines(self):
         BankLine = Pool().get('account.bank.reconciliation')
         if self.bank_amount != self.debit - self.credit:
