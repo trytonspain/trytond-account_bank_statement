@@ -1,14 +1,15 @@
-*********************
-Conciliación bancaria
-*********************
 
-La conciliación bancaria consiste en el cuadre de la información que nos
-facilita nuestra entidad bancaria con la información indicada por nuestra
-cuenta 572x correspondiente a la cuenta bancaria a conciliar. Esta
-funcionalidad nos permiten que el cuadre de los bancos, que es una de las
-tareas más frecuentes en las empresas, sea un trabajo realmente sencillo y
-rápido, minimizando errores. Vale la pena, pues, aprender en profundidad esta
-sección.
+En **Tryton** hablaremos de dos tipos de conciliación:
+
+ · La *conciliación bancaria* consistente en el cuadre de la información que nos
+ facilita nuestra entidad bancaria con la información indicada por nuestra
+ cuenta 572x correspondiente a la cuenta bancaria a conciliar. Esta 
+ funcionalidad nos permite que el cuadre de los bancos, que es una de las  
+ tareas  más frecuentes en las empresas, sea un trabajo realmente sencillo y  
+ rápido,  minimizando errores. Vale la pena, pues, aprender en profundidad esta
+ sección.
+ . La *contable* consistente en punteo o correspondencia entre las deudas 
+ emitidas normalmente por facturas con los pagos o cobros de las mismas.
 
 En primer lugar veremos cómo configurar el sistema para poder realizar
 correctamente la conciliación bancaria; seguidamente veremos cómo gestionar,
@@ -17,6 +18,30 @@ y conciliación bancaria en sí. Para ello tendremos que tener presente los
 conceptos del sistema *Extractos bancarios* (el extracto propiamente dicho) y
 *Líneas de extracto bancario* (que representarán cada uno de los movimientos
 del extracto bancario).
+
+Los extractos bancarios nos permiten importar los ficheros de movimientos de 
+nuestras cuentas bancarias y completar nuestra contabilidad con la información 
+obtenida de los bancos. Las opciones que podemos realizar son las siguientes:
+
+ 1. **Conciliar el banco con apuntes existentes en la cuenta572x**.Por ejemplo 
+    porque hemos ya contabilizado manualmente el movimiento del banco en la 
+    cuenta 572.
+
+ 2. **Crear nuevos apuntes contables**. Por ejemplo, para entrar las comisiones 
+    que nuestro banco nos cobra por su magnifica gestión
+ 
+ 3. **Conciliar efectos existentes**. Por ejemplo, cuando el cliente nos 
+    realiza una  transferencia para realizar el pago de una factura.
+ 
+ 4. **Conciliar remesas (Grupos de pago)**. Útil para conciliar todos los 
+    apuntes  relacionados con un grupo de pago que hemos generado nosotros 
+    mismos desde el  sistema.
+
+Cuando realizamos la importación de un fichero desde nuestro banco, el sistema 
+se encargarà de buscar apuntes existentes y grupos de pago que tengan el mismo 
+importe que la línea que se está importando. Así, después de importar el 
+fichero el sistema nos propondrá aquellos movimientos que cuadren con las líneas 
+que estamos importando y nosotros sólo tendremos que repasarlas y confirmarlas.
 
 Configuración
 =============
@@ -32,8 +57,9 @@ extracto bancario*. Los campos que rellenaremos son:
   Debemos poner un texto que nos permita identificar fácilmente la cuenta
   bancaria a la que se refiere el extracto.
 
-* |currency_journal|: Moneda en la que se reflejan los importes de nuestra
-  cuenta bancaria.
+* |currency_journal|: Moneda en la que se hacen referencia los importes del 
+  extracto. Normalmente serà la misma moneda en la que tenemos nuestra cuenta 
+  bancaria.
 
 * |journal_journal|: Diario contable en el que se pondrán los apuntes creados a
   partir del diario de extracto bancario. Este diario debe ser de tipo efectivo
@@ -81,6 +107,25 @@ como las líneas que lo componen, quedarán en estado confirmado.
 
 .. inheritref:: account_bank_statement/account_bank_statement:paragraph:importacion_csb43
 
+Aunque es posible introducir las líneas del banco manualmente, recomendamos 
+utilizar la importación de ficheros para agilizar este proceso. Para importar 
+un 
+fichero debemos crear un nuevo extracto y utilizar la acción **Importación** 
+**CSB 43**.
+.. Al realizar esta acción se nos abrà la siguiente ventana: (imagen del 
+   fichero CSB 43)
+
+En esta pantalla debemos introducir el fichero que nos proporcione nuestro 
+banco 
+y seleccionar la opción *importar archivo*. Una vez finalizado el proceso el 
+extracto nos aparecerà como confirmado. Las líneas que tienen el campo 
+*Conciliado* como marcado se corresponden con aquellas que el sistema ha 
+encontrado una contrapartida. Podemos utilizar el botón contabilizar para que 
+se nos creen los movimientos contables correspondientes con esta línea.
+.. (Imagen de extracto bancario y las líneas)
+
+.. inheritref:: account_bank_statement/account_bank_statement:paragraph:borrar
+
 Si queremos borrar un extracto bancario ya introducido, primero de todo
 deberemos borrar todas las líneas que lo componen, y para ello deberemos
 cambiar el estado de cada línea a *Cancelado* y una vez esté la línea en estado
@@ -88,6 +133,39 @@ cambiar el estado de cada línea a *Cancelado* y una vez esté la línea en esta
 extracto borradas, podremos borrar el extracto en sí.
 
 .. inheritref:: account_bank_statement/account_bank_statement:section:buscar
+
+Botón Buscar 
+============
+
+El botón buscar se encargará de buscar apuntes y/o remesas que se correspondan 
+con la línea actual. Para esta búsqueda se utiliza el importe pendiente de 
+conciliar, que se trata de la diferència entre el importe de la línea i el 
+importe de los movimientos. La búsqueda se realiza en los siguientes pasos:
+
+ 1. Efectos: Si se encuentra un efecto pendiente de conciliar del mismo importe 
+    que el importe pendiente se añadirá a los efectos pendientes y se parará la 
+    búsqueda. 
+
+ 2. Remesas: Se buscarán remesas del mismo importe que la línea de movimientos. 
+    En caso de encontrar una remesa se añadirán los siguientes objectos: 
+  
+  a. Un efecto para cada línea de la remesa que esté totalmente pagado (el 
+     importe del pago sea el mismo que el importe de la línea de remesa)
+  
+  b. Una transacción para cada línea de remesa que se corresponda con el pago 
+     parcial de un efecto. Se utilizarà como importe de la transacción el 
+     importe del pago y como cuenta la misma cuenta del efecto.
+  
+  c. Una transacción para cada línea de remesa que no se corresponda con un 
+     efecto, utilizando la cuenta a cobrar/pagar del tercero como cuenta y el 
+     importe del pago como importe.
+
+Podemos utilizar el botón buscar tantas veces como creamos conveniente. 
+
+.. Note:: Durante la importación de ficheros de banco, el proceso se encarga de 
+llamar el botón buscar para cada una de las líneas que se importen, utilizando 
+el mismo procedimiento comentado anteriormente para proporcionar-nos las 
+sugerencias.
 
 Conciliación bancaria y contabilización de las líneas
 =====================================================
@@ -108,6 +186,22 @@ que tenemos para contabilizar una línea son:
   el apunte correspondiente a dicho pago o cobro de la cuenta 572x, esto lo
   haremos clicando en el icono "+" y seleccionando el apunte en cuestión entre
   los que se nos ofrecerán.
+
+.. inheritref:: account_bank_statement/account_bank_statement:section:commission
+
+Movimientos con comisiones
+--------------------------
+
+Algunos bancos no desglosan las comisiones aplicadas en un movimiento 
+adicional, sino que simplemente se encargan de cargar las comisiones en la misma 
+línea. Esto va a producir que el botón buscar no encuentre los movimientos 
+correspondientes. De todos modos, podemos solucionar esto introduciendo, en el 
+apartado transacciones, el importe correspondiente a la comisión (junto con la 
+cuenta a la que debemos contabilizar) y luego, pulsar el botón buscar de nuevo. 
+
+Cómo el botón buscar busca por el importe pendiente de contabilizar y ya hemos 
+introducido la línea con la comisión, estaremos buscando por el importe del 
+pago y luego nos encontrarà los movimientos correctos.
 
 .. inheritref:: account_bank_statement/account_bank_statement:section:ejemplos
 
@@ -153,6 +247,16 @@ podremos ver que de forma automática se ha rellenado el campo
 |company_moves_amount| indicando la equivalencia en la moneda de la empresa,
 por lo que en la vista de edición de cada línea nos vendrá indicado el importe
 en las dos divisas.
+
+¿Cómo conciliar dos movimientos de un mismo extracto?
+*****************************************************
+
+Si los movimientos son de gastos, se ponen los dos a la cuenta 6XX a través de 
+las Transacciones, no será necesario conciliar ya que las cuentas de gastos 
+no son conciliables.
+
+Si los movimientos son de cliente, lo mejor es ponerlos con la cuenta 43X que 
+corresponda y luego conciliarlos manualmente.
 
 .. |menu_st_jornal| tryref:: account_bank_statement.menu_bank_statement_journal_form/complete_name
 .. |name_journal| field:: account.bank.statement.journal/name
