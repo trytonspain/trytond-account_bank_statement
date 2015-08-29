@@ -348,7 +348,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
 
         Currency = Pool().get('currency.currency')
         for line in lines:
-            amount = line.on_change_with_moves_amount()
+            amount = sum([x.amount for x in line.bank_lines if x.amount])
             company_amount = line.amount
             if line.statement_currency != line.company_currency:
                 with Transaction().set_context(date=line.date.date()):
