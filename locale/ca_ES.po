@@ -276,6 +276,10 @@ msgctxt "field:account.bank.statement.line,moves_amount:"
 msgid "Moves Amount"
 msgstr "Import de moviments"
 
+msgctxt "field:account.bank.statement.line,notes:"
+msgid "Notes"
+msgstr "Notes"
+
 msgctxt "field:account.bank.statement.line,rec_name:"
 msgid "Name"
 msgstr "Nom"
@@ -330,7 +334,7 @@ msgstr "Compte"
 
 msgctxt "field:account.move.open_bank_reconcile_lines.start,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "help:account.bank.statement,date:"
 msgid "Created date bank statement"
@@ -559,6 +563,10 @@ msgctxt "view:account.bank.statement:"
 msgid "Draft"
 msgstr "Esborrany"
 
+msgctxt "view:account.bank.statement:"
+msgid "Time"
+msgstr "Hora"
+
 msgctxt "view:account.move.line:"
 msgid "Account Move Line"
 msgstr "Apunt comptable"
@@ -582,6 +590,10 @@ msgstr "Deure"
 msgctxt "view:account.move.line:"
 msgid "Other Info"
 msgstr "Informació addicional"
+
+msgctxt "view:account.move.line:"
+msgid "Time"
+msgstr "Hora"
 
 msgctxt "view:account.move.line:"
 msgid "Unreconciled Bank Amount"

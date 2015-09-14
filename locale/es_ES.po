@@ -135,7 +135,7 @@ msgstr "Fecha final"
 
 msgctxt "field:account.bank.statement,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "field:account.bank.statement,journal:"
 msgid "Journal"
@@ -276,6 +276,10 @@ msgstr "Diario"
 msgctxt "field:account.bank.statement.line,moves_amount:"
 msgid "Moves Amount"
 msgstr "Importe de movimientos"
+
+msgctxt "field:account.bank.statement.line,notes:"
+msgid "Notes"
+msgstr "Notas"
 
 msgctxt "field:account.bank.statement.line,rec_name:"
 msgid "Name"
@@ -560,6 +564,10 @@ msgctxt "view:account.bank.statement:"
 msgid "Draft"
 msgstr "Borrador"
 
+msgctxt "view:account.bank.statement:"
+msgid "Time"
+msgstr "Hora"
+
 msgctxt "view:account.move.line:"
 msgid "Account Move Line"
 msgstr "Apunte contable"
@@ -583,6 +591,10 @@ msgstr "Debe"
 msgctxt "view:account.move.line:"
 msgid "Other Info"
 msgstr "Otra información"
+
+msgctxt "view:account.move.line:"
+msgid "Time"
+msgstr "Hora"
 
 msgctxt "view:account.move.line:"
 msgid "Unreconciled Bank Amount"
