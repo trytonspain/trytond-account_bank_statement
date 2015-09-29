@@ -60,7 +60,7 @@ class AccountBankReconciliation(ModelView, ModelSQL):
         return getattr(self.move_line, name)
 
     @classmethod
-    def search_domain(cls, domain, active_test=True):
+    def search_domain(cls, domain, active_test=True, tables=None):
         def is_leaf(expression):
             return (isinstance(expression, (list, tuple))
                 and len(expression) > 2
@@ -81,7 +81,7 @@ class AccountBankReconciliation(ModelView, ModelSQL):
             else:
                 return [convert_domain(d) for d in domain]
         return super(AccountBankReconciliation, cls).search_domain(
-            convert_domain(domain), active_test=active_test)
+            convert_domain(domain), active_test=active_test, tables=tables)
 
     def get_currency_digits(self, name):
         return self.account.company.currency.digits
