@@ -384,6 +384,10 @@ msgctxt "model:ir.action,name:act_bank_statement_lines"
 msgid "Statement Lines"
 msgstr "Línies de l'extracte"
 
+msgctxt "model:ir.action,name:act_open_bank_statement_line_form"
+msgid "Bank Statement Line"
+msgstr "Línia d'extracte bancari"
+
 msgctxt "model:ir.action,name:act_move_line_bank_reconcile_form"
 msgid "Account Move Lines Bank Reconcile"
 msgstr "Conciliació bancària d'apunts comptables"
