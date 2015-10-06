@@ -315,6 +315,14 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     def default_state():
         return 'draft'
 
+    @staticmethod
+    def default_currency_digits():
+        return 2
+
+    @staticmethod
+    def default_company_currency_digits():
+        return 2
+
     def get_currency_digits(self, name):
         return self.statement_currency.digits
 
