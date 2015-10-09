@@ -343,8 +343,10 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     @classmethod
     def get_accounting_vals(cls, lines, names):
         res = {}
+        line_ids = [l.id for l in lines]
         for name in names:
-            res[name] = {}
+            value = False if name == 'reconciled' else Decimal('0.0')
+            res[name] = {}.fromkeys(line_ids, value)
 
         Currency = Pool().get('currency.currency')
         for line in lines:
@@ -365,7 +367,8 @@ class StatementLine(Workflow, ModelSQL, ModelView):
 
     @fields.depends('bank_lines', 'state')
     def on_change_with_moves_amount(self):
-        return sum([x.amount for x in self.bank_lines if x.amount])
+        return sum([x.amount for x in self.bank_lines if x.amount],
+            Decimal('0.0'))
 
     @classmethod
     @ModelView.button
