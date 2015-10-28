@@ -442,6 +442,14 @@ class StatementLine(Workflow, ModelSQL, ModelView):
             count, query)
 
     @classmethod
+    def copy(cls, lines, default=None):
+        if default is None:
+            default = {}
+        if 'bank_lines' not in default:
+            default['bank_lines'] = None
+        return super(StatementLine, cls).copy(lines, default)
+
+    @classmethod
     def delete(cls, lines):
         for line in lines:
             if line.state not in ('draft', 'canceled'):
