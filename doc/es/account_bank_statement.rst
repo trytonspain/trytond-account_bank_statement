@@ -1,14 +1,19 @@
 
+=====================
+Conciliación bancaria
+=====================
+
 En **Tryton** hablaremos de dos tipos de conciliación:
 
- · La *conciliación bancaria* consistente en el cuadre de la información que nos
+ * La *conciliación bancaria* consistente en el cuadre de la información que nos
  facilita nuestra entidad bancaria con la información indicada por nuestra
  cuenta 572x correspondiente a la cuenta bancaria a conciliar. Esta 
  funcionalidad nos permite que el cuadre de los bancos, que es una de las  
  tareas  más frecuentes en las empresas, sea un trabajo realmente sencillo y  
  rápido,  minimizando errores. Vale la pena, pues, aprender en profundidad esta
  sección.
- . La *contable* consistente en punteo o correspondencia entre las deudas 
+ 
+ * La *contable* consistente en punteo o correspondencia entre las deudas 
  emitidas normalmente por facturas con los pagos o cobros de las mismas.
 
 En primer lugar veremos cómo configurar el sistema para poder realizar
@@ -23,7 +28,7 @@ Los extractos bancarios nos permiten importar los ficheros de movimientos de
 nuestras cuentas bancarias y completar nuestra contabilidad con la información 
 obtenida de los bancos. Las opciones que podemos realizar son las siguientes:
 
- 1. **Conciliar el banco con apuntes existentes en la cuenta572x**.Por ejemplo 
+ 1. **Conciliar el banco con apuntes existentes en la cuenta 572x**.Por ejemplo 
     porque hemos ya contabilizado manualmente el movimiento del banco en la 
     cuenta 572.
 
@@ -112,6 +117,7 @@ utilizar la importación de ficheros para agilizar este proceso. Para importar
 un 
 fichero debemos crear un nuevo extracto y utilizar la acción **Importación** 
 **CSB 43**.
+
 .. Al realizar esta acción se nos abrà la siguiente ventana: (imagen del 
    fichero CSB 43)
 
@@ -122,6 +128,7 @@ extracto nos aparecerà como confirmado. Las líneas que tienen el campo
 *Conciliado* como marcado se corresponden con aquellas que el sistema ha 
 encontrado una contrapartida. Podemos utilizar el botón contabilizar para que 
 se nos creen los movimientos contables correspondientes con esta línea.
+
 .. (Imagen de extracto bancario y las líneas)
 
 .. inheritref:: account_bank_statement/account_bank_statement:paragraph:borrar
@@ -163,10 +170,39 @@ importe de los movimientos. La búsqueda se realiza en los siguientes pasos:
 Podemos utilizar el botón buscar tantas veces como creamos conveniente. 
 
 .. Note:: Durante la importación de ficheros de banco, el proceso se encarga de 
-llamar el botón buscar para cada una de las líneas que se importen, utilizando 
-el mismo procedimiento comentado anteriormente para proporcionar-nos las 
-sugerencias.
+   llamar el botón buscar para cada una de las líneas que se importen, utilizando 
+   el mismo procedimiento comentado anteriormente para proporcionar-nos las 
+   sugerencias.
 
+Traspasos entre cuentas bancarias
+=================================
+
+El traspaso entre cuentas bancarias se puede realizar de dos formas distintas. O 
+bien utilizando una cuenta puente o bien utilizando los cargos directos entre 
+cuentas. La ventaja de la primera opción es que aunque hay que crear una nueva 
+cuenta, la forma de contabilizar siempre es la misma y por tanto el trabajo es 
+un poco más mecánico y menos sujeto a errores.
+
+
+Traspaso entre cuentas bancarias con cuenta puente
+--------------------------------------------------
+
+Para poder hacer traspasos entre cuentas bancarias utilizando una cuenta puente 
+en primer lugar tendremos que tener dada de alta una cuenta puente en el plan de 
+cuentas. En caso de no existir podemos hacerlo accediendo los pasos del apartado 
+Crear una nueva cuenta contable.
+Una vez tengamos una cuenta podemos entrar en las líneas de extracto bancario de 
+la forma habitual, dirigirnos a la línea que representa el traspaso con otra 
+cuenta y añadir un nuevo dato en el apartado Transacciones. En este apartado 
+debemos añadir un registro indicando la cuenta que queremos utilizar como 
+puente.
+
+Traspaso entre cuentas bancarias sin cuenta puente
+--------------------------------------------------
+
+Para mayor facilidad recomendamos crear una cuenta puente.
+
+   
 Conciliación bancaria y contabilización de las líneas
 =====================================================
 
@@ -209,7 +245,7 @@ Ejemplos prácticos de conciliación
 ==================================
 
 Conciliación bancaria con extractos en divisa extrajera
-*******************************************************
+-------------------------------------------------------
 
 **Tryton** nos permite contabilizar extractos bancarios con una moneda distinta
 a la que utilizamos para realizar nuestra contabilidad. Para ello, previamente,
@@ -249,7 +285,7 @@ por lo que en la vista de edición de cada línea nos vendrá indicado el import
 en las dos divisas.
 
 ¿Cómo conciliar dos movimientos de un mismo extracto?
-*****************************************************
+-----------------------------------------------------
 
 Si los movimientos son de gastos, se ponen los dos a la cuenta 6XX a través de 
 las Transacciones, no será necesario conciliar ya que las cuentas de gastos 
