@@ -272,8 +272,7 @@ en el diario de extracto en la moneda extranjera y otro con el importe con
 la moneda de la empresa en el diario contable que tiene asociado el diario de
 extracto, así como en la cuenta contable que tenga asociada. Para realizar esto
 el sistema realiza de nuevo el cambio de divisas con la tasa en el momento del
-pago. (Para ver como contabilizar las diferencias de cambio entre el  momento
-de la venta y el pago podemos ver :ref:`diferencias de cambio`.
+pago.
 
 En el momento de hacer la conciliación bancaria, a la hora de introducir las
 líneas en el campo |amount_line| tendremos que hacerlo con la moneda extranjera.
