@@ -5,16 +5,16 @@ Conciliación bancaria
 
 En **Tryton** hablaremos de dos tipos de conciliación:
 
- * La *conciliación bancaria* consistente en el cuadre de la información que nos
- facilita nuestra entidad bancaria con la información indicada por nuestra
- cuenta 572x correspondiente a la cuenta bancaria a conciliar. Esta 
- funcionalidad nos permite que el cuadre de los bancos, que es una de las  
- tareas  más frecuentes en las empresas, sea un trabajo realmente sencillo y  
- rápido,  minimizando errores. Vale la pena, pues, aprender en profundidad esta
- sección.
+* La *conciliación bancaria* consistente en el cuadre de la información que nos
+  facilita nuestra entidad bancaria con la información indicada por nuestra 
+  cuenta 572x correspondiente a la cuenta bancaria a conciliar. Esta 
+  funcionalidad nos permite que el cuadre de los bancos, que es una de las  
+  tareas  más frecuentes en las empresas, sea un trabajo realmente sencillo y  
+  rápido,  minimizando errores. Vale la pena, pues, aprender en profundidad esta
+  sección.
  
- * La *contable* consistente en punteo o correspondencia entre las deudas 
- emitidas normalmente por facturas con los pagos o cobros de las mismas.
+* La *contable* consistente en punteo o correspondencia entre las deudas 
+  emitidas normalmente por facturas con los pagos o cobros de las mismas.
 
 En primer lugar veremos cómo configurar el sistema para poder realizar
 correctamente la conciliación bancaria; seguidamente veremos cómo gestionar,
@@ -311,5 +311,3 @@ corresponda y luego conciliarlos manualmente.
 .. |menu_line_statememt| tryref:: account_bank_statement.menu_account_bank_statement_line/complete_name
 .. |second_currency| field:: account.account/second_currency
 .. |menu_statement| tryref:: account_bank_statement.menu_open_reconcile_bank_lines/complete_name
-.. |menu_line_statememt| tryref:: account_bank_statement.menu_account_bank_statement_line/complete_name
-.. |company_moves_amount| field:: account.bank.statement.line/company_moves_amount
