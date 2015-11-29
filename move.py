@@ -2,7 +2,7 @@
 #copyright notices and license terms.
 
 from trytond.model import ModelView, fields
-from trytond.pyson import Eval, If, Bool, PYSONEncoder
+from trytond.pyson import Eval, PYSONEncoder
 from trytond.pool import Pool, PoolMeta
 from trytond.wizard import Wizard, StateView, StateAction, Button
 from decimal import Decimal
