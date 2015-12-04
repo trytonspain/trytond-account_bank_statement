@@ -16,19 +16,21 @@ Imports::
     >>> from.trytond.modules.account_invoice.tests.tools import \
     ...     set_fiscalyear_invoice_sequences, create_payment_term
     >>> today = datetime.date.today()
-    >>> now = datetime.datetime.now()
 
 Create database::
 
     >>> config = config.set_trytond()
     >>> config.pool.test = True
 
-Install account_bank_statement::
+Install account_bank_statement and account_invoice::
 
     >>> Module = Model.get('ir.module')
-    >>> account_bank_module, = Module.find(
-    ...     [('name', '=', 'account_bank_statement')])
-    >>> Module.install([account_bank_module.id], config.context)
+    >>> modules = Module.find([
+    ...         ('name', 'in', ('account_bank_statement',
+    ...             'account_invoice')),
+    ...     ])
+    >>> for module in modules:
+    ...     module.click('install')
     >>> Wizard('ir.module.install_upgrade').execute('upgrade')
 
 Create company::
@@ -56,6 +58,11 @@ Create chart of accounts::
     >>> expense = accounts['expense']
     >>> cash = accounts['cash']
 
+Create tax::
+
+    >>> tax = create_tax(Decimal('.10'))
+    >>> tax.save()
+
 Create party::
 
     >>> Party = Model.get('party.party')
@@ -64,6 +71,7 @@ Create party::
 
 Create Journal::
 
+    >>> Sequence = Model.get('ir.sequence')
     >>> sequence = Sequence(name='Bank', code='account.journal',
     ...     company=company)
     >>> sequence.save()
@@ -78,9 +86,9 @@ Create Journal::
 Create Statement Journal::
 
     >>> StatementJournal = Model.get('account.bank.statement.journal')
-    >>> statement_journal_dollar = StatementJournal(name='Test',
-    ...     journal=account_journal, currency=dollar)
-    >>> statement_journal_dollar.save()
+    >>> statement_journal = StatementJournal(name='Test',
+    ...     journal=account_journal, currency=company.currency)
+    >>> statement_journal.save()
 
 Create Bank Move::
 
@@ -106,7 +114,7 @@ Create Bank Move::
 Create Bank Statement With Different Curreny::
 
     >>> BankStatement = Model.get('account.bank.statement')
-    >>> statement = BankStatement(journal=statement_journal_dollar, date=now)
+    >>> statement = BankStatement(journal=statement_journal, date=now)
 
 Create Bank Statement Lines::
 
