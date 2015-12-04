@@ -85,7 +85,3 @@ class AccountBankReconciliation(ModelView, ModelSQL):
 
     def get_currency_digits(self, name):
         return self.account.company.currency.digits
-
-    @staticmethod
-    def default_state():
-        return 'confirmed'
