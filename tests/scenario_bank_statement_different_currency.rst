@@ -9,6 +9,7 @@ Imports::
     >>> from decimal import Decimal
     >>> from operator import attrgetter
     >>> from proteus import config, Model, Wizard
+    >>> from trytond.modules.currency.tests.tools import get_currency
     >>> from trytond.modules.company.tests.tools import create_company, \
     ...     get_company
     >>> from trytond.modules.account.tests.tools import create_fiscalyear, \
@@ -23,17 +24,22 @@ Create database::
     >>> config = config.set_trytond()
     >>> config.pool.test = True
 
-Install account_bank_statement::
+Install account_bank_statement and account_invoice::
 
     >>> Module = Model.get('ir.module')
-    >>> account_bank_module, = Module.find(
-    ...     [('name', '=', 'account_bank_statement')])
-    >>> Module.install([account_bank_module.id], config.context)
+    >>> modules = Module.find([
+    ...         ('name', 'in', ('account_bank_statement',
+    ...             'account_invoice')),
+    ...     ])
+    >>> for module in modules:
+    ...     module.click('install')
     >>> Wizard('ir.module.install_upgrade').execute('upgrade')
 
 Create company::
 
-    >>> _ = create_company()
+    >>> currency = get_currency('USD')
+    >>> eur = get_currency('EUR')
+    >>> _ = create_company(currency=currency)
     >>> company = get_company()
 
 Reload the context::
@@ -64,6 +70,7 @@ Create party::
 
 Create Journal::
 
+    >>> Sequence = Model.get('ir.sequence')
     >>> sequence = Sequence(name='Bank', code='account.journal',
     ...     company=company)
     >>> sequence.save()
@@ -78,15 +85,15 @@ Create Journal::
 Create Dollar Statement Journal::
 
     >>> StatementJournal = Model.get('account.bank.statement.journal')
-    >>> statement_journal_dollar = StatementJournal(name='Test',
-    ...     journal=account_journal, currency=dollar)
-    >>> statement_journal_dollar.save()
+    >>> statement_journal_dolar = StatementJournal(name='Test',
+    ...     journal=account_journal, currency=currency)
+    >>> statement_journal_dolar.save()
 
 Create Euro Statement Journal::
 
-    >>> statement_journal_euro = StatementJournal(name='Test',
-    ...     journal=account_journal, currency=euro)
-    >>> statement_journal_euro.save()
+    >>> statement_journal_eur = StatementJournal(name='Test',
+    ...     journal=account_journal, currency=eur)
+    >>> statement_journal_eur.save()
 
 Create Bank Move::
 
@@ -112,7 +119,7 @@ Create Bank Move::
 Create Bank Statement With Different Curreny::
 
     >>> BankStatement = Model.get('account.bank.statement')
-    >>> statement = BankStatement(journal=statement_journal_dollar, date=now)
+    >>> statement = BankStatement(journal=statement_journal_dolar, date=now)
 
 Create Bank Statement Lines::
 
