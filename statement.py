@@ -366,8 +366,10 @@ class StatementLine(Workflow, ModelSQL, ModelView):
 
         Currency = Pool().get('currency.currency')
         for line in lines:
-            amount = sum([x.amount for x in line.bank_lines if x.amount])
-            company_amount = line.amount
+            amount = sum([x.amount for x in line.bank_lines if x.amount],
+                Decimal('0.0'))
+            amount = line.company_currency.round(amount)
+            company_amount = line.company_currency.round(line.amount)
             if line.statement_currency != line.company_currency:
                 with Transaction().set_context(date=line.date.date()):
                     company_amount = Currency.compute(

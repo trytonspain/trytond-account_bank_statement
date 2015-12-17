@@ -37,9 +37,9 @@ Install account_bank_statement and account_invoice::
 
 Create company::
 
-    >>> currency = get_currency('USD')
+    >>> dolar = get_currency('USD')
     >>> eur = get_currency('EUR')
-    >>> _ = create_company(currency=currency)
+    >>> _ = create_company(currency=eur)
     >>> company = get_company()
 
 Reload the context::
@@ -61,6 +61,8 @@ Create chart of accounts::
     >>> revenue = accounts['revenue']
     >>> expense = accounts['expense']
     >>> cash = accounts['cash']
+    >>> cash.bank_reconcile = True
+    >>> cash.save()
 
 Create party::
 
@@ -86,7 +88,7 @@ Create Dollar Statement Journal::
 
     >>> StatementJournal = Model.get('account.bank.statement.journal')
     >>> statement_journal_dolar = StatementJournal(name='Test',
-    ...     journal=account_journal, currency=currency)
+    ...     journal=account_journal, currency=dolar)
     >>> statement_journal_dolar.save()
 
 Create Euro Statement Journal::
@@ -110,9 +112,7 @@ Create Bank Move::
     >>> line2.account = receivable
     >>> line2.credit = Decimal('80.0')
     >>> line2.party = party
-    >>> move.save()
-    >>> Move.post([move.id], config.context)
-    >>> move.reload()
+    >>> move.click('post')
     >>> move.state
     u'posted'
 
@@ -128,12 +128,9 @@ Create Bank Statement Lines::
     >>> statement.lines.append(statement_line)
     >>> statement_line.date = now
     >>> statement_line.description = 'Statement Line'
-    >>> statement_line.amount = Decimal('80.0') * Decimal('1.25')
+    >>> statement_line.amount = Decimal('80.0') / Decimal('2.0')
     >>> statement_line.party = party
-    >>> statement.save()
-    >>> statement.reload()
-    >>> BankStatement.confirm([statement.id], config.context)
-    >>> statement.reload()
+    >>> statement.click('confirm')
     >>> statement.state
     u'confirmed'
     >>> statement_line = StatementLine(1)
@@ -150,26 +147,21 @@ Select statement move to reconcile statement line::
     >>> bank_line.bank_statement_line = statement_line
     >>> bank_line.save()
     >>> bank_line.reload()
-    >>> statement_line.save()
     >>> statement_line.reload()
-    >>> statement_line.moves_amount == Decimal('80.0')
-    True
-    >>> statement_line.company_amount == Decimal('80.0')
-    True
-    >>> statement_line.moves_amount == statement_line.company_amount
-    True
+    >>> statement_line.moves_amount
+    Decimal('80.00')
+    >>> statement_line.company_amount
+    Decimal('80.00')
 
 Post line::
 
-    >>> StatementLine.post([statement_line.id], config.context)
-    >>> statement_line.reload()
+    >>> statement_line.click('post')
     >>> statement_line.state
     u'posted'
 
 Cancel line::
 
-    >>> StatementLine.cancel([statement_line.id], config.context)
-    >>> statement_line.reload()
+    >>> statement_line.click('cancel')
     >>> statement_line.state
     u'canceled'
     >>> statement_line.bank_lines
