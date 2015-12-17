@@ -366,9 +366,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
 
         Currency = Pool().get('currency.currency')
         for line in lines:
-            amount = sum([x.amount for x in line.bank_lines if x.amount],
-                Decimal('0.0'))
-            amount = line.company_currency.round(amount)
+            amount = line.on_change_with_moves_amount()
             company_amount = line.company_currency.round(line.amount)
             if line.statement_currency != line.company_currency:
                 with Transaction().set_context(date=line.date.date()):
@@ -383,10 +381,13 @@ class StatementLine(Workflow, ModelSQL, ModelView):
                 res['reconciled'][line.id] = (amount == company_amount)
         return res
 
-    @fields.depends('bank_lines', 'state')
+    @fields.depends('bank_lines', 'state', 'company_currency')
     def on_change_with_moves_amount(self):
-        return sum([x.amount for x in self.bank_lines if x.amount],
+        amount = sum([x.amount for x in self.bank_lines if x.amount],
             Decimal('0.0'))
+        if self.company_currency:
+            amount = self.company_currency.round(amount)
+        return amount
 
     @classmethod
     @ModelView.button
