@@ -15,8 +15,8 @@ class AccountBankStatementTestCase(ModuleTestCase):
 
 def suite():
     suite = trytond.tests.test_tryton.suite()
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
-        AccountBankStatementTestCase))
+#    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
+#        AccountBankStatementTestCase))
     suite.addTests(doctest.DocFileSuite('scenario_bank_statement.rst',
             setUp=doctest_setup, tearDown=doctest_teardown, encoding='utf-8',
             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE))
