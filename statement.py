@@ -48,7 +48,9 @@ class Statement(Workflow, ModelSQL, ModelView):
     journal = fields.Many2One('account.bank.statement.journal', 'Journal',
         states=_STATES, depends=['state'], required=True)
     lines = fields.One2Many('account.bank.statement.line', 'statement',
-        'Lines')
+        'Lines', domain=[
+            ('company', '=', Eval('company')),
+            ], depends=['company'])
     currency_digits = fields.Function(fields.Integer('Currency Digits'),
         'on_change_with_currency_digits')
     state = fields.Selection([
@@ -189,7 +191,10 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     _rec_name = 'description'
 
     statement = fields.Many2One('account.bank.statement', 'Statement',
-        required=True, states=CONFIRMED_STATES)
+        required=True, domain=[
+            ('company', '=', Eval('company')),
+            ],
+        states=CONFIRMED_STATES, depends=CONFIRMED_DEPENDS + ['company'])
     company = fields.Many2One('company.company', 'Company', required=True,
         domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
