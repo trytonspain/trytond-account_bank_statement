@@ -4,11 +4,11 @@
 from trytond.model import fields
 from trytond.pool import PoolMeta
 
-__metaclass__ = PoolMeta
 __all__ = ['Account']
 
 
 class Account:
+    __metaclass__ = PoolMeta
     __name__ = 'account.account'
 
     bank_reconcile = fields.Boolean('Bank Conciliation')

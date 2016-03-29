@@ -6,11 +6,12 @@ from trytond.model import ModelView, ModelSQL, fields
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
 
-__metaclass__ = PoolMeta
+
 __all__ = ['Journal', 'BankJournal']
 
 
 class Journal:
+    __metaclass__ = PoolMeta
     __name__ = 'account.journal'
 
     @classmethod

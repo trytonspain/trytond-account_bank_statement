@@ -4,11 +4,10 @@
 from trytond.model import Workflow, ModelView, ModelSQL, fields
 from trytond.pyson import Eval, If, Not, Equal
 from trytond.transaction import Transaction
-from trytond.pool import Pool, PoolMeta
 from decimal import Decimal
 import datetime
 
-__metaclass__ = PoolMeta
+
 __all__ = ['Statement', 'StatementLine']
 
 _STATES = {'readonly': Eval('state') != 'draft'}

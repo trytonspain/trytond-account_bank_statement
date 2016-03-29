@@ -10,7 +10,7 @@ from sql import Literal
 from sql.conditionals import Case
 from sql.aggregate import Sum
 
-__metaclass__ = PoolMeta
+
 __all__ = ['Line', 'Move', 'OpenBankReconcileLines',
     'OpenBankReconcileLinesStart']
 
@@ -18,6 +18,7 @@ _ZERO = Decimal('0.00')
 
 
 class Move:
+    __metaclass__ = PoolMeta
     __name__ = 'account.move'
 
     @classmethod
@@ -49,6 +50,7 @@ class Move:
 
 
 class Line:
+    __metaclass__ = PoolMeta
     __name__ = 'account.move.line'
 
     bank_lines = fields.One2Many('account.bank.reconciliation', 'move_line',
