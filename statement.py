@@ -2,6 +2,7 @@
 # copyright notices and license terms.
 
 from trytond.model import Workflow, ModelView, ModelSQL, fields
+from trytond.pool import Pool
 from trytond.pyson import Eval, If, Not, Equal
 from trytond.transaction import Transaction
 from decimal import Decimal
