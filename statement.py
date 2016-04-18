@@ -230,7 +230,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     moves_amount = fields.Function(fields.Numeric('Moves Amount',
             digits=(16, Eval('currency_digits', 2)),
             depends=['currency_digits']),
-            'get_accounting_vals')
+            'on_change_with_moves_amount')
     journal = fields.Function(fields.Many2One('account.bank.statement.journal',
             'Journal'), 'get_journal', searcher='search_journal')
     statement_currency = fields.Function(fields.Many2One('currency.currency',
@@ -371,24 +371,21 @@ class StatementLine(Workflow, ModelSQL, ModelView):
 
         Currency = Pool().get('currency.currency')
         for line in lines:
-            amount = line.on_change_with_moves_amount()
-            amount = line.company_currency.round(amount)
+            amount = line.company_currency.round(line.moves_amount)
             company_amount = line.company_currency.round(line.amount)
             if line.statement_currency != line.company_currency:
                 with Transaction().set_context(date=line.date.date()):
                     company_amount = Currency.compute(
                         line.statement_currency, company_amount,
                         line.company_currency)
-            if 'moves_amount' in names:
-                res['moves_amount'][line.id] = amount
             if 'company_amount' in names:
                 res['company_amount'][line.id] = company_amount
             if 'reconciled' in names:
                 res['reconciled'][line.id] = (amount == company_amount)
         return res
 
-    @fields.depends('bank_lines', 'state', 'company_currency')
-    def on_change_with_moves_amount(self):
+    @fields.depends('bank_lines', 'company_currency')
+    def on_change_with_moves_amount(self, name=None):
         amount = sum([x.amount for x in self.bank_lines if x.amount],
             Decimal('0.0'))
         if self.company_currency:
