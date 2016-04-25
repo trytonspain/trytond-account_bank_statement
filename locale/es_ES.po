@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -389,13 +389,13 @@ msgctxt "model:ir.action,name:act_bank_statement_lines"
 msgid "Statement Lines"
 msgstr "Líneas del extracto"
 
-msgctxt "model:ir.action,name:act_open_bank_statement_line_form"
-msgid "Bank Statement Line"
-msgstr "Línea de extracto bancario"
-
 msgctxt "model:ir.action,name:act_move_line_bank_reconcile_form"
 msgid "Account Move Lines Bank Reconcile"
 msgstr "Conciliación bancaria de apuntes contables"
+
+msgctxt "model:ir.action,name:act_open_bank_statement_line_form"
+msgid "Bank Statement Line"
+msgstr "Línea de extracto bancario"
 
 msgctxt "model:ir.action,name:act_open_reconcile_bank_lines"
 msgid "Open Bank Reconcile Lines"
