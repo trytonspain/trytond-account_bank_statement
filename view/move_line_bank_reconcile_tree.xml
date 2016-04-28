@@ -6,7 +6,6 @@ this repository contains the full copyright notices and license terms. -->
     <field name="origin"/>
     <field name="description"/>
     <field name="date" widget="date"/>
-    <field name="date" widget="time" string="Time"/>
     <field name="party"/>
     <field name="account"/>
     <field name="debit" sum="Debit"/>
