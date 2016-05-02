@@ -123,13 +123,6 @@ class Statement(Workflow, ModelSQL, ModelView):
         return Decimal('0.0')
 
     @classmethod
-    def default_journal(cls):
-        Journal = Pool().get('account.bank.statement.journal')
-        journals = Journal.search(cls.journal.domain)
-        if len(journals) == 1:
-            return journals[0].id
-
-    @classmethod
     @ModelView.button
     @Workflow.transition('confirmed')
     def confirm(cls, statements):
