@@ -3,8 +3,8 @@
 from sql import Literal
 
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
+from trytond.transaction import Transaction
 
 __metaclass__ = PoolMeta
 __all__ = ['Journal', 'BankJournal']
@@ -30,7 +30,9 @@ class BankJournal(ModelSQL, ModelView):
     __name__ = 'account.bank.statement.journal'
     name = fields.Char('Name', required=True)
     journal = fields.Many2One('account.journal', 'Journal', required=True,
-        domain=[('type', '=', 'cash')])
+        domain=[
+            ('type', '=', 'cash'),
+            ])
     currency = fields.Many2One('currency.currency', 'Currency', required=True)
     company = fields.Many2One('company.company', 'Company', required=True,
             select=True)

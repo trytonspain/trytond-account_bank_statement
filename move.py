@@ -1,14 +1,14 @@
 #The COPYRIGHT file at the top level of this repository contains the full
 #copyright notices and license terms.
-
-from trytond.model import ModelView, fields
-from trytond.pyson import Eval, PYSONEncoder
-from trytond.pool import Pool, PoolMeta
-from trytond.wizard import Wizard, StateView, StateAction, Button
 from decimal import Decimal
 from sql import Literal
 from sql.conditionals import Case
 from sql.aggregate import Sum
+
+from trytond.model import ModelView, fields
+from trytond.pool import Pool, PoolMeta
+from trytond.pyson import Eval, PYSONEncoder
+from trytond.wizard import Wizard, StateView, StateAction, Button
 
 __metaclass__ = PoolMeta
 __all__ = ['Line', 'Move', 'OpenBankReconcileLines',

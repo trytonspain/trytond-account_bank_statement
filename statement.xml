@@ -270,6 +270,28 @@
             <field name="perm_delete" eval="True"/>
         </record>
 
+        <record model="ir.rule.group" id="rule_group_bank_statement">
+            <field name="model" search="[('model', '=', 'account.bank.statement')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_bank_statement1">
+            <field name="domain"
+                eval="[('company', 'child_of', [Eval('user', {}).get('company', -1)], 'parent')]"
+                pyson="1"/>
+            <field name="rule_group" ref="rule_group_bank_statement"/>
+        </record>
+
+        <record model="ir.rule.group" id="rule_group_bank_statement_line">
+            <field name="model" search="[('model', '=', 'account.bank.statement.line')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_bank_statement_line1">
+            <field name="domain"
+                eval="[('company', 'child_of', [Eval('user', {}).get('company', -1)], 'parent')]"
+                pyson="1"/>
+            <field name="rule_group" ref="rule_group_bank_statement_line"/>
+        </record>
+
         <!-- Wizard Open Reconcile Banks Lines -->
         <record model="ir.ui.view" id="open_reconcile_bank_lines_start_view_form">
             <field name="model">account.move.open_bank_reconcile_lines.start</field>

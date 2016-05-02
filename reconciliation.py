@@ -1,9 +1,8 @@
 #The COPYRIGHT file at the top level of this repository contains the full
 #copyright notices and license terms.
-
+from trytond.const import OPERATORS
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Eval
-from trytond.const import OPERATORS
 from trytond.transaction import Transaction
 
 __all__ = ['AccountBankReconciliation']

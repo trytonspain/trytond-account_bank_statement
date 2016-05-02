@@ -1,12 +1,12 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+import datetime
+from decimal import Decimal
 
 from trytond.model import Workflow, ModelView, ModelSQL, fields
+from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, If, Not, Equal
 from trytond.transaction import Transaction
-from trytond.pool import Pool, PoolMeta
-from decimal import Decimal
-import datetime
 
 __metaclass__ = PoolMeta
 __all__ = ['Statement', 'StatementLine']
@@ -29,10 +29,7 @@ class Statement(Workflow, ModelSQL, ModelView):
     _rec_name = 'date'
 
     company = fields.Many2One('company.company', 'Company', required=True,
-        states=_STATES, depends=['state'], select=True, domain=[
-            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
-                Eval('context', {}).get('company', 0)),
-            ])
+        states=_STATES, depends=['state'], select=True)
     date = fields.DateTime('Date', required=True, states=_STATES,
         depends=['state'], help='Created date bank statement')
     start_date = fields.Date('Start Date', required=True,
@@ -46,7 +43,10 @@ class Statement(Workflow, ModelSQL, ModelView):
         digits=(16, Eval('currency_digits', 2)),
         states=_STATES, depends=['state', 'currency_digits'])
     journal = fields.Many2One('account.bank.statement.journal', 'Journal',
-        states=_STATES, depends=['state'], required=True)
+        required=True, domain=[
+            ('company', '=', Eval('company')),
+            ],
+        states=_STATES, depends=['state', 'company'])
     lines = fields.One2Many('account.bank.statement.line', 'statement',
         'Lines', domain=[
             ('company', '=', Eval('company')),
@@ -196,10 +196,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
             ],
         states=CONFIRMED_STATES, depends=CONFIRMED_DEPENDS + ['company'])
     company = fields.Many2One('company.company', 'Company', required=True,
-        domain=[
-            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
-                Eval('context', {}).get('company', 0)),
-            ], select=True, states=CONFIRMED_STATES)
+        select=True, states=CONFIRMED_STATES)
     date = fields.DateTime('Date', required=True, states=CONFIRMED_STATES)
     sequence = fields.Integer('Sequence')
     description = fields.Char('Description', required=True,
@@ -217,10 +214,11 @@ class StatementLine(Workflow, ModelSQL, ModelView):
             ], 'State', required=True, readonly=True)
     bank_lines = fields.One2Many('account.bank.reconciliation',
         'bank_statement_line', 'Bank Lines', domain=[
-            ('account', 'in', (Eval('debit_account'), Eval('credit_account'))),
+            ('move_line.move.company', '=', Eval('company')),
             ('bank_statement_line', 'in', (None, Eval('id'))),
-            ], states=POSTED_STATES,
-        depends=POSTED_DEPENDS + ['debit_account', 'credit_account', 'id'])
+            ],
+        states=POSTED_STATES,
+        depends=POSTED_DEPENDS + ['company', 'id'])
     credit_account = fields.Function(fields.Many2One('account.account',
             'Account'), 'get_accounts')
     debit_account = fields.Function(fields.Many2One('account.account',
