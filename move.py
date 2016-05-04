@@ -124,7 +124,7 @@ class Line:
         if default is None:
             default = {}
         default['bank_lines'] = None
-        super(Line, cls).copy(lines, default)
+        return super(Line, cls).copy(lines, default=default)
 
     def check_bank_lines(self):
         BankLine = Pool().get('account.bank.reconciliation')
