@@ -87,12 +87,15 @@ class BankJournal(ModelSQL, ModelView):
                 continue
 
             for journal in journals:
+                print "- journal:", journal
                 statements = Statement.search([('journal', '=', journal),
                     ('state', 'in', ['confirmed', 'posted'])], limit=1)
+                print "- statements:", statements
                 if not statements:
                     continue
                 statement, = statements
                 cls.raise_user_error('currency_modify', statement.date)
             args.extend((journals, values))
 
-        super(BankJournal, cls).write(*args)
+        if args:
+            super(BankJournal, cls).write(*args)
