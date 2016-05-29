@@ -80,9 +80,9 @@ class BankJournal(ModelSQL, ModelView):
                         })
 
     @classmethod
-    def write(cls, *args):
+    def write(cls, journals, values, *args):
         Statement = Pool().get('account.bank.statement')
-        actions = iter(args)
+        actions = iter((journals, values) + args)
         args = []
         for journals, values in  zip(actions, actions):
             if 'currency' not in values:
@@ -98,4 +98,4 @@ class BankJournal(ModelSQL, ModelView):
                 cls.raise_user_error('currency_modify', statement.date)
             args.extend((journals, values))
 
-        super(BankJournal, cls).write(*args)
+        super(BankJournal, cls).write(journals, values, *args)
