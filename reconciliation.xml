@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <tryton>
     <data>
-
         <!-- Permissions -->
         <record model="ir.model.access"
                 id="access_account_bank_reconciliation">

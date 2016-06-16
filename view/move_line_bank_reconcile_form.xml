@@ -44,7 +44,6 @@ this repository contains the full copyright notices and license terms. -->
             <label name="bank_reconciled"/>
             <field name="bank_reconciled"/>
             <field name="bank_lines" colspan="4"/>
-
         </page>
     </notebook>
     <label name="move_state"/>
