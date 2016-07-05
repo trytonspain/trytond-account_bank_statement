@@ -276,6 +276,10 @@ msgctxt "field:account.bank.statement.line,moves_amount:"
 msgid "Moves Amount"
 msgstr "Import de moviments"
 
+msgctxt "field:account.bank.statement.line,notes:"
+msgid "Notes"
+msgstr "Notes"
+
 msgctxt "field:account.bank.statement.line,rec_name:"
 msgid "Name"
 msgstr "Nom"
@@ -384,13 +388,13 @@ msgctxt "model:ir.action,name:act_bank_statement_lines"
 msgid "Statement Lines"
 msgstr "Línies de l'extracte"
 
-msgctxt "model:ir.action,name:act_open_bank_statement_line_form"
-msgid "Bank Statement Line"
-msgstr "Línia d'extracte bancari"
-
 msgctxt "model:ir.action,name:act_move_line_bank_reconcile_form"
 msgid "Account Move Lines Bank Reconcile"
 msgstr "Conciliació bancària d'apunts comptables"
+
+msgctxt "model:ir.action,name:act_open_bank_statement_line_form"
+msgid "Bank Statement Line"
+msgstr "Línia d'extracte bancari"
 
 msgctxt "model:ir.action,name:act_open_reconcile_bank_lines"
 msgid "Open Bank Reconcile Lines"
