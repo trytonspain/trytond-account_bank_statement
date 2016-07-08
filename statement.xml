@@ -305,7 +305,7 @@
         <record model="ir.action.act_window.domain" id="act_move_bank_reconclie_domain_unreconcile">
             <field name="name">Unreconcile</field>
             <field name="sequence" eval="100"/>
-            <field name="domain">[('bank_reconciled', '=', None)]</field>
+            <field name="domain">[('bank_reconciled', '=', False)]</field>
             <field name="act_window" ref="act_move_line_bank_reconcile_form"/>
         </record>
         <record model="ir.action.act_window.domain" id="act_move_bank_reconclie_domain_all">
