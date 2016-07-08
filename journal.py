@@ -87,10 +87,8 @@ class BankJournal(ModelSQL, ModelView):
                 continue
 
             for journal in journals:
-                print "- journal:", journal
                 statements = Statement.search([('journal', '=', journal),
                     ('state', 'in', ['confirmed', 'posted'])], limit=1)
-                print "- statements:", statements
                 if not statements:
                     continue
                 statement, = statements
