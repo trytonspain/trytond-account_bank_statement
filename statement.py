@@ -155,9 +155,6 @@ class Statement(Workflow, ModelSQL, ModelView):
         StatementLine = Pool().get('account.bank.statement.line')
         lines = []
         for statement in statements:
-            for line in statement.lines:
-                if line.state not in ('canceled', 'draft'):
-                    raise "ups"
             lines += statement.lines
         StatementLine.cancel(lines)
 
