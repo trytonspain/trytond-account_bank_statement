@@ -207,11 +207,13 @@ class StatementLine(Workflow, ModelSQL, ModelView):
             ], 'State', required=True, readonly=True)
     bank_lines = fields.One2Many('account.bank.reconciliation',
         'bank_statement_line', 'Bank Lines', domain=[
+            ('account', 'in', (Eval('debit_account'), Eval('credit_account'))),
             ('move_line.move.company', '=', Eval('company')),
             ('bank_statement_line', 'in', (None, Eval('id'))),
             ],
         states=POSTED_STATES,
-        depends=POSTED_DEPENDS + ['company', 'id'])
+        depends=POSTED_DEPENDS + ['company', 'id', 'debit_account',
+                'credit_account'])
     credit_account = fields.Function(fields.Many2One('account.account',
             'Account'), 'get_accounts')
     debit_account = fields.Function(fields.Many2One('account.account',
