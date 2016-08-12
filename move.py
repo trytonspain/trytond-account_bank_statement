@@ -1,5 +1,5 @@
-#The COPYRIGHT file at the top level of this repository contains the full
-#copyright notices and license terms.
+# The COPYRIGHT file at the top level of this repository contains the full
+# copyright notices and license terms.
 from decimal import Decimal
 from sql import Literal
 from sql.conditionals import Case
@@ -82,7 +82,7 @@ class Line:
         BankReconcile = pool.get('account.bank.reconciliation')
         move = cls.__table__()
         bank_reconcile = BankReconcile.__table__()
-        #If filtering by not reconciled show all moves without bank_line (Fast)
+        # If filtered by not reconciled show all moves without bank_line (Fast)
         if clause[1] == '=' and clause[2] is False:
             query = bank_reconcile.select(bank_reconcile.move_line, where=(
                     bank_reconcile.bank_statement_line == None))
@@ -156,7 +156,7 @@ class Line:
                 if res['unreconciled_amount'][line.id] == _ZERO:
                     res['bank_reconciled'][line.id] = True
         for name in all_names:
-            if not name in names:
+            if name not in names:
                 del res[name]
         return res
 

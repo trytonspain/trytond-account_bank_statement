@@ -1,5 +1,5 @@
-#The COPYRIGHT file at the top level of this repository contains the full
-#copyright notices and license terms.
+# The COPYRIGHT file at the top level of this repository contains the full
+# copyright notices and license terms.
 from sql import Literal
 
 from trytond.model import ModelView, ModelSQL, fields
@@ -84,16 +84,14 @@ class BankJournal(ModelSQL, ModelView):
         Statement = Pool().get('account.bank.statement')
         actions = iter((journals, values) + args)
         args = []
-        for journals, values in  zip(actions, actions):
+        for journals, values in zip(actions, actions):
             if 'currency' not in values:
                 super(BankJournal, cls).write(journals, values)
                 continue
 
             for journal in journals:
-                print "- journal:", journal
                 statements = Statement.search([('journal', '=', journal),
                     ('state', 'in', ['confirmed', 'posted'])], limit=1)
-                print "- statements:", statements
                 if not statements:
                     continue
                 statement, = statements
