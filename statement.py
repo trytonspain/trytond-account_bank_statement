@@ -3,7 +3,8 @@
 import datetime
 from decimal import Decimal
 
-from trytond.model import Workflow, ModelView, ModelSQL, fields
+from trytond.model import Workflow, ModelView, ModelSQL, fields, \
+    sequence_ordered
 from trytond.pool import Pool
 from trytond.pyson import Eval, Not, Equal
 from trytond.transaction import Transaction
@@ -171,13 +172,9 @@ class Statement(Workflow, ModelSQL, ModelView):
             StatementLine.search_reconcile([line])
 
 
-class StatementLine(Workflow, ModelSQL, ModelView):
+class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
     'Bank Statement Line'
     __name__ = 'account.bank.statement.line'
-    _order = [
-        ('date', 'ASC'),
-        ('sequence', 'ASC')
-        ]
     _rec_name = 'description'
 
     statement = fields.Many2One('account.bank.statement', 'Statement',
@@ -188,7 +185,6 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     company = fields.Many2One('company.company', 'Company', required=True,
         select=True, states=CONFIRMED_STATES)
     date = fields.DateTime('Date', required=True, states=CONFIRMED_STATES)
-    sequence = fields.Integer('Sequence')
     description = fields.Char('Description', required=True,
         states=CONFIRMED_STATES)
     notes = fields.Char('Notes', states=POSTED_STATES)
@@ -244,6 +240,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(StatementLine, cls).__setup__()
+        cls._order.insert(0, ('date', 'ASC'))
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'posted'),
