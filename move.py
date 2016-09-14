@@ -1,8 +1,8 @@
-# The COPYRIGHT file at the top level of this repository contains the full
-# copyright notices and license terms.
+#The COPYRIGHT file at the top level of this repository contains the full
+#copyright notices and license terms.
 from decimal import Decimal
 from sql import Literal
-from sql.conditionals import Case
+from sql.conditionals import Coalesce
 from sql.aggregate import Sum
 
 from trytond.model import ModelView, fields
@@ -82,23 +82,17 @@ class Line:
         BankReconcile = pool.get('account.bank.reconciliation')
         move = cls.__table__()
         bank_reconcile = BankReconcile.__table__()
-        # If filtered by not reconciled show all moves without bank_line (Fast)
-        if clause[1] == '=' and clause[2] is False:
-            query = bank_reconcile.select(bank_reconcile.move_line, where=(
-                    bank_reconcile.bank_statement_line == None))
-        else:
-            subquery = bank_reconcile.select(bank_reconcile.move_line,
-                Sum(Case((bank_reconcile.bank_statement_line == None,
-                            Literal(0)),
-                    else_=bank_reconcile.amount)).as_('reconciled'),
-                group_by=bank_reconcile.move_line)
-            Operator = fields.SQL_OPERATORS[clause[1]]
-            query = move.join(subquery, condition=(
-                    subquery.move_line == move.id)).select(move.id,
-                        where=(Operator((subquery.reconciled - (move.debit -
-                                    move.credit) == Literal(0)), clause[2])
-                        ))
-
+        subquery = bank_reconcile.select(bank_reconcile.move_line,
+            Sum(Coalesce(bank_reconcile.amount, 0)).as_('reconciled'),
+            group_by=bank_reconcile.move_line)
+        Operator = fields.SQL_OPERATORS[clause[1]]
+        query = move.join(subquery, type_='LEFT', condition=(
+            subquery.move_line == move.id)).select(move.id,
+                where=(Operator((
+                    (Coalesce(subquery.reconciled, 0) ==
+                      (move.debit - move.credit))),
+                        clause[2])
+                ))
         return [('id', 'in', query)]
 
     @classmethod
@@ -151,6 +145,10 @@ class Line:
                 if 'unreconciled_amount' in names and \
                         not bank_line.bank_statement_line:
                     res['unreconciled_amount'][line.id] += bank_line.amount
+
+            if not line.bank_lines:
+                res['unreconciled_amount'][line.id] = line.debit or line.credit
+
             if 'bank_reconciled' in names:
                 res['bank_reconciled'][line.id] = False
                 if res['unreconciled_amount'][line.id] == _ZERO:
