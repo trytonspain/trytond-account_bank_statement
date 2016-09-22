@@ -36,17 +36,6 @@ class Move:
         BankMove.create(bank_moves)
         return res
 
-    @classmethod
-    def draft(cls, moves):
-        res = super(Move, cls).draft(moves)
-        BankMove = Pool().get('account.bank.reconciliation')
-        delete_bank_lines = []
-        for move in moves:
-            for line in move.lines:
-                delete_bank_lines += [x for x in line.bank_lines]
-        BankMove.delete(delete_bank_lines)
-        return res
-
 
 class Line:
     __metaclass__ = PoolMeta

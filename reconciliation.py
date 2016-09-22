@@ -51,13 +51,6 @@ class AccountBankReconciliation(ModelView, ModelSQL):
                     })
         super(AccountBankReconciliation, cls).delete(lines)
 
-    def __getattr__(self, name):
-        try:
-            return super(AccountBankReconciliation, self).__getattr__(name)
-        except AttributeError:
-            pass
-        return getattr(self.move_line, name)
-
     @classmethod
     def search_domain(cls, domain, active_test=True, tables=None):
         def is_leaf(expression):
