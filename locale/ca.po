@@ -74,11 +74,11 @@ msgstr "Línia d'extracte bancari"
 
 msgctxt "field:account.bank.reconciliation,create_date:"
 msgid "Create Date"
-msgstr "Data de creació"
+msgstr "Data creació"
 
 msgctxt "field:account.bank.reconciliation,create_uid:"
 msgid "Create User"
-msgstr "Usuari de creació"
+msgstr "Usuari creació"
 
 msgctxt "field:account.bank.reconciliation,currency_digits:"
 msgid "currency digits"
@@ -86,7 +86,7 @@ msgstr "Decimals de la moneda"
 
 msgctxt "field:account.bank.reconciliation,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "field:account.bank.reconciliation,move_line:"
 msgid "Move Line"
@@ -98,11 +98,11 @@ msgstr "Nom"
 
 msgctxt "field:account.bank.reconciliation,write_date:"
 msgid "Write Date"
-msgstr "Data de modificació"
+msgstr "Data modificació"
 
 msgctxt "field:account.bank.reconciliation,write_uid:"
 msgid "Write User"
-msgstr "Usuari de modificació"
+msgstr "Usuari modificació"
 
 msgctxt "field:account.bank.statement,company:"
 msgid "Company"
@@ -110,11 +110,11 @@ msgstr "Empresa"
 
 msgctxt "field:account.bank.statement,create_date:"
 msgid "Create Date"
-msgstr "Data de creació"
+msgstr "Data creació"
 
 msgctxt "field:account.bank.statement,create_uid:"
 msgid "Create User"
-msgstr "Usuari de creació"
+msgstr "Usuari creació"
 
 msgctxt "field:account.bank.statement,currency_digits:"
 msgid "Currency Digits"
@@ -134,7 +134,7 @@ msgstr "Data final"
 
 msgctxt "field:account.bank.statement,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "field:account.bank.statement,journal:"
 msgid "Journal"
@@ -162,11 +162,11 @@ msgstr "Estat"
 
 msgctxt "field:account.bank.statement,write_date:"
 msgid "Write Date"
-msgstr "Data de modificació"
+msgstr "Data modificació"
 
 msgctxt "field:account.bank.statement,write_uid:"
 msgid "Write User"
-msgstr "Usuari de modificació"
+msgstr "Usuari modificació"
 
 msgctxt "field:account.bank.statement.journal,company:"
 msgid "Company"
@@ -174,11 +174,11 @@ msgstr "Empresa"
 
 msgctxt "field:account.bank.statement.journal,create_date:"
 msgid "Create Date"
-msgstr "Data de creació"
+msgstr "Data creació"
 
 msgctxt "field:account.bank.statement.journal,create_uid:"
 msgid "Create User"
-msgstr "Usuari de creació"
+msgstr "Usuari creació"
 
 msgctxt "field:account.bank.statement.journal,currency:"
 msgid "Currency"
@@ -186,7 +186,7 @@ msgstr "Moneda"
 
 msgctxt "field:account.bank.statement.journal,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "field:account.bank.statement.journal,journal:"
 msgid "Journal"
@@ -202,11 +202,11 @@ msgstr "Nom"
 
 msgctxt "field:account.bank.statement.journal,write_date:"
 msgid "Write Date"
-msgstr "Data de modificació"
+msgstr "Data modificació"
 
 msgctxt "field:account.bank.statement.journal,write_uid:"
 msgid "Write User"
-msgstr "Usuari de modificació"
+msgstr "Usuari modificació"
 
 msgctxt "field:account.bank.statement.line,amount:"
 msgid "Amount"
@@ -238,11 +238,11 @@ msgstr "Import de moviments"
 
 msgctxt "field:account.bank.statement.line,create_date:"
 msgid "Create Date"
-msgstr "Data de creació"
+msgstr "Data creació"
 
 msgctxt "field:account.bank.statement.line,create_uid:"
 msgid "Create User"
-msgstr "Usuari de creació"
+msgstr "Usuari creació"
 
 msgctxt "field:account.bank.statement.line,credit_account:"
 msgid "Account"
@@ -266,7 +266,7 @@ msgstr "Descripció"
 
 msgctxt "field:account.bank.statement.line,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "field:account.bank.statement.line,journal:"
 msgid "Journal"
@@ -306,11 +306,11 @@ msgstr "Moneda de l'extracte"
 
 msgctxt "field:account.bank.statement.line,write_date:"
 msgid "Write Date"
-msgstr "Data de modificació"
+msgstr "Data modificació"
 
 msgctxt "field:account.bank.statement.line,write_uid:"
 msgid "Write User"
-msgstr "Usuari de modificació"
+msgstr "Usuari modificació"
 
 msgctxt "field:account.move.line,bank_amount:"
 msgid "Bank Amount"
@@ -334,7 +334,7 @@ msgstr "Compte"
 
 msgctxt "field:account.move.open_bank_reconcile_lines.start,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "help:account.bank.statement,date:"
 msgid "Created date bank statement"
