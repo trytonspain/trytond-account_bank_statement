@@ -167,9 +167,9 @@ class Statement(Workflow, ModelSQL, ModelView):
         super(Statement, cls).delete(statements)
 
     def search_reconcile(self):
-        for line in self.lines:
-            StatementLine = Pool().get('account.bank.statement.line')
-            StatementLine.search_reconcile([line])
+        pool = Pool()
+        StatementLine = pool.get('account.bank.statement.line')
+        StatementLine.search_reconcile(list(self.lines))
 
 
 class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
