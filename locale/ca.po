@@ -496,6 +496,10 @@ msgid "Confirmed"
 msgstr "Confirmat"
 
 msgctxt "selection:account.bank.statement,state:"
+msgid "Done"
+msgstr "Finalitzat"
+
+msgctxt "selection:account.bank.statement,state:"
 msgid "Draft"
 msgstr "Esborrany"
 
@@ -528,10 +532,6 @@ msgid "Statement Journals"
 msgstr "Diaris de l'extracte"
 
 msgctxt "view:account.bank.statement.line:"
-msgid "Bank Statement Line"
-msgstr "Línia d'extracte bancari"
-
-msgctxt "view:account.bank.statement.line:"
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -552,10 +552,6 @@ msgid "Search"
 msgstr "Cerca"
 
 msgctxt "view:account.bank.statement:"
-msgid "Bank Statement"
-msgstr "Extracte bancari"
-
-msgctxt "view:account.bank.statement:"
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -572,14 +568,6 @@ msgid "Time"
 msgstr "Hora"
 
 msgctxt "view:account.move.line:"
-msgid "Account Move Line"
-msgstr "Apunt comptable"
-
-msgctxt "view:account.move.line:"
-msgid "Account Move Lines"
-msgstr "Apunts comptables"
-
-msgctxt "view:account.move.line:"
 msgid "Bank Amount"
 msgstr "Import de banc"
 
@@ -594,10 +582,6 @@ msgstr "Deure"
 msgctxt "view:account.move.line:"
 msgid "Other Info"
 msgstr "Informació addicional"
-
-msgctxt "view:account.move.line:"
-msgid "Time"
-msgstr "Hora"
 
 msgctxt "view:account.move.line:"
 msgid "Unreconciled Bank Amount"

@@ -497,6 +497,10 @@ msgid "Confirmed"
 msgstr "Confirmado"
 
 msgctxt "selection:account.bank.statement,state:"
+msgid "Done"
+msgstr "Finalizado"
+
+msgctxt "selection:account.bank.statement,state:"
 msgid "Draft"
 msgstr "Borrador"
 
@@ -529,10 +533,6 @@ msgid "Statement Journals"
 msgstr "Diario del extracto"
 
 msgctxt "view:account.bank.statement.line:"
-msgid "Bank Statement Line"
-msgstr "Línea de extracto bancario"
-
-msgctxt "view:account.bank.statement.line:"
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -553,10 +553,6 @@ msgid "Search"
 msgstr "Buscar"
 
 msgctxt "view:account.bank.statement:"
-msgid "Bank Statement"
-msgstr "Extracto bancario"
-
-msgctxt "view:account.bank.statement:"
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -573,14 +569,6 @@ msgid "Time"
 msgstr "Hora"
 
 msgctxt "view:account.move.line:"
-msgid "Account Move Line"
-msgstr "Apunte contable"
-
-msgctxt "view:account.move.line:"
-msgid "Account Move Lines"
-msgstr "Apuntes contables"
-
-msgctxt "view:account.move.line:"
 msgid "Bank Amount"
 msgstr "Importe de banco"
 
@@ -595,10 +583,6 @@ msgstr "Debe"
 msgctxt "view:account.move.line:"
 msgid "Other Info"
 msgstr "Otra información"
-
-msgctxt "view:account.move.line:"
-msgid "Time"
-msgstr "Hora"
 
 msgctxt "view:account.move.line:"
 msgid "Unreconciled Bank Amount"
