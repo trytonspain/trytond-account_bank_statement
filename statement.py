@@ -8,7 +8,6 @@ from trytond.pool import Pool
 from trytond.pyson import Eval, Not, Equal
 from trytond.transaction import Transaction
 
-__metaclass__ = PoolMeta
 __all__ = ['Statement', 'StatementLine']
 
 _STATES = {'readonly': Eval('state') != 'draft'}
