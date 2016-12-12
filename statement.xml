@@ -140,6 +140,7 @@
             <field name="domain"
                 eval="[('state', '=', 'draft')]"
                 pyson="1"/>
+            <field name="count" eval="True"/>
             <field name="act_window" ref="act_account_bank_statement"/>
         </record>
         <record model="ir.action.act_window.domain"
@@ -150,15 +151,7 @@
                 eval="[('state', '=', 'confirmed')]"
                 pyson="1"/>
             <field name="act_window" ref="act_account_bank_statement"/>
-        </record>
-        <record model="ir.action.act_window.domain"
-            id="act_account_bank_statement_domain_canceled">
-            <field name="name">Canceled</field>
-            <field name="sequence" eval="30"/>
-            <field name="domain"
-                eval="[('state', '=', 'canceled')]"
-                pyson="1"/>
-            <field name="act_window" ref="act_account_bank_statement"/>
+            <field name="count" eval="True"/>
         </record>
         <record model="ir.action.act_window.domain"
             id="act_account_bank_statement_domain_all">
@@ -200,6 +193,7 @@
             <field name="domain"
                 eval="[('state', '=', 'draft')]"
                 pyson="1"/>
+            <field name="count" eval="True"/>
             <field name="act_window" ref="act_account_bank_statement_line"/>
         </record>
         <record model="ir.action.act_window.domain"
@@ -209,24 +203,7 @@
             <field name="domain"
                 eval="[('state', '=', 'confirmed')]"
                 pyson="1"/>
-            <field name="act_window" ref="act_account_bank_statement_line"/>
-        </record>
-        <record model="ir.action.act_window.domain"
-            id="act_account_bank_statement_line_domain_posted">
-            <field name="name">Posted</field>
-            <field name="sequence" eval="30"/>
-            <field name="domain"
-                eval="[('state', '=', 'posted')]"
-                pyson="1"/>
-            <field name="act_window" ref="act_account_bank_statement_line"/>
-        </record>
-        <record model="ir.action.act_window.domain"
-            id="act_account_bank_statement_line_domain_canceled">
-            <field name="name">Canceled</field>
-            <field name="sequence" eval="30"/>
-            <field name="domain"
-                eval="[('state', '=', 'canceled')]"
-                pyson="1"/>
+            <field name="count" eval="True"/>
             <field name="act_window" ref="act_account_bank_statement_line"/>
         </record>
         <record model="ir.action.act_window.domain"
