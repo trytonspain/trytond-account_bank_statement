@@ -21,7 +21,7 @@ contains the full copyright notices and license terms. -->
         <field name="end_balance"/>
     </group>
     <field name="lines" colspan="4"/>
-    <group id="status" col="6" colspan="4">
+    <group id="status" col="-1" colspan="4">
         <label name="state"/>
         <field name="state"/>
         <button name="cancel" string="Cancel"/>
