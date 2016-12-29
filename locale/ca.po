@@ -406,6 +406,11 @@ msgid "All"
 msgstr "Tot"
 
 msgctxt ""
+"model:ir.action.act_window.domain,name:act_account_bank_statement_domain_canceled"
+msgid "Canceled"
+msgstr "Cancel·lat"
+
+msgctxt ""
 "model:ir.action.act_window.domain,name:act_account_bank_statement_domain_confirmed"
 msgid "Confirmed"
 msgstr "Confirmat"
@@ -421,6 +426,11 @@ msgid "All"
 msgstr "Tot"
 
 msgctxt ""
+"model:ir.action.act_window.domain,name:act_account_bank_statement_line_domain_canceled"
+msgid "Canceled"
+msgstr "Cancel·lat"
+
+msgctxt ""
 "model:ir.action.act_window.domain,name:act_account_bank_statement_line_domain_confirmed"
 msgid "Confirmed"
 msgstr "Confirmat"
@@ -429,6 +439,11 @@ msgctxt ""
 "model:ir.action.act_window.domain,name:act_account_bank_statement_line_domain_draft"
 msgid "Draft"
 msgstr "Esborrany"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_account_bank_statement_line_domain_posted"
+msgid "Posted"
+msgstr "Comptabilitzat"
 
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_move_bank_reconclie_domain_all"
@@ -481,10 +496,6 @@ msgid "Confirmed"
 msgstr "Confirmat"
 
 msgctxt "selection:account.bank.statement,state:"
-msgid "Done"
-msgstr "Finalitzat"
-
-msgctxt "selection:account.bank.statement,state:"
 msgid "Draft"
 msgstr "Esborrany"
 
@@ -517,6 +528,10 @@ msgid "Statement Journals"
 msgstr "Diaris de l'extracte"
 
 msgctxt "view:account.bank.statement.line:"
+msgid "Bank Statement Line"
+msgstr "Línia d'extracte bancari"
+
+msgctxt "view:account.bank.statement.line:"
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -537,6 +552,10 @@ msgid "Search"
 msgstr "Cerca"
 
 msgctxt "view:account.bank.statement:"
+msgid "Bank Statement"
+msgstr "Extracte bancari"
+
+msgctxt "view:account.bank.statement:"
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -553,6 +572,14 @@ msgid "Time"
 msgstr "Hora"
 
 msgctxt "view:account.move.line:"
+msgid "Account Move Line"
+msgstr "Apunt comptable"
+
+msgctxt "view:account.move.line:"
+msgid "Account Move Lines"
+msgstr "Apunts comptables"
+
+msgctxt "view:account.move.line:"
 msgid "Bank Amount"
 msgstr "Import de banc"
 
@@ -567,6 +594,10 @@ msgstr "Deure"
 msgctxt "view:account.move.line:"
 msgid "Other Info"
 msgstr "Informació addicional"
+
+msgctxt "view:account.move.line:"
+msgid "Time"
+msgstr "Hora"
 
 msgctxt "view:account.move.line:"
 msgid "Unreconciled Bank Amount"

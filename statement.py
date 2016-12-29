@@ -2,7 +2,6 @@
 # copyright notices and license terms.
 import datetime
 from decimal import Decimal
-from functools import wraps
 
 from trytond.model import Workflow, ModelView, ModelSQL, fields, \
     sequence_ordered
@@ -58,7 +57,6 @@ class Statement(Workflow, ModelSQL, ModelView):
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
-            ('done', 'Done'),
             ('canceled', 'Canceled'),
             ], 'State', required=True, readonly=True)
 
@@ -69,8 +67,6 @@ class Statement(Workflow, ModelSQL, ModelView):
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'canceled'),
-                ('confirmed', 'done'),
-                ('done', 'confirmed'),
                 ('canceled', 'draft'),
                 ('draft', 'canceled'),
                 ))
@@ -84,7 +80,7 @@ class Statement(Workflow, ModelSQL, ModelView):
                     'icon': 'tryton-clear',
                     },
                 'cancel': {
-                    'invisible': Eval('state').in_(['done', 'canceled']),
+                    'invisible': Eval('state').in_(['canceled']),
                     'icon': 'tryton-cancel',
                     },
                 })
@@ -135,14 +131,7 @@ class Statement(Workflow, ModelSQL, ModelView):
         lines = []
         for statement in statements:
             lines += statement.lines
-        with Transaction().set_context(from_statement=True):
-            StatementLine.confirm(lines)
-
-    @classmethod
-    @ModelView.button
-    @Workflow.transition('done')
-    def done(cls, statements):
-        pass
+        StatementLine.confirm(lines)
 
     @classmethod
     @ModelView.button
@@ -158,8 +147,7 @@ class Statement(Workflow, ModelSQL, ModelView):
                         'state': line.state,
                     })
             lines += statement.lines
-        with Transaction().set_context(from_statement=True):
-            StatementLine.cancel(lines)
+        StatementLine.cancel(lines)
 
     @classmethod
     @ModelView.button
@@ -169,8 +157,7 @@ class Statement(Workflow, ModelSQL, ModelView):
         lines = []
         for statement in statements:
             lines += statement.lines
-        with Transaction().set_context(from_statement=True):
-            StatementLine.cancel(lines)
+        StatementLine.cancel(lines)
 
     @classmethod
     def delete(cls, statements):
@@ -179,51 +166,10 @@ class Statement(Workflow, ModelSQL, ModelView):
                 cls.raise_user_error('cannot_delete', statement.rec_name)
         super(Statement, cls).delete(statements)
 
-    @classmethod
-    def search_reconcile(cls, statements):
-        StatementLine = Pool().get('account.bank.statement.line')
-
-        st_lines = []
-        for statement in statements:
-            for line in statement.lines:
-                st_lines.append(line)
-
-        if st_lines:
-            StatementLine.search_reconcile(st_lines)
-
-    @property
-    def is_done(self):
-        if any(l.state not in ('posted', 'canceled') for l in self.lines):
-            return False
-        return True
-
-    @classmethod
-    def update_statement_state(cls, statements):
-        to_confirm, to_done = [], []
-        for statement in statements:
-            if statement.state not in ('confirmed', 'done'):
-                continue
-            if statement.is_done and statement.state != 'done':
-                to_done.append(statement)
-            if not statement.is_done and statement.state != 'confirmed':
-                to_confirm.append(statement)
-        if to_confirm:
-            cls.confirm(to_confirm)
-        if to_done:
-            cls.done(to_done)
-
-
-def process_statements(func):
-    @wraps(func)
-    def wrapper(cls, records, *args, **kwargs):
-        pool = Pool()
-        Statement = pool.get('account.bank.statement')
-        result = func(cls, records, *args, **kwargs)
-        if not Transaction().context.get('from_statement', False):
-            Statement.update_statement_state(
-                list({l.statement for l in records}))
-        return result
-    return wrapper
+    def search_reconcile(self):
+        for line in self.lines:
+            StatementLine = Pool().get('account.bank.statement.line')
+            StatementLine.search_reconcile([line])
 
 
 class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
@@ -435,28 +381,24 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     @classmethod
     @ModelView.button
-    @process_statements
     @Workflow.transition('confirmed')
     def confirm(cls, lines):
         pass
 
     @classmethod
     @ModelView.button
-    @process_statements
     @Workflow.transition('posted')
     def post(cls, lines):
         pass
 
     @classmethod
     @ModelView.button
-    @process_statements
     @Workflow.transition('draft')
     def draft(cls, lines):
         pass
 
     @classmethod
     @ModelView.button
-    @process_statements
     @Workflow.transition('canceled')
     def cancel(cls, lines):
         Line = Pool().get('account.bank.reconciliation')

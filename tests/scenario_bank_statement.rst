@@ -141,14 +141,9 @@ Select statement move to reconcile statement line::
 
 Post line::
 
-    >>> statement.state
-    u'confirmed'
     >>> statement_line.click('post')
     >>> statement_line.state
     u'posted'
-    >>> statement.reload()
-    >>> statement.state
-    u'done'
 
 Cancel line::
 
@@ -157,28 +152,3 @@ Cancel line::
     u'canceled'
     >>> statement_line.bank_lines
     []
-    >>> statement.reload()
-    >>> statement.state
-    u'done'
-
-Reconfirming the line moves the statment to confirmed state::
-
-    >>> statement_line.click('draft')
-    >>> statement_line.click('confirm')
-    >>> statement.reload()
-    >>> statement.state
-    u'confirmed'
-
-And back to done when the line is posted::
-
-    >>> bank_line, = BankLine.find([])
-    >>> bank_line.amount = Decimal('80.0')
-    >>> bank_line.bank_statement_line = statement_line
-    >>> bank_line.save()
-    >>> bank_line.reload()
-    >>> statement_line.click('post')
-    >>> statement_line.state
-    u'posted'
-    >>> statement.reload()
-    >>> statement.state
-    u'done'

@@ -76,4 +76,4 @@ class AccountBankReconciliation(ModelView, ModelSQL):
             convert_domain(domain), active_test=active_test, tables=tables)
 
     def get_currency_digits(self, name):
-        return self.move_line.account.company.currency.digits
+        return self.account.company.currency.digits
