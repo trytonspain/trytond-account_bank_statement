@@ -6,24 +6,7 @@ from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
 
-
-__all__ = ['Journal', 'BankJournal']
-
-
-class Journal:
-    __metaclass__ = PoolMeta
-    __name__ = 'account.journal'
-
-    @classmethod
-    def __register__(cls, module_name):
-        cursor = Transaction().connection.cursor()
-        sql_table = cls.__table__()
-
-        super(Journal, cls).__register__(module_name)
-        cursor.execute(*sql_table.update(
-                columns=[sql_table.type],
-                values=[Literal('cash')],
-                where=sql_table.type == Literal('bank_statement')))
+__all__ = ['BankJournal']
 
 
 class BankJournal(ModelSQL, ModelView):
