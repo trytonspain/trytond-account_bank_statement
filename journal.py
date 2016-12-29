@@ -1,28 +1,12 @@
-#The COPYRIGHT file at the top level of this repository contains the full
-#copyright notices and license terms.
+# The COPYRIGHT file at the top level of this repository contains the full
+# copyright notices and license terms.
 from sql import Literal
 
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
 
-__metaclass__ = PoolMeta
-__all__ = ['Journal', 'BankJournal']
-
-
-class Journal:
-    __name__ = 'account.journal'
-
-    @classmethod
-    def __register__(cls, module_name):
-        cursor = Transaction().cursor
-        sql_table = cls.__table__()
-
-        super(Journal, cls).__register__(module_name)
-        cursor.execute(*sql_table.update(
-                columns=[sql_table.type],
-                values=[Literal('cash')],
-                where=sql_table.type == Literal('bank_statement')))
+__all__ = ['BankJournal']
 
 
 class BankJournal(ModelSQL, ModelView):
@@ -81,7 +65,7 @@ class BankJournal(ModelSQL, ModelView):
         Statement = Pool().get('account.bank.statement')
         actions = iter(args)
         args = []
-        for journals, values in  zip(actions, actions):
+        for journals, values in zip(actions, actions):
             if 'currency' not in values:
                 super(BankJournal, cls).write(journals, values)
                 continue
