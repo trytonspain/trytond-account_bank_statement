@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -62,6 +62,10 @@ msgstr ""
 "bancaria y pruebe otra vez."
 
 msgctxt "field:account.account,bank_reconcile:"
+msgid "Bank Conciliation"
+msgstr "Conciliación bancaria"
+
+msgctxt "field:account.account.template,bank_reconcile:"
 msgid "Bank Conciliation"
 msgstr "Conciliación bancaria"
 

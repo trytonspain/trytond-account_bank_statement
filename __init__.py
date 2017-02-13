@@ -2,24 +2,25 @@
 #copyright notices and license terms.
 
 from trytond.pool import Pool
-from .statement import *
-from .move import *
-from .reconciliation import *
-from .account import *
-from .journal import *
+from . import statement
+from . import move
+from . import reconciliation
+from . import account
+from . import journal
 
 
 def register():
     Pool.register(
-        BankJournal,
-        Statement,
-        StatementLine,
-        AccountBankReconciliation,
-        Line,
-        Move,
-        Account,
-        OpenBankReconcileLinesStart,
+        journal.BankJournal,
+        statement.Statement,
+        statement.StatementLine,
+        reconciliation.AccountBankReconciliation,
+        move.Line,
+        move.Move,
+        account.AccountTemplate,
+        account.Account,
+        move.OpenBankReconcileLinesStart,
         module='account_bank_statement', type_='model')
     Pool.register(
-        OpenBankReconcileLines,
+        move.OpenBankReconcileLines,
         module='account_bank_statement', type_='wizard')
