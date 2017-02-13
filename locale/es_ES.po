@@ -65,6 +65,10 @@ msgctxt "field:account.account,bank_reconcile:"
 msgid "Bank Conciliation"
 msgstr "Conciliación bancaria"
 
+msgctxt "field:account.account.template,bank_reconcile:"
+msgid "Bank Conciliation"
+msgstr "Conciliación bancaria"
+
 msgctxt "field:account.bank.reconciliation,amount:"
 msgid "Amount"
 msgstr "Importe"
