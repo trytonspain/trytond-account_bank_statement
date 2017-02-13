@@ -3,7 +3,7 @@
      copyright notices and license terms. -->
 <data>
     <xpath
-        expr="/form/notebook/page[@id=&quot;general&quot;]/field[@name=&quot;reconcile&quot;]"
+        expr="/form/field[@name=&quot;reconcile&quot;]"
         position="after">
         <label name="bank_reconcile"/>
         <field name="bank_reconcile"/>

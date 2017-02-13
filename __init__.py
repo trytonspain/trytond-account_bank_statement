@@ -1,12 +1,13 @@
-# The COPYRIGHT file at the top level of this repository contains the full
-# copyright notices and license terms.
+#The COPYRIGHT file at the top level of this repository contains the full
+#copyright notices and license terms.
 
 from trytond.pool import Pool
-import account
-import journal
-import move
-import statement
-import reconciliation
+from . import statement
+from . import move
+from . import reconciliation
+from . import account
+from . import journal
+
 
 def register():
     Pool.register(
@@ -16,6 +17,7 @@ def register():
         reconciliation.AccountBankReconciliation,
         move.Line,
         move.Move,
+        account.AccountTemplate,
         account.Account,
         move.OpenBankReconcileLinesStart,
         module='account_bank_statement', type_='model')
