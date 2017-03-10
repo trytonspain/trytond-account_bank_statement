@@ -339,7 +339,7 @@
             <field name="name">Unreconcile</field>
             <field name="sequence" eval="100"/>
             <field name="domain"
-                eval="[('bank_reconciled', '=', None)]"
+                eval="[('bank_reconciled', '=', False)]"
                 pyson="1"/>
             <field name="act_window" ref="act_move_line_bank_reconcile_form"/>
         </record>
@@ -349,7 +349,6 @@
             <field name="domain"></field>
             <field name="act_window" ref="act_move_line_bank_reconcile_form"/>
         </record>
-
 
         <!-- Menus -->
         <menuitem name="Bank Statements"
