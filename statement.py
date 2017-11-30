@@ -1,13 +1,13 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 import datetime
+import pytz
 from decimal import Decimal
-
 from trytond.model import Workflow, ModelView, ModelSQL, fields
 from trytond.pool import Pool
 from trytond.pyson import Eval, Not, Equal
 from trytond.transaction import Transaction
-
+from trytond import backend
 
 __all__ = ['Statement', 'StatementLine']
 
@@ -197,7 +197,11 @@ class StatementLine(Workflow, ModelSQL, ModelView):
         states=CONFIRMED_STATES, depends=CONFIRMED_DEPENDS + ['company'])
     company = fields.Many2One('company.company', 'Company', required=True,
         select=True, states=CONFIRMED_STATES)
-    date = fields.DateTime('Date', required=True, states=CONFIRMED_STATES)
+    date = fields.Function(fields.DateTime('Date'),
+        'get_date_utc', searcher='search_date_utc',
+        setter='set_date_utc')
+    date_utc = fields.DateTime('Date UTC', required=True, states=CONFIRMED_STATES)
+
     sequence = fields.Integer('Sequence')
     description = fields.Char('Description', required=True,
         states=CONFIRMED_STATES)
@@ -293,6 +297,59 @@ class StatementLine(Workflow, ModelSQL, ModelView):
                 'cannot_delete': ('Line "%s" cannot be deleted because '
                     'it is not in Draft or Cancelled state.'),
                 })
+
+    @classmethod
+    def __register__(cls, module_name):
+        TableHandler = backend.get('TableHandler')
+
+        table = TableHandler(cls, module_name)
+
+        # Migration: rename date into date_utc
+        if (table.column_exist('date')
+                and not table.column_exist('date_utc')):
+            table.column_rename('date', 'date_utc')
+
+        super(StatementLine, cls).__register__(module_name)
+
+    @classmethod
+    def get_date_utc(cls, lines, names):
+        # get date + UTC
+        result = {}
+        for name in names:
+            result[name] = dict((l.id, None) for l in lines)
+
+        for line in lines:
+            for name in names:
+                line_date = getattr(line, name + '_utc')
+                if (line_date and line.statement
+                        and line.statement.company.timezone):
+                    timezone = pytz.timezone(line.statement.company.timezone)
+                    date = timezone.localize(line_date)
+                    line_date += date.utcoffset()
+                result[name][line.id] = line_date
+        return result
+
+    @classmethod
+    def search_date_utc(cls, name, clause):
+        return [(name + '_utc',) + tuple(clause[1:])]
+
+    @classmethod
+    def set_date_utc(cls, lines, name, value):
+        # set date to UTC
+        timezone = None
+        for line in lines:
+            if (line.statement and line.statement.company
+                    and line.statement.company.timezone):
+                timezone = line.statement.company.timezone
+                break
+        if timezone and value:
+            timezone = pytz.timezone(timezone)
+            date = timezone.localize(value)
+            value -= date.utcoffset()
+
+        cls.write(lines, {
+            name + '_utc': value,
+            })
 
     def _search_bank_line_reconciliation(self):
         BankLines = Pool().get('account.bank.reconciliation')
