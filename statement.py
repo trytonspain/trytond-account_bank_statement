@@ -197,11 +197,9 @@ class StatementLine(Workflow, ModelSQL, ModelView):
         states=CONFIRMED_STATES, depends=CONFIRMED_DEPENDS + ['company'])
     company = fields.Many2One('company.company', 'Company', required=True,
         select=True, states=CONFIRMED_STATES)
-    date = fields.Function(fields.DateTime('Date'),
-        'get_date_utc', searcher='search_date_utc',
-        setter='set_date_utc')
-    date_utc = fields.DateTime('Date UTC', required=True, states=CONFIRMED_STATES)
-
+    date = fields.Function(fields.DateTime('Date', required=True), 'get_date_utc',
+        searcher='search_date_utc', setter='set_date_utc')
+    date_utc = fields.DateTime('Date UTC', states=CONFIRMED_STATES)
     sequence = fields.Integer('Sequence')
     description = fields.Char('Description', required=True,
         states=CONFIRMED_STATES)
@@ -307,6 +305,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
         # Migration: rename date into date_utc
         if (table.column_exist('date')
                 and not table.column_exist('date_utc')):
+            table.not_null_action('date', 'remove')
             table.column_rename('date', 'date_utc')
 
         super(StatementLine, cls).__register__(module_name)
