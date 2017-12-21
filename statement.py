@@ -27,8 +27,6 @@ POSTED_DEPENDS = ['state']
 class Statement(Workflow, ModelSQL, ModelView):
     'Bank Statement'
     __name__ = 'account.bank.statement'
-    _rec_name = 'date'
-
     company = fields.Many2One('company.company', 'Company', required=True,
         states=_STATES, depends=['state'], select=True)
     date = fields.DateTime('Date', required=True, states=_STATES,
@@ -122,6 +120,9 @@ class Statement(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_end_balance():
         return Decimal('0.0')
+
+    def get_rec_name(self, name):
+        return '%s' % (self.date.strftime("%Y-%m-%d"))
 
     @classmethod
     @ModelView.button
