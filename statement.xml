@@ -27,7 +27,8 @@
 
         <!-- buttons -->
         <record model="ir.model.button" id="statement_search_reconcile_button">
-            <field name="name">Search</field>
+            <field name="name">search_reconcile</field>
+            <field name="string">Search</field>
             <field name="model" search="[('model', '=', 'account.bank.statement.line')]"/>
         </record>
         <record model="ir.model.button-res.group"
