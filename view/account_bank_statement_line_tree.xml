@@ -3,7 +3,7 @@
 this repository contains the full copyright notices and license terms. -->
 <tree>
     <field name="journal"/>
-    <field name="date" widget="date"/>
+    <field name="date_utc" widget="date" string="Date"/>
     <field name="description"/>
     <field name="amount"/>
     <field name="statement_currency"/>
