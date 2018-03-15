@@ -507,7 +507,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
         ensure all moves from the same date are properly sorted.
         """
         if order is None:
-            order = []
+            order = cls._order
         order = list(order)
         if len(order) == 1:
             order.append(('sequence', order[0][1]))
