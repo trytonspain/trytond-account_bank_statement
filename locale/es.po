@@ -261,6 +261,10 @@ msgctxt "field:account.bank.statement.line,date:"
 msgid "Date"
 msgstr "Fecha"
 
+msgctxt "field:account.bank.statement.line,date_utc:"
+msgid "Date UTC"
+msgstr "Fecha UTC"
+
 msgctxt "field:account.bank.statement.line,debit_account:"
 msgid "Account"
 msgstr "Cuenta"
@@ -545,6 +549,10 @@ msgid "Confirm"
 msgstr "Confirma"
 
 msgctxt "view:account.bank.statement.line:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "view:account.bank.statement.line:"
 msgid "Draft"
 msgstr "Borrador"
 
@@ -599,10 +607,6 @@ msgstr "Debe"
 msgctxt "view:account.move.line:"
 msgid "Other Info"
 msgstr "Otra información"
-
-msgctxt "view:account.move.line:"
-msgid "Time"
-msgstr "Hora"
 
 msgctxt "view:account.move.line:"
 msgid "Unreconciled Bank Amount"
