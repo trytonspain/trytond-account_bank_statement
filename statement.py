@@ -256,6 +256,7 @@ class StatementLine(Workflow, ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(StatementLine, cls).__setup__()
+        cls._order.insert(0, ('date_utc', 'ASC'))
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'posted'),
