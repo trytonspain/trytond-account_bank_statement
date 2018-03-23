@@ -376,6 +376,10 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
         return Transaction().context.get('company')
 
     @staticmethod
+    def default_date():
+        return datetime.datetime.now()
+
+    @staticmethod
     def default_state():
         return 'draft'
 
