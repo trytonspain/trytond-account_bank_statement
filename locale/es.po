@@ -87,7 +87,7 @@ msgstr "Usuario de creación"
 
 msgctxt "field:account.bank.reconciliation,currency_digits:"
 msgid "currency digits"
-msgstr "Decimals de la moneda"
+msgstr "Decimales de la moneda"
 
 msgctxt "field:account.bank.reconciliation,id:"
 msgid "ID"
@@ -98,7 +98,7 @@ msgid "Move Line"
 msgstr "Apunte"
 
 msgctxt "field:account.bank.reconciliation,rec_name:"
-msgid "Name"
+msgid "Record Name"
 msgstr "Nombre"
 
 msgctxt "field:account.bank.reconciliation,write_date:"
@@ -123,7 +123,7 @@ msgstr "Usuario de creación"
 
 msgctxt "field:account.bank.statement,currency_digits:"
 msgid "Currency Digits"
-msgstr "Decimals de la moneda"
+msgstr "Decimales de la moneda"
 
 msgctxt "field:account.bank.statement,date:"
 msgid "Date"
@@ -150,7 +150,7 @@ msgid "Lines"
 msgstr "Líneas"
 
 msgctxt "field:account.bank.statement,rec_name:"
-msgid "Name"
+msgid "Record Name"
 msgstr "Nombre"
 
 msgctxt "field:account.bank.statement,start_balance:"
@@ -202,7 +202,7 @@ msgid "Name"
 msgstr "Nombre"
 
 msgctxt "field:account.bank.statement.journal,rec_name:"
-msgid "Name"
+msgid "Record Name"
 msgstr "Nombre"
 
 msgctxt "field:account.bank.statement.journal,write_date:"
@@ -255,7 +255,7 @@ msgstr "Cuenta"
 
 msgctxt "field:account.bank.statement.line,currency_digits:"
 msgid "currency digits"
-msgstr "Decimals de la moneda"
+msgstr "Decimales de la moneda"
 
 msgctxt "field:account.bank.statement.line,date:"
 msgid "Date"
@@ -290,7 +290,7 @@ msgid "Notes"
 msgstr "Notas"
 
 msgctxt "field:account.bank.statement.line,rec_name:"
-msgid "Name"
+msgid "Record Name"
 msgstr "Nombre"
 
 msgctxt "field:account.bank.statement.line,reconciled:"
@@ -464,6 +464,10 @@ msgctxt ""
 msgid "Unreconcile"
 msgstr "Sin conciliar"
 
+msgctxt "model:ir.model.button,string:statement_search_reconcile_button"
+msgid "Search"
+msgstr "Buscar"
+
 msgctxt "model:ir.ui.menu,name:menu_account_bank_statement"
 msgid "Bank Statements"
 msgstr "Extractos bancarios"
@@ -537,10 +541,6 @@ msgid "Statement Journals"
 msgstr "Diario del extracto"
 
 msgctxt "view:account.bank.statement.line:"
-msgid "Bank Statement Line"
-msgstr "Línea de extracto bancario"
-
-msgctxt "view:account.bank.statement.line:"
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -560,14 +560,6 @@ msgctxt "view:account.bank.statement.line:"
 msgid "Post"
 msgstr "Contabilizar"
 
-msgctxt "view:account.bank.statement.line:"
-msgid "Search"
-msgstr "Buscar"
-
-msgctxt "view:account.bank.statement:"
-msgid "Bank Statement"
-msgstr "Extracto bancario"
-
 msgctxt "view:account.bank.statement:"
 msgid "Cancel"
 msgstr "Cancelar"
@@ -583,14 +575,6 @@ msgstr "Borrador"
 msgctxt "view:account.bank.statement:"
 msgid "Time"
 msgstr "Hora"
-
-msgctxt "view:account.move.line:"
-msgid "Account Move Line"
-msgstr "Apunte contable"
-
-msgctxt "view:account.move.line:"
-msgid "Account Move Lines"
-msgstr "Apuntes contables"
 
 msgctxt "view:account.move.line:"
 msgid "Bank Amount"
