@@ -14,6 +14,7 @@ def register():
         journal.BankJournal,
         statement.Statement,
         statement.StatementLine,
+        statement.ImportStart,
         reconciliation.AccountBankReconciliation,
         move.Line,
         move.Move,
@@ -22,5 +23,6 @@ def register():
         move.OpenBankReconcileLinesStart,
         module='account_bank_statement', type_='model')
     Pool.register(
+        statement.Import,
         move.OpenBankReconcileLines,
         module='account_bank_statement', type_='wizard')
