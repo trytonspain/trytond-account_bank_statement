@@ -10,6 +10,34 @@ msgstr ""
 "La línia de concialiació bancària amb import \"%(amount)s\" en la línia de "
 "l'extracte \"%(statement_line)s\" no pot ser eliminada."
 
+msgctxt "error:account.bank.statement.import:"
+msgid "Invalid string for date: %s"
+msgstr "Text de data incorrecte: %s"
+
+msgctxt "error:account.bank.statement.import:"
+msgid "Invalid string for number: %s"
+msgstr "Text numèric incorrecte: %s"
+
+msgctxt "error:account.bank.statement.import:"
+msgid "Missing columns in line: %s"
+msgstr "Falten columnes a la línia: %s"
+
+msgctxt "error:account.bank.statement.import:"
+msgid ""
+"The supplied file does not have the expected format.\n"
+"This is the technical error returned by parser:\n"
+"  %s"
+msgstr ""
+"El fitxer subministrat no té el format esperat.\n"
+"Aquest és l'error tècnic que ha retornat l'analitzador:\n"
+"  %s"
+
+msgctxt "error:account.bank.statement.import:"
+msgid ""
+"You cannot import a bank statement file in a bank statement with lines."
+msgstr ""
+"No podeu importar un fitxer d'extracte bancari en un extracte amb línies."
+
 msgctxt "error:account.bank.statement.journal:"
 msgid ""
 "The Default Credit or Debit accounts of Journal \"%(journal)s\", related to "
@@ -98,7 +126,7 @@ msgstr "Apunt"
 
 msgctxt "field:account.bank.reconciliation,rec_name:"
 msgid "Record Name"
-msgstr "Nom"
+msgstr "Nom del registre"
 
 msgctxt "field:account.bank.reconciliation,write_date:"
 msgid "Write Date"
@@ -150,7 +178,7 @@ msgstr "Línies"
 
 msgctxt "field:account.bank.statement,rec_name:"
 msgid "Record Name"
-msgstr "Nom"
+msgstr "Nom del registre"
 
 msgctxt "field:account.bank.statement,start_balance:"
 msgid "Start Balance"
@@ -171,6 +199,26 @@ msgstr "Data de modificació"
 msgctxt "field:account.bank.statement,write_uid:"
 msgid "Write User"
 msgstr "Usuari de modificació"
+
+msgctxt "field:account.bank.statement.import.start,attachment:"
+msgid "Attach file after import"
+msgstr "Adjunta fitxer després de la importació"
+
+msgctxt "field:account.bank.statement.import.start,confirm:"
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgctxt "field:account.bank.statement.import.start,id:"
+msgid "ID"
+msgstr "Identificador"
+
+msgctxt "field:account.bank.statement.import.start,import_file:"
+msgid "File"
+msgstr "Fitxer"
+
+msgctxt "field:account.bank.statement.import.start,type:"
+msgid "Type"
+msgstr "Tipus"
 
 msgctxt "field:account.bank.statement.journal,company:"
 msgid "Company"
@@ -202,7 +250,7 @@ msgstr "Nom"
 
 msgctxt "field:account.bank.statement.journal,rec_name:"
 msgid "Record Name"
-msgstr "Nom"
+msgstr "Nom del registre"
 
 msgctxt "field:account.bank.statement.journal,write_date:"
 msgid "Write Date"
@@ -290,7 +338,7 @@ msgstr "Notes"
 
 msgctxt "field:account.bank.statement.line,rec_name:"
 msgid "Record Name"
-msgstr "Nom"
+msgstr "Nom del registre"
 
 msgctxt "field:account.bank.statement.line,reconciled:"
 msgid "Reconciled"
@@ -356,6 +404,10 @@ msgctxt "help:account.bank.statement,start_date:"
 msgid "Start date bank statement"
 msgstr "Data inicial de l'extracte bancari."
 
+msgctxt "help:account.bank.statement.import.start,confirm:"
+msgid "Confirm Bank Statement after import."
+msgstr "Confirma l'extracte bancari després d'importar."
+
 msgctxt "model:account.bank.reconciliation,name:"
 msgid "Account Bank Reconciliation"
 msgstr "Conciliació bancària"
@@ -363,6 +415,10 @@ msgstr "Conciliació bancària"
 msgctxt "model:account.bank.statement,name:"
 msgid "Bank Statement"
 msgstr "Extracte bancari"
+
+msgctxt "model:account.bank.statement.import.start,name:"
+msgid "Import Start"
+msgstr "Inici importació"
 
 msgctxt "model:account.bank.statement.journal,name:"
 msgid "Bank Statement Journal"
@@ -407,6 +463,10 @@ msgstr "Línia d'extracte bancari"
 msgctxt "model:ir.action,name:act_open_reconcile_bank_lines"
 msgid "Open Bank Reconcile Lines"
 msgstr "Obre línies de conciliació bancària"
+
+msgctxt "model:ir.action,name:wizard_import"
+msgid "Import File"
+msgstr "Importa fitxer"
 
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_account_bank_statement_domain_all"
@@ -511,6 +571,10 @@ msgctxt "selection:account.bank.statement,state:"
 msgid "Draft"
 msgstr "Esborrany"
 
+msgctxt "selection:account.bank.statement.import.start,type:"
+msgid "CSV (date, description, amount)"
+msgstr "CSV (data, descripció, import)"
+
 msgctxt "selection:account.bank.statement.line,state:"
 msgid "Canceled"
 msgstr "Cancel·lat"
@@ -540,6 +604,10 @@ msgid "Statement Journals"
 msgstr "Diaris de l'extracte"
 
 msgctxt "view:account.bank.statement.line:"
+msgid "Bank Statement Line"
+msgstr "Línia d'extracte bancari"
+
+msgctxt "view:account.bank.statement.line:"
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -559,6 +627,14 @@ msgctxt "view:account.bank.statement.line:"
 msgid "Post"
 msgstr "Comptabilitzar"
 
+msgctxt "view:account.bank.statement.line:"
+msgid "Search"
+msgstr "Cerca"
+
+msgctxt "view:account.bank.statement:"
+msgid "Bank Statement"
+msgstr "Extracte bancari"
+
 msgctxt "view:account.bank.statement:"
 msgid "Cancel"
 msgstr "Cancel·la"
@@ -574,6 +650,14 @@ msgstr "Esborrany"
 msgctxt "view:account.bank.statement:"
 msgid "Time"
 msgstr "Hora"
+
+msgctxt "view:account.move.line:"
+msgid "Account Move Line"
+msgstr "Apunt comptable"
+
+msgctxt "view:account.move.line:"
+msgid "Account Move Lines"
+msgstr "Apunts comptables"
 
 msgctxt "view:account.move.line:"
 msgid "Bank Amount"
@@ -598,6 +682,14 @@ msgstr "Desconciliació bancària"
 msgctxt "view:account.move.open_bank_reconcile_lines.start:"
 msgid "Open Bank Reconcile Lines"
 msgstr "Obre línies de conciliació bancària"
+
+msgctxt "wizard_button:account.bank.statement.import,start,end:"
+msgid "Cancel"
+msgstr "Cancel·lat"
+
+msgctxt "wizard_button:account.bank.statement.import,start,import_file:"
+msgid "Import File"
+msgstr "Importa fitxer"
 
 msgctxt "wizard_button:account.move.open_bank_reconcile_lines,start,end:"
 msgid "Cancel"

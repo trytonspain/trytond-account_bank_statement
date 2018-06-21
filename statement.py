@@ -1,10 +1,13 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-import datetime
+from datetime import datetime
 import pytz
+import csv
+from StringIO import StringIO
 from decimal import Decimal
 from trytond.model import Workflow, ModelView, ModelSQL, fields, \
     sequence_ordered
+from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pool import Pool
 from trytond.pyson import Eval, Not, Equal
 from trytond.transaction import Transaction
@@ -97,7 +100,7 @@ class Statement(Workflow, ModelSQL, ModelView):
 
     @staticmethod
     def default_date():
-        return datetime.datetime.now()
+        return datetime.now()
 
     @staticmethod
     def default_start_date():
@@ -377,7 +380,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     @staticmethod
     def default_date():
-        return datetime.datetime.now()
+        return datetime.now()
 
     @staticmethod
     def default_state():
@@ -532,3 +535,116 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
             if line.state not in ('draft', 'canceled'):
                 cls.raise_user_error('cannot_delete', line.rec_name)
         super(StatementLine, cls).delete(lines)
+
+
+class ImportStart(ModelView):
+    'Import Start'
+    __name__ = 'account.bank.statement.import.start'
+    import_file = fields.Binary('File', required=True)
+    type = fields.Selection([
+            ('csv', 'CSV (date, description, amount)'),
+            ], 'Type', required=True)
+    attachment = fields.Boolean('Attach file after import')
+    confirm = fields.Boolean('Confirm',
+        help='Confirm Bank Statement after import.')
+
+    @classmethod
+    def default_attachment(cls):
+        return True
+
+    @classmethod
+    def default_confirm(cls):
+        return True
+
+
+class Import(Wizard):
+    'Import'
+    __name__ = 'account.bank.statement.import'
+    start = StateView('account.bank.statement.import.start',
+        'account_bank_statement.import_start_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Import File', 'import_file', 'tryton-ok', default=True),
+            ])
+    import_file = StateTransition()
+
+    @classmethod
+    def __setup__(cls):
+        super(Import, cls).__setup__()
+        cls._error_messages.update({
+                'statement_already_has_lines': (
+                    'You cannot import a bank statement file in a bank '
+                    'statement with lines.'),
+                'format_error': (
+                    "The supplied file does not have the expected format.\n"
+                    "This is the technical error returned by parser:\n  %s"),
+                'invalid_date': 'Invalid string for date: %s',
+                'invalid_number': 'Invalid string for number: %s',
+                'missing_columns': 'Missing columns in line: %s',
+                })
+
+    def transition_import_file(self):
+        pool = Pool()
+        BankStatement = pool.get('account.bank.statement')
+        Attachment = pool.get('ir.attachment')
+
+        statement = BankStatement(Transaction().context['active_id'])
+        if statement.lines:
+            self.raise_user_error('statement_already_has_lines')
+
+        self.process(statement)
+
+        if self.start.confirm:
+            BankStatement.confirm([statement])
+            BankStatement.search_reconcile([statement])
+
+        if self.start.attachment:
+            attach = Attachment(
+                name=datetime.now().strftime("%y/%m/%d %H:%M:%S"),
+                type='data',
+                data=self.start.import_file,
+                resource=str(statement))
+            attach.save()
+        return 'end'
+
+    def process(self, statement):
+        if self.start.type != 'csv':
+            return
+        BankStatementLine = Pool().get('account.bank.statement.line')
+
+        csv_file = StringIO(self.start.import_file)
+        try:
+            reader = csv.reader(csv_file)
+        except csv.Error, e:
+            self.raise_user_error('format_error', str(e))
+
+        count = 0
+        lines = []
+        for record in reader:
+            count += 1
+            if len(record) < 3:
+                self.raise_user_error('missing_columns', str(count))
+            line = BankStatementLine()
+            line.statement = statement
+            line.date = self.string_to_date(record[0])
+            line.description = record[1] or ''
+            line.amount = self.string_to_number(record[2])
+            lines.append(line)
+        BankStatementLine.save(lines)
+
+    def string_to_date(self, text, patterns=('%d/%m/%Y', '%Y-%m-%d')):
+        for pattern in patterns:
+            try:
+                return datetime.strptime(text, pattern)
+            except ValueError:
+                continue
+        self.raise_user_error('invalid_date', text)
+
+    def string_to_number(self, text, decimal_separator='.',
+            thousands_separator=','):
+        text = text.replace(thousands_separator,'')
+        if decimal_separator != '.':
+            text = text.replace(decimal_separator, '.')
+        try:
+            return Decimal(text)
+        except ValueError:
+            self.raise_user_error('invalid_number', text)
