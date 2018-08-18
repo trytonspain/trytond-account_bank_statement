@@ -56,7 +56,7 @@ class AccountBankReconciliation(ModelView, ModelSQL):
         def is_leaf(expression):
             return (isinstance(expression, (list, tuple))
                 and len(expression) > 2
-                and isinstance(expression[1], basestring)
+                and isinstance(expression[1], str)
                 and expression[1] in OPERATORS)  # TODO remove OPERATORS test
 
         def convert_domain(domain):

@@ -3,7 +3,7 @@
 from datetime import datetime
 import pytz
 import csv
-from StringIO import StringIO
+from io import StringIO
 from decimal import Decimal
 from trytond.model import Workflow, ModelView, ModelSQL, fields, \
     sequence_ordered
@@ -611,10 +611,10 @@ class Import(Wizard):
             return
         BankStatementLine = Pool().get('account.bank.statement.line')
 
-        csv_file = StringIO(self.start.import_file)
+        csv_file = StringIO(self.start.import_file.decode('utf-8'))
         try:
             reader = csv.reader(csv_file)
-        except csv.Error, e:
+        except csv.Error as e:
             self.raise_user_error('format_error', str(e))
 
         count = 0

@@ -99,7 +99,7 @@ Create Bank Move::
     >>> line2.party = party
     >>> move.click('post')
     >>> move.state
-    u'posted'
+    'posted'
 
 Create Bank Statement With Different Curreny::
 
@@ -117,10 +117,10 @@ Create Bank Statement Lines::
     >>> statement_line.party = party
     >>> statement.click('confirm')
     >>> statement.state
-    u'confirmed'
+    'confirmed'
     >>> statement_line = StatementLine(1)
     >>> statement_line.state
-    u'confirmed'
+    'confirmed'
 
 Select statement move to reconcile statement line::
 
@@ -142,12 +142,12 @@ Post line::
 
     >>> statement_line.click('post')
     >>> statement_line.state
-    u'posted'
+    'posted'
 
 Cancel line::
 
     >>> statement_line.click('cancel')
     >>> statement_line.state
-    u'canceled'
+    'canceled'
     >>> statement_line.bank_lines
     []

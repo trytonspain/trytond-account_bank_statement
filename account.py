@@ -6,8 +6,7 @@ from trytond.pool import PoolMeta
 __all__ = ['AccountTemplate', 'Account']
 
 
-class AccountTemplate:
-    __metaclass__ = PoolMeta
+class AccountTemplate(metaclass=PoolMeta):
     __name__ = 'account.account.template'
 
     bank_reconcile = fields.Boolean('Bank Conciliation')
@@ -23,8 +22,7 @@ class AccountTemplate:
         return res
 
 
-class Account:
-    __metaclass__ = PoolMeta
+class Account(metaclass=PoolMeta):
     __name__ = 'account.account'
 
     bank_reconcile = fields.Boolean('Bank Conciliation')

@@ -84,7 +84,7 @@ Import CSB43 file::
 
     >>> csv_file = os.path.join(os.path.dirname(__file__), 'file.csv')
     >>> wizard = Wizard('account.bank.statement.import', [statement])
-    >>> wizard.form.import_file = open(csv_file).read()
+    >>> wizard.form.import_file = open(csv_file, 'rb').read()
     >>> wizard.form.type = 'csv'
     >>> wizard.form.confirm = True
     >>> wizard.execute('import_file')

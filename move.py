@@ -16,8 +16,7 @@ __all__ = ['Line', 'Move', 'OpenBankReconcileLines',
 _ZERO = Decimal('0.00')
 
 
-class Move:
-    __metaclass__ = PoolMeta
+class Move(metaclass=PoolMeta):
     __name__ = 'account.move'
 
     @classmethod
@@ -37,8 +36,7 @@ class Move:
         return res
 
 
-class Line:
-    __metaclass__ = PoolMeta
+class Line(metaclass=PoolMeta):
     __name__ = 'account.move.line'
 
     bank_lines = fields.One2Many('account.bank.reconciliation', 'move_line',
