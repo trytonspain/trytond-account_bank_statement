@@ -13,7 +13,7 @@ from trytond.pyson import Eval, Not, Equal
 from trytond.transaction import Transaction
 from trytond import backend
 
-__all__ = ['Statement', 'StatementLine']
+__all__ = ['Statement', 'StatementLine', 'ImportStart', 'Import']
 
 _STATES = {'readonly': Eval('state') != 'draft'}
 _DEPENDS = ['state']
