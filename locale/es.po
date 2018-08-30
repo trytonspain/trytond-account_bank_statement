@@ -686,7 +686,7 @@ msgstr "Abrir líneas de extracto bancario"
 
 msgctxt "wizard_button:account.bank.statement.import,start,end:"
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancelar"
 
 msgctxt "wizard_button:account.bank.statement.import,start,import_file:"
 msgid "Import File"
