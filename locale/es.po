@@ -211,7 +211,7 @@ msgstr "Confirmar"
 
 msgctxt "field:account.bank.statement.import.start,id:"
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID"
 
 msgctxt "field:account.bank.statement.import.start,import_file:"
 msgid "File"
