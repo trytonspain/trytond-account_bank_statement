@@ -213,17 +213,14 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
             ], 'State', required=True, readonly=True)
     bank_lines = fields.One2Many('account.bank.reconciliation',
         'bank_statement_line', 'Bank Lines', domain=[
-            ('account', 'in', (Eval('debit_account'), Eval('credit_account'))),
+            ('account', '=', Eval('account')),
             ('move_line.move.company', '=', Eval('company')),
             ('bank_statement_line', 'in', (None, Eval('id'))),
             ],
         states=POSTED_STATES,
-        depends=POSTED_DEPENDS + ['company', 'id', 'debit_account',
-                'credit_account'])
-    credit_account = fields.Function(fields.Many2One('account.account',
-            'Account'), 'get_accounts')
-    debit_account = fields.Function(fields.Many2One('account.account',
-            'Account'), 'get_accounts')
+        depends=POSTED_DEPENDS + ['company', 'id', 'account'])
+    account = fields.Function(fields.Many2One('account.account',
+            'Account'), 'get_account')
     reconciled = fields.Function(fields.Boolean('Reconciled'),
         'get_accounting_vals')
     moves_amount = fields.Function(fields.Numeric('Moves Amount',
@@ -350,14 +347,9 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     def _search_bank_line_reconciliation(self):
         BankLines = Pool().get('account.bank.reconciliation')
-        accounts = []
-        if self.debit_account:
-            accounts.append(self.debit_account.id)
-        if self.credit_account:
-            accounts.append(self.credit_account.id)
         lines = BankLines.search([
                 ('amount', '=', self.company_amount),
-                ('account', 'in', accounts),
+                ('account', '=', self.account.id),
                 ('bank_statement_line', '=', None),
                 ])
         if len(lines) == 1:
@@ -406,18 +398,9 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
     def get_company_currency(self, name):
         return self.statement.company.currency.id
 
-    @classmethod
-    def get_accounts(cls, lines, names):
-        res = {}
-        for name in names:
-            res[name] = {}
-
-        for line in lines:
-            journal = line.statement.journal.journal
-            for name in names:
-                account = getattr(journal, name)
-                res[name][line.id] = account and account.id
-        return res
+    def get_account(self, name):
+        account = self.statement.journal.account
+        return account and account.id
 
     @classmethod
     def get_accounting_vals(cls, lines, names):

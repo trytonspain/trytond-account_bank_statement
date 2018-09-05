@@ -1,10 +1,9 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-from sql import Literal
-
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pool import Pool, PoolMeta
+from trytond.pool import Pool
 from trytond.transaction import Transaction
+from trytond.pyson import Eval
 
 __all__ = ['BankJournal']
 
@@ -20,6 +19,12 @@ class BankJournal(ModelSQL, ModelView):
     currency = fields.Many2One('currency.currency', 'Currency', required=True)
     company = fields.Many2One('company.company', 'Company', required=True,
             select=True)
+    account = fields.Many2One('account.account', "Account", required=True,
+        domain=[
+            ('kind', '!=', 'view'),
+            ('company', '=', Eval('company')),
+            ],
+        depends=['company'])
 
     @classmethod
     def __setup__(cls):
@@ -27,11 +32,9 @@ class BankJournal(ModelSQL, ModelView):
         cls._error_messages.update({
                 'currency_modify': ('You cannot modify the currency to '
                     'journal that already has a statement on date %s'),
-                'journal_accounts_not_banc_reconcile': (
-                    'The Default Credit or Debit accounts of Journal '
-                    '"%(journal)s", related to Bank Journal '
-                    '"%(bank_journal)s", are not configured as '
-                    '"Bank conciliation".'),
+                'journal_accounts_not_bank_reconcile': (
+                    'The Account of Bank Journal "%(bank_journal)s", is not '
+                    'configured as "Bank conciliation".'),
                 })
 
     @staticmethod
@@ -53,12 +56,10 @@ class BankJournal(ModelSQL, ModelView):
     @classmethod
     def check_journal_accounts(cls, journals):
         for journal in journals:
-            if (not journal.journal.credit_account or
-                not journal.journal.credit_account.bank_reconcile or
-                    not journal.journal.debit_account or
-                    not journal.journal.debit_account.bank_reconcile):
-                cls.raise_user_error('journal_accounts_not_banc_reconcile', {
-                        'journal': journal.journal.rec_name,
+            if (not journal.account or
+                    not journal.account.bank_reconcile):
+                cls.raise_user_error('journal_accounts_not_bank_reconcile', {
+                        'journal': journal.rec_name,
                         'bank_journal': journal.rec_name,
                         })
 
