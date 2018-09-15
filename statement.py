@@ -9,7 +9,7 @@ from trytond.model import Workflow, ModelView, ModelSQL, fields, \
     sequence_ordered
 from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pool import Pool
-from trytond.pyson import Eval, Not, Equal
+from trytond.pyson import Eval, Not, Equal, If
 from trytond.transaction import Transaction
 from trytond import backend
 
@@ -74,15 +74,17 @@ class Statement(Workflow, ModelSQL, ModelView):
         cls._buttons.update({
                 'confirm': {
                     'invisible': ~Eval('state').in_(['draft']),
-                    'icon': 'tryton-go-next',
+                    'icon': 'tryton-forward',
                     },
                 'draft': {
                     'invisible': ~Eval('state').in_(['canceled']),
-                    'icon': 'tryton-clear',
+                    'icon': If(Eval('state') == 'canceled',
+                        'tryton-undo',
+                        'tryton-back'),
+                    'depends': ['state'],
                     },
                 'cancel': {
                     'invisible': Eval('state').in_(['canceled']),
-                    'icon': 'tryton-cancel',
                     },
                 })
         cls._error_messages.update({
@@ -262,7 +264,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
         cls._buttons.update({
                 'confirm': {
                     'invisible': ~Eval('state').in_(['draft']),
-                    'icon': 'tryton-go-next',
+                    'icon': 'tryton-forward',
                     },
                 'post': {
                     'invisible': Eval('state').in_([
@@ -271,15 +273,17 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
                     },
                 'cancel': {
                     'invisible': Eval('state').in_(['canceled']),
-                    'icon': 'tryton-cancel',
                     },
                 'draft': {
                     'invisible': ~Eval('state').in_(['canceled']),
-                    'icon': 'tryton-clear',
+                    'icon': If(Eval('state') == 'canceled',
+                        'tryton-undo',
+                        'tryton-back'),
+                    'depends': ['state'],
                     },
                 'search_reconcile': {
                     'invisible': ~Eval('state').in_(['confirmed']),
-                    'icon': 'tryton-find',
+                    'icon': 'tryton-launch',
                     },
                 })
         cls._error_messages.update({
