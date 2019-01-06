@@ -4,6 +4,8 @@ from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool
 from trytond.transaction import Transaction
 from trytond.pyson import Eval
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = ['BankJournal']
 
@@ -29,13 +31,6 @@ class BankJournal(ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(BankJournal, cls).__setup__()
-        cls._error_messages.update({
-                'currency_modify': ('You cannot modify the currency to '
-                    'journal that already has a statement on date %s'),
-                'journal_accounts_not_bank_reconcile': (
-                    'The Account of Bank Journal "%(bank_journal)s", is not '
-                    'configured as "Bank conciliation".'),
-                })
 
     @staticmethod
     def default_currency():
@@ -58,10 +53,10 @@ class BankJournal(ModelSQL, ModelView):
         for journal in journals:
             if (not journal.account or
                     not journal.account.bank_reconcile):
-                cls.raise_user_error('journal_accounts_not_bank_reconcile', {
-                        'journal': journal.rec_name,
-                        'bank_journal': journal.rec_name,
-                        })
+                raise UserError(gettext(
+                    'account_bank_statement.journal_accounts_not_bank_reconcile',
+                        journal=journal.rec_name,
+                        bank_journal=journal.rec_name))
 
     @classmethod
     def write(cls, journals, values, *args):
@@ -79,7 +74,9 @@ class BankJournal(ModelSQL, ModelView):
                 if not statements:
                     continue
                 statement, = statements
-                cls.raise_user_error('currency_modify', statement.date)
+                raise UserError(gettext(
+                    'account_bank_statement.currency_modify',
+                        date=statement.date))
             args.extend((journals, values))
 
         super(BankJournal, cls).write(journals, values, *args)

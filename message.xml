@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data group="1">
+      <record model="ir.message" id="delete_reconciled">
+          <field name="text">Bank Reconciliation Line with amount "%(amount)s" in statement_line "%(statement_line)s" cannot be deleted'</field>
+      </record>
+      <record model="ir.message" id="cannot_delete_statement">
+          <field name="text">Statement "%(statement)s" cannot be deleted because it contains lines.</field>
+      </record>
+      <record model="ir.message" id="different_amounts">
+          <field name="text">Moves Amount "%(moves_amount)s" does not match Amount "%(amount)s" in line "%(line)s".</field>
+      </record>
+      <record model="ir.message" id="cannot_cancel_statement_line">
+          <field name="text">Line "%(line)s" cannot be cancelled.</field>
+      </record>
+      <record model="ir.message" id="cannot_delete_statement_line">
+          <field name="text">Line "%(line)s" cannot be deleted because it is not in Draft or Cancelled state.</field>
+      </record>
+      <record model="ir.message" id="statement_already_has_lines">
+          <field name="text">You cannot import a bank statement file in a bank  statement with lines.</field>
+      </record>
+      <record model="ir.message" id="format_error">
+          <field name="text">The supplied file does not have the expected format.\n This is the technical error returned by parser:\n  %(error)s.</field>
+      </record>
+      <record model="ir.message" id="invalid_date">
+          <field name="text">Invalid string for date: %(date)s</field>
+      </record>
+      <record model="ir.message" id="invalid_number">
+          <field name="text">Invalid string for number: %(number)s</field>
+      </record>
+      <record model="ir.message" id="missing_columns">
+          <field name="text">Missing columns in line: %(columns)s</field>
+      </record>
+      <record model="ir.message" id="currency_modify">
+          <field name="text">You cannot modify the currency to journal that already has a statement on date %(date)s</field>
+      </record>
+        <record model="ir.message" id="modifiy_with_related_model">
+            <field name="text">It is not possible to modify the field "%(field)s" as the payment type "%(type)s" is used on %(model)s "%(name)s"</field>
+        </record>
+        <record model="ir.message" id="invalid_account_payment_type">
+            <field name="text">Can not set Payment Type in move line "%(payment)s" because account is not Payable nor Receivable.</field>
+        </record>
+        <record model="ir.message" id="journal_accounts_not_bank_reconcile">
+            <field name="text">The Account of Bank Journal "%(bank_journal)s", is not configured as "Bank conciliation".</field>
+        </record>
+      <record model="ir.message" id="line_reconciled">
+          <field name="text">Line "%(line)s" already reconciled with bank statement line "%(statment_line)s" with amount "%(amount)s". Please remove bank conciliation and try again.</field>
+      </record>
+      </data>
+</tryton>

@@ -4,6 +4,8 @@ from trytond.const import OPERATORS
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = ['AccountBankReconciliation']
 
@@ -24,11 +26,6 @@ class AccountBankReconciliation(ModelView, ModelSQL):
     @classmethod
     def __setup__(cls):
         super(AccountBankReconciliation, cls).__setup__()
-        cls._error_messages.update({
-                'delete_reconciled': ('Bank Reconciliation Line with amount '
-                    '"%(amount)s" in statement_line "%(statement_line)s" '
-                    'cannot be deleted')
-                })
 
     @classmethod
     def write(cls, *args):
@@ -45,10 +42,11 @@ class AccountBankReconciliation(ModelView, ModelSQL):
             unallowed = [x for x in lines if x.bank_statement_line]
             if unallowed:
                 line = unallowed[0]
-                line.raise_user_error('delete_reconciled', {
-                    'amount': line.amount,
-                    'statement_line': line.bank_statement_line.rec_name
-                    })
+                raise UserError(gettext(
+                    'account_bank_statement.delete_reconciled',
+                        amount=line.amount,
+                        statement_line=line.bank_statement_line.rec_name ))
+
         super(AccountBankReconciliation, cls).delete(lines)
 
     @classmethod

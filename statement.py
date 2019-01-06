@@ -12,6 +12,8 @@ from trytond.pool import Pool
 from trytond.pyson import Eval, Not, Equal, If
 from trytond.transaction import Transaction
 from trytond import backend
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = ['Statement', 'StatementLine', 'ImportStart', 'Import']
 
@@ -87,10 +89,6 @@ class Statement(Workflow, ModelSQL, ModelView):
                     'invisible': Eval('state').in_(['canceled']),
                     },
                 })
-        cls._error_messages.update({
-                'cannot_delete': ('Statement "%s" cannot be deleted because '
-                    'it contains lines.'),
-                })
 
     @staticmethod
     def default_company():
@@ -148,10 +146,10 @@ class Statement(Workflow, ModelSQL, ModelView):
         for statement in statements:
             for line in statement.lines:
                 if line.state not in ('draft', 'canceled'):
-                    line.raise_user_error('cannot_cancel_statement_line', {
-                        'line': line.rec_name,
-                        'state': line.state,
-                    })
+                    raise UserError(gettext(
+                        'account_bank_statement.cannot_cancel_statement_line',
+                            line=line.rec_name,
+                            state=line.state))
             lines += statement.lines
         StatementLine.cancel(lines)
 
@@ -169,7 +167,8 @@ class Statement(Workflow, ModelSQL, ModelView):
     def delete(cls, statements):
         for statement in statements:
             if statement.lines:
-                cls.raise_user_error('cannot_delete', statement.rec_name)
+                raise UserError(gettext('account_bank_statement.cannot_delete',
+                    statement=statement.rec_name))
         super(Statement, cls).delete(statements)
 
     @classmethod
@@ -285,14 +284,6 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
                     'invisible': ~Eval('state').in_(['confirmed']),
                     'icon': 'tryton-launch',
                     },
-                })
-        cls._error_messages.update({
-                'different_amounts': ('Moves Amount "%(moves_amount)s" does '
-                    'not match Amount "%(amount)s" in line "%(line)s".'),
-                'cannot_cancel_statement_line': ('Line "%(line)s" cannot be '
-                    'cancelled.'),
-                'cannot_delete': ('Line "%s" cannot be deleted because '
-                    'it is not in Draft or Cancelled state.'),
                 })
 
     @classmethod
@@ -520,7 +511,9 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
     def delete(cls, lines):
         for line in lines:
             if line.state not in ('draft', 'canceled'):
-                cls.raise_user_error('cannot_delete', line.rec_name)
+                raise UserError(gettext(
+                    'account_bank_statement.cannot_delete_statement_line',
+                        line=line.rec_name))
         super(StatementLine, cls).delete(lines)
 
 
@@ -554,21 +547,6 @@ class Import(Wizard):
             ])
     import_file = StateTransition()
 
-    @classmethod
-    def __setup__(cls):
-        super(Import, cls).__setup__()
-        cls._error_messages.update({
-                'statement_already_has_lines': (
-                    'You cannot import a bank statement file in a bank '
-                    'statement with lines.'),
-                'format_error': (
-                    "The supplied file does not have the expected format.\n"
-                    "This is the technical error returned by parser:\n  %s"),
-                'invalid_date': 'Invalid string for date: %s',
-                'invalid_number': 'Invalid string for number: %s',
-                'missing_columns': 'Missing columns in line: %s',
-                })
-
     def transition_import_file(self):
         pool = Pool()
         BankStatement = pool.get('account.bank.statement')
@@ -576,7 +554,7 @@ class Import(Wizard):
 
         statement = BankStatement(Transaction().context['active_id'])
         if statement.lines:
-            self.raise_user_error('statement_already_has_lines')
+            raise UserError(gettext('account_bank_statement_already_has_lines'))
 
         self.process(statement)
 
@@ -602,14 +580,17 @@ class Import(Wizard):
         try:
             reader = csv.reader(csv_file)
         except csv.Error as e:
-            self.raise_user_error('format_error', str(e))
+            raise UserError(gettext('account_bank_statement.format_error',
+                error=str(e)))
 
         count = 0
         lines = []
         for record in reader:
             count += 1
             if len(record) < 3:
-                self.raise_user_error('missing_columns', str(count))
+                raise UserError(gettext(
+                    'account_bank_statement.missing_columns',
+                    columns=str(count)))
             line = BankStatementLine()
             line.statement = statement
             line.date = self.string_to_date(record[0])
@@ -624,7 +605,8 @@ class Import(Wizard):
                 return datetime.strptime(text, pattern)
             except ValueError:
                 continue
-        self.raise_user_error('invalid_date', text)
+        raise UserError(gettext('account_bank_statement.invalid_date',
+            date=text))
 
     def string_to_number(self, text, decimal_separator='.',
             thousands_separator=','):
@@ -634,4 +616,5 @@ class Import(Wizard):
         try:
             return Decimal(text)
         except ValueError:
-            self.raise_user_error('invalid_number', text)
+            raise UserError(gettext('account_bank_statement.invalid_number',
+                number=text))

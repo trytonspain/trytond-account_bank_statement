@@ -9,6 +9,9 @@ from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, PYSONEncoder
 from trytond.wizard import Wizard, StateView, StateAction, Button
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
+
 
 __all__ = ['Line', 'Move', 'OpenBankReconcileLines',
     'OpenBankReconcileLinesStart']
@@ -56,12 +59,6 @@ class Line(metaclass=PoolMeta):
     def __setup__(cls):
         super(Line, cls).__setup__()
         cls._check_modify_exclude.add('bank_lines')
-        cls._error_messages.update({
-                'line_reconciled': ('Line "%(line)s" already reconciled with '
-                'bank staement line "%(statment_line)s" with amont '
-                '"%(amount)s". Please remove bank conciliation '
-                'and try again.'),
-                })
 
     @classmethod
     def search_bank_reconciled(cls, name, clause):
@@ -93,12 +90,11 @@ class Line(metaclass=PoolMeta):
         for line in lines:
             for bank_line in line.bank_lines:
                 if bank_line.bank_statement_line:
-                    bank_line.raise_user_error('line_reconciled', {
-                        'line': line.rec_name,
-                        'statement_line':
-                            bank_line.bank_statement_line.rec_name,
-                        'amount': bank_line.amount,
-                        })
+                    raise UserError(gettext(
+                        'account_bank_statement.line_reconciled',
+                        line=line.rec_name,
+                        statement_line=bank_line.bank_statement_line.rec_name,
+                        amount=bank_line.amount))
 
     @classmethod
     def copy(cls, lines, default=None):
