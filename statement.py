@@ -461,15 +461,17 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
     def cancel(cls, lines):
         Line = Pool().get('account.bank.reconciliation')
 
-        unlink = []
-        for line in lines:
-            unlink += line.bank_lines
-        Line.write(unlink, {
-                'bank_statement_line': None,
+        with Transaction().set_context(from_account_bank_statement_line=True):
+            unlink = []
+            for line in lines:
+                unlink += line.bank_lines
+            Line.write(unlink, {
+                    'bank_statement_line': None,
+                    })
+            Line.delete(unlink)
+            cls.write(lines, {
+                'state': 'canceled',
                 })
-        cls.write(lines, {
-            'state': 'canceled',
-            })
 
     @classmethod
     def validate(cls, lines):
