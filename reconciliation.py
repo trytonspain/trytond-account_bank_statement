@@ -34,10 +34,11 @@ class AccountBankReconciliation(ModelView, ModelSQL):
     def write(cls, *args):
         super(AccountBankReconciliation, cls).write(*args)
         actions = iter(args)
-        for lines, _ in zip(actions, actions):
-            move_lines = set([x.move_line for x in lines])
-            for move_line in move_lines:
-                move_line.check_bank_lines()
+        if not Transaction().context.get('from_account_bank_statement_line'):
+            for lines, _ in zip(actions, actions):
+                move_lines = set([x.move_line for x in lines])
+                for move_line in move_lines:
+                    move_line.check_bank_lines()
 
     @classmethod
     def delete(cls, lines):
