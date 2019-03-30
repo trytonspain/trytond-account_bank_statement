@@ -11,6 +11,7 @@ from trytond.pyson import Eval, PYSONEncoder
 from trytond.wizard import Wizard, StateView, StateAction, Button
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
+from sql import Null
 
 
 __all__ = ['Line', 'Move', 'OpenBankReconcileLines',
@@ -163,7 +164,7 @@ class OpenBankReconcileLinesStart(ModelView):
     __name__ = 'account.move.open_bank_reconcile_lines.start'
 
     account = fields.Many2One('account.account', 'Account', required=True,
-        domain=[('kind', '!=', 'view'), ('bank_reconcile', '=', True)])
+        domain=[('type', '!=', Null), ('bank_reconcile', '=', True)])
 
 
 class OpenBankReconcileLines(Wizard):

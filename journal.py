@@ -6,6 +6,7 @@ from trytond.transaction import Transaction
 from trytond.pyson import Eval
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
+from sql import Null
 
 __all__ = ['BankJournal']
 
@@ -23,7 +24,7 @@ class BankJournal(ModelSQL, ModelView):
             select=True)
     account = fields.Many2One('account.account', "Account", required=True,
         domain=[
-            ('kind', '!=', 'view'),
+            ('type', '!=', Null),
             ('company', '=', Eval('company')),
             ],
         depends=['company'])
