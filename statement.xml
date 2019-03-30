@@ -272,6 +272,7 @@
         </record>
 
         <record model="ir.rule.group" id="rule_group_bank_statement">
+            <field name="name">Bank Statement</field>
             <field name="model" search="[('model', '=', 'account.bank.statement')]"/>
             <field name="global_p" eval="True"/>
         </record>
@@ -283,6 +284,7 @@
         </record>
 
         <record model="ir.rule.group" id="rule_group_bank_statement_line">
+            <field name="name">Bank Statement Line</field>
             <field name="model" search="[('model', '=', 'account.bank.statement.line')]"/>
             <field name="global_p" eval="True"/>
         </record>

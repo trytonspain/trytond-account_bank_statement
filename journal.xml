@@ -57,6 +57,7 @@
         </record>
 
         <record model="ir.rule.group" id="rule_group_bank_statement_journal">
+            <field name="name">Bank statement Journal</field>
             <field name="model" search="[('model', '=', 'account.bank.statement.journal')]"/>
             <field name="global_p" eval="True"/>
         </record>
