@@ -530,7 +530,7 @@ msgid ""
 "\"%(type)s\" is used on %(model)s \"%(name)s\""
 msgstr ""
 "No es posible modificar el campo \"%(field)s\" para el tipo de pago "
-"\"%(type)s\" se utiliza en %(modelo)s \"%(name)s\""
+"\"%(type)s\" se utiliza en %(model)s \"%(name)s\""
 
 msgctxt "model:ir.message,text:statement_already_has_lines"
 msgid ""
