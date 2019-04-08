@@ -6,7 +6,6 @@ from trytond.transaction import Transaction
 from trytond.pyson import Eval
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
-from sql import Null
 
 __all__ = ['BankJournal']
 
@@ -24,14 +23,10 @@ class BankJournal(ModelSQL, ModelView):
             select=True)
     account = fields.Many2One('account.account', "Account", required=True,
         domain=[
-            ('type', '!=', Null),
-            ('company', '=', Eval('company')),
+            ('bank_reconcile', '=', True),
+            ('company', '=', Eval('company', -1)),
             ],
         depends=['company'])
-
-    @classmethod
-    def __setup__(cls):
-        super(BankJournal, cls).__setup__()
 
     @staticmethod
     def default_currency():
@@ -43,21 +38,6 @@ class BankJournal(ModelSQL, ModelView):
     @staticmethod
     def default_company():
         return Transaction().context.get('company')
-
-    @classmethod
-    def validate(cls, journals):
-        super(BankJournal, cls).validate(journals)
-        cls.check_journal_accounts(journals)
-
-    @classmethod
-    def check_journal_accounts(cls, journals):
-        for journal in journals:
-            if (not journal.account or
-                    not journal.account.bank_reconcile):
-                raise UserError(gettext(
-                    'account_bank_statement.journal_accounts_not_bank_reconcile',
-                        journal=journal.rec_name,
-                        bank_journal=journal.rec_name))
 
     @classmethod
     def write(cls, journals, values, *args):
