@@ -471,11 +471,11 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     def check_amounts(self):
         if self.state == 'posted' and self.company_amount != self.moves_amount:
-            self.raise_user_error('different_amounts', {
-                    'moves_amount': self.moves_amount,
-                    'amount': self.company_amount,
-                    'line': self.rec_name,
-                    })
+            raise UserError(gettext(
+                'account_bank_statement.different_amounts',
+                    moves_amount=self.moves_amount,
+                    amount=self.company_amount,
+                    line=self.rec_name))
 
     def get_journal(self, name):
         return self.statement.journal.id
