@@ -4,7 +4,7 @@ contains the full copyright notices and license terms. -->
 <form>
     <group id="header" colspan="4" col="6">
         <label name="date"/>
-        <field name="date"/>
+        <field name="date" widget="date"/>
         <label name="journal"/>
         <field name="journal"/>
         <label name="company"/>
