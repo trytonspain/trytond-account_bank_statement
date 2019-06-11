@@ -9,6 +9,7 @@ from trytond.model import Workflow, ModelView, ModelSQL, fields, \
     sequence_ordered
 from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pool import Pool
+from trytond.rpc import RPC
 from trytond.pyson import Eval, Not, Equal, If
 from trytond.transaction import Transaction
 from trytond import backend
@@ -284,6 +285,10 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
                     'invisible': ~Eval('state').in_(['confirmed']),
                     'icon': 'tryton-launch',
                     },
+                })
+        cls.__rpc__.update({
+                'post': RPC(
+                    readonly=False, instantiate=0, fresh_session=True),
                 })
 
     @classmethod
