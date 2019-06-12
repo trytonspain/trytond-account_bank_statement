@@ -25,7 +25,6 @@ contains the full copyright notices and license terms. -->
         <label name="moves_amount"/>
         <field name="moves_amount"/>
     </group>
-    <field name="bank_lines" colspan="4" widget="many2many"/>
     <group id="status" colspan="4" col="-1">
         <label name="state"/>
         <field name="state"/>
