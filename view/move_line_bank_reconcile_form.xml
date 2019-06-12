@@ -43,7 +43,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="unreconciled_amount"/>
             <label name="bank_reconciled"/>
             <field name="bank_reconciled"/>
-            <field name="bank_lines" colspan="4"/>
         </page>
     </notebook>
     <label name="move_state"/>
