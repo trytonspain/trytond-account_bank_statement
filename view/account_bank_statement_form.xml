@@ -24,8 +24,8 @@ contains the full copyright notices and license terms. -->
     <group id="status" col="-1" colspan="4">
         <label name="state"/>
         <field name="state"/>
-        <button name="cancel" string="Cancel"/>
-        <button name="draft" string="Draft"/>
-        <button name="confirm" string="Confirm"/>
+        <button name="cancel"/>
+        <button name="draft"/>
+        <button name="confirm"/>
     </group>
 </form>
