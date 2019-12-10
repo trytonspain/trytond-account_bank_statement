@@ -293,9 +293,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     @classmethod
     def __register__(cls, module_name):
-        TableHandler = backend.get('TableHandler')
-
-        table = TableHandler(cls, module_name)
+        table = backend.TableHandler(cls, module_name)
 
         # Migration: rename date into date_utc
         if (table.column_exist('date')
