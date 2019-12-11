@@ -52,7 +52,6 @@
 
         <record model="ir.model.button" id="statement_cancel_button">
             <field name="name">cancel</field>
-            <field name="string">Cancel</field>
             <field name="model" search="[('model', '=', 'account.bank.statement')]"/>
         </record>
         <record model="ir.model.button-res.group"
