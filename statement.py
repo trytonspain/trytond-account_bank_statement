@@ -87,6 +87,7 @@ class Statement(Workflow, ModelSQL, ModelView):
                     'depends': ['state'],
                     },
                 'cancel': {
+                    'icon': 'tryton-cancel',
                     'invisible': Eval('state').in_(['canceled']),
                     },
                 })
@@ -272,6 +273,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
                     'icon': 'tryton-ok',
                     },
                 'cancel': {
+                    'icon': 'tryton-cancel',
                     'invisible': Eval('state').in_(['canceled']),
                     },
                 'draft': {
