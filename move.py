@@ -87,7 +87,6 @@ class Line(metaclass=PoolMeta):
 
     @classmethod
     def delete(cls, lines):
-        super(Line, cls).delete(lines)
         for line in lines:
             for bank_line in line.bank_lines:
                 if bank_line.bank_statement_line:
@@ -96,6 +95,7 @@ class Line(metaclass=PoolMeta):
                         line=line.rec_name,
                         statement_line=bank_line.bank_statement_line.rec_name,
                         amount=bank_line.amount))
+        super(Line, cls).delete(lines)
 
     @classmethod
     def copy(cls, lines, default=None):
