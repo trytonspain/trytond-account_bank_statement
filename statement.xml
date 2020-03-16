@@ -41,6 +41,7 @@
 
         <record model="ir.model.button" id="statement_draft_button">
             <field name="name">draft</field>
+            <field name="string">Draft</field>
             <field name="model" search="[('model', '=', 'account.bank.statement')]"/>
         </record>
 
@@ -52,6 +53,7 @@
 
         <record model="ir.model.button" id="statement_cancel_button">
             <field name="name">cancel</field>
+            <field name="string">Cancel</field>
             <field name="model" search="[('model', '=', 'account.bank.statement')]"/>
         </record>
         <record model="ir.model.button-res.group"
@@ -62,6 +64,7 @@
 
         <record model="ir.model.button" id="statement_line_confirm_button">
             <field name="name">confirm</field>
+            <field name="string">Confirm</field>
             <field name="model" search="[('model', '=', 'account.bank.statement.line')]"/>
         </record>
         <record model="ir.model.button-res.group"
@@ -83,6 +86,7 @@
 
         <record model="ir.model.button" id="statement_line_cancel_button">
             <field name="name">cancel</field>
+            <field name="string">Cancel</field>
             <field name="model" search="[('model', '=', 'account.bank.statement.line')]"/>
         </record>
         <record model="ir.model.button-res.group"
