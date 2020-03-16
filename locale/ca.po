@@ -542,6 +542,34 @@ msgctxt "model:ir.model.button,string:statement_search_reconcile_button"
 msgid "Search"
 msgstr "Cerca"
 
+msgctxt "model:ir.model.button,string:statement_confirm_button"
+msgid "Confirm"
+msgstr "Confirma"
+
+msgctxt "model:ir.model.button,string:statement_draft_button"
+msgid "Draft"
+msgstr "Esborany"
+
+msgctxt "model:ir.model.button,string:statement_cancel_button"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "model:ir.model.button,string:statement_line_confirm_button"
+msgid "Confirm"
+msgstr "Confirma"
+
+msgctxt "model:ir.model.button,string:statement_line_post_button"
+msgid "Post"
+msgstr "Comptabilitzar"
+
+msgctxt "model:ir.model.button,string:statement_line_cancel_button"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "model:ir.model.button,string:statement_line_draft_button"
+msgid "Draft"
+msgstr "Esborany"
+
 msgctxt "model:ir.rule.group,name:rule_group_bank_statement"
 msgid "Bank Statement"
 msgstr "Extracte bancari"
