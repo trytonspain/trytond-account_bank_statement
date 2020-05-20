@@ -451,7 +451,7 @@ msgid ""
 "Line \"%(line)s\" cannot be deleted because it is not in Draft or Cancelled "
 "state."
 msgstr ""
-"No se puede eliminar la línea \"%(line)s\" para que no se encuentra en "
+"No se puede eliminar la línea \"%(line)s\" porque no se encuentra en "
 "estado borrador o cancelado."
 
 msgctxt "model:ir.message,text:currency_modify"
