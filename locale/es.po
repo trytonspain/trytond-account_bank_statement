@@ -617,7 +617,7 @@ msgid "Account Bank Statement Administration"
 msgstr "Administración de extracto bancario"
 
 msgctxt "selection:account.bank.statement,state:"
-msgid "Canceled"
+msgid "Cancelled"
 msgstr "Cancelado"
 
 msgctxt "selection:account.bank.statement,state:"
@@ -633,7 +633,7 @@ msgid "CSV (date, description, amount)"
 msgstr "CSV (fecha, descripción, importe)"
 
 msgctxt "selection:account.bank.statement.line,state:"
-msgid "Canceled"
+msgid "Cancelled"
 msgstr "Cancelado"
 
 msgctxt "selection:account.bank.statement.line,state:"

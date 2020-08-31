@@ -153,6 +153,6 @@ Cancel line::
 
     >>> statement_line.click('cancel')
     >>> statement_line.state
-    'canceled'
+    'cancelled'
     >>> statement_line.bank_lines
     []

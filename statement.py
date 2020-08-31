@@ -61,7 +61,7 @@ class Statement(Workflow, ModelSQL, ModelView):
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
-            ('canceled', 'Canceled'),
+            ('cancelled', "Cancelled"),
             ], 'State', required=True, readonly=True)
 
     @classmethod
@@ -70,9 +70,9 @@ class Statement(Workflow, ModelSQL, ModelView):
         cls._order.insert(0, ('date', 'DESC'))
         cls._transitions |= set((
                 ('draft', 'confirmed'),
-                ('confirmed', 'canceled'),
-                ('canceled', 'draft'),
-                ('draft', 'canceled'),
+                ('confirmed', 'cancelled'),
+                ('cancelled', 'draft'),
+                ('draft', 'cancelled'),
                 ))
         cls._buttons.update({
                 'confirm': {
@@ -80,17 +80,29 @@ class Statement(Workflow, ModelSQL, ModelView):
                     'icon': 'tryton-forward',
                     },
                 'draft': {
-                    'invisible': ~Eval('state').in_(['canceled']),
-                    'icon': If(Eval('state') == 'canceled',
+                    'invisible': ~Eval('state').in_(['cancelled']),
+                    'icon': If(Eval('state') == 'cancelled',
                         'tryton-undo',
                         'tryton-back'),
                     'depends': ['state'],
                     },
                 'cancel': {
                     'icon': 'tryton-cancel',
-                    'invisible': Eval('state').in_(['canceled']),
+                    'invisible': Eval('state').in_(['cancelled']),
                     },
                 })
+
+    @classmethod
+    def __register__(cls, module_name):
+        cursor = Transaction().connection.cursor()
+        sql_table = cls.__table__()
+
+        super(Statement, cls).__register__(module_name)
+
+        # Migration from 5.6: rename state cancel to cancelled
+        cursor.execute(*sql_table.update(
+                [sql_table.state], ['cancelled'],
+                where=sql_table.state == 'canceled'))
 
     @staticmethod
     def default_company():
@@ -141,13 +153,13 @@ class Statement(Workflow, ModelSQL, ModelView):
 
     @classmethod
     @ModelView.button
-    @Workflow.transition('canceled')
+    @Workflow.transition('cancelled')
     def cancel(cls, statements):
         StatementLine = Pool().get('account.bank.statement.line')
         lines = []
         for statement in statements:
             for line in statement.lines:
-                if line.state not in ('draft', 'canceled'):
+                if line.state not in ('draft', 'cancelled'):
                     raise UserError(gettext(
                         'account_bank_statement.cannot_cancel_statement_line',
                             line=line.rec_name,
@@ -211,7 +223,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
-            ('canceled', 'Canceled'),
+            ('cancelled', "Cancelled"),
             ('posted', 'Posted'),
             ], 'State', required=True, readonly=True)
     bank_lines = fields.One2Many('account.bank.reconciliation',
@@ -257,10 +269,10 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'posted'),
-                ('canceled', 'draft'),
-                ('draft', 'canceled'),
-                ('confirmed', 'canceled'),
-                ('posted', 'canceled'),
+                ('cancelled', 'draft'),
+                ('draft', 'cancelled'),
+                ('confirmed', 'cancelled'),
+                ('posted', 'cancelled'),
                 ))
         cls._buttons.update({
                 'confirm': {
@@ -269,16 +281,16 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
                     },
                 'post': {
                     'invisible': Eval('state').in_([
-                            'draft', 'canceled', 'posted']),
+                            'draft', 'cancelled', 'posted']),
                     'icon': 'tryton-ok',
                     },
                 'cancel': {
                     'icon': 'tryton-cancel',
-                    'invisible': Eval('state').in_(['canceled']),
+                    'invisible': Eval('state').in_(['cancelled']),
                     },
                 'draft': {
-                    'invisible': ~Eval('state').in_(['canceled']),
-                    'icon': If(Eval('state') == 'canceled',
+                    'invisible': ~Eval('state').in_(['cancelled']),
+                    'icon': If(Eval('state') == 'cancelled',
                         'tryton-undo',
                         'tryton-back'),
                     'depends': ['state'],
@@ -295,7 +307,9 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     @classmethod
     def __register__(cls, module_name):
+        cursor = Transaction().connection.cursor()
         table = backend.TableHandler(cls, module_name)
+        sql_table = cls.__table__()
 
         # Migration: rename date into date_utc
         if (table.column_exist('date')
@@ -304,6 +318,11 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
             table.column_rename('date', 'date_utc')
 
         super(StatementLine, cls).__register__(module_name)
+
+        # Migration from 5.6: rename state cancel to cancelled
+        cursor.execute(*sql_table.update(
+                [sql_table.state], ['cancelled'],
+                where=sql_table.state == 'canceled'))
 
     @classmethod
     def get_date_utc(cls, lines, names):
@@ -453,7 +472,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     @classmethod
     @ModelView.button
-    @Workflow.transition('canceled')
+    @Workflow.transition('cancelled')
     def cancel(cls, lines):
         Line = Pool().get('account.bank.reconciliation')
 
@@ -466,7 +485,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
                     })
             Line.delete(unlink)
             cls.write(lines, {
-                'state': 'canceled',
+                'state': 'cancelled',
                 })
 
     @classmethod
@@ -517,7 +536,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
     @classmethod
     def delete(cls, lines):
         for line in lines:
-            if line.state not in ('draft', 'canceled'):
+            if line.state not in ('draft', 'cancelled'):
                 raise UserError(gettext(
                     'account_bank_statement.cannot_delete_statement_line',
                         line=line.rec_name))
