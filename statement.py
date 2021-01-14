@@ -360,9 +360,9 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
             date = timezone.localize(value)
             value -= date.utcoffset()
 
-        cls.write(lines, {
-            name + '_utc': value,
-            })
+            cls.write(lines, {
+                name + '_utc': value,
+                })
 
     def _search_bank_line_reconciliation(self):
         BankLines = Pool().get('account.bank.reconciliation')
