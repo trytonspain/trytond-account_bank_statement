@@ -331,6 +331,9 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     @classmethod
     def set_date_utc(cls, lines, name, value):
+        if not value:
+            return
+
         # set date to UTC
         timezone = None
         for line in lines:
