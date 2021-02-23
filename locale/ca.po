@@ -18,49 +18,17 @@ msgctxt "field:account.bank.reconciliation,bank_statement_line:"
 msgid "Bank Statement Line"
 msgstr "Línia d'extracte bancari"
 
-msgctxt "field:account.bank.reconciliation,create_date:"
-msgid "Create Date"
-msgstr "Data de creació"
-
-msgctxt "field:account.bank.reconciliation,create_uid:"
-msgid "Create User"
-msgstr "Usuari de creació"
-
 msgctxt "field:account.bank.reconciliation,currency_digits:"
 msgid "currency digits"
 msgstr "Decimals de la moneda"
-
-msgctxt "field:account.bank.reconciliation,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "field:account.bank.reconciliation,move_line:"
 msgid "Move Line"
 msgstr "Apunt"
 
-msgctxt "field:account.bank.reconciliation,rec_name:"
-msgid "Record Name"
-msgstr "Nom del registre"
-
-msgctxt "field:account.bank.reconciliation,write_date:"
-msgid "Write Date"
-msgstr "Data de modificació"
-
-msgctxt "field:account.bank.reconciliation,write_uid:"
-msgid "Write User"
-msgstr "Usuari de modificació"
-
 msgctxt "field:account.bank.statement,company:"
 msgid "Company"
 msgstr "Empresa"
-
-msgctxt "field:account.bank.statement,create_date:"
-msgid "Create Date"
-msgstr "Data de creació"
-
-msgctxt "field:account.bank.statement,create_uid:"
-msgid "Create User"
-msgstr "Usuari de creació"
 
 msgctxt "field:account.bank.statement,currency_digits:"
 msgid "Currency Digits"
@@ -78,10 +46,6 @@ msgctxt "field:account.bank.statement,end_date:"
 msgid "End Date"
 msgstr "Data final"
 
-msgctxt "field:account.bank.statement,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:account.bank.statement,journal:"
 msgid "Journal"
 msgstr "Diari"
@@ -89,10 +53,6 @@ msgstr "Diari"
 msgctxt "field:account.bank.statement,lines:"
 msgid "Lines"
 msgstr "Línies"
-
-msgctxt "field:account.bank.statement,rec_name:"
-msgid "Record Name"
-msgstr "Nom del registre"
 
 msgctxt "field:account.bank.statement,start_balance:"
 msgid "Start Balance"
@@ -106,14 +66,6 @@ msgctxt "field:account.bank.statement,state:"
 msgid "State"
 msgstr "Estat"
 
-msgctxt "field:account.bank.statement,write_date:"
-msgid "Write Date"
-msgstr "Data de modificació"
-
-msgctxt "field:account.bank.statement,write_uid:"
-msgid "Write User"
-msgstr "Usuari de modificació"
-
 msgctxt "field:account.bank.statement.import.start,attachment:"
 msgid "Attach file after import"
 msgstr "Adjunta fitxer després de la importació"
@@ -121,10 +73,6 @@ msgstr "Adjunta fitxer després de la importació"
 msgctxt "field:account.bank.statement.import.start,confirm:"
 msgid "Confirm"
 msgstr "Confirma"
-
-msgctxt "field:account.bank.statement.import.start,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "field:account.bank.statement.import.start,import_file:"
 msgid "File"
@@ -142,21 +90,9 @@ msgctxt "field:account.bank.statement.journal,company:"
 msgid "Company"
 msgstr "Empresa"
 
-msgctxt "field:account.bank.statement.journal,create_date:"
-msgid "Create Date"
-msgstr "Data de creació"
-
-msgctxt "field:account.bank.statement.journal,create_uid:"
-msgid "Create User"
-msgstr "Usuari de creació"
-
 msgctxt "field:account.bank.statement.journal,currency:"
 msgid "Currency"
 msgstr "Moneda"
-
-msgctxt "field:account.bank.statement.journal,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "field:account.bank.statement.journal,journal:"
 msgid "Journal"
@@ -165,18 +101,6 @@ msgstr "Diari"
 msgctxt "field:account.bank.statement.journal,name:"
 msgid "Name"
 msgstr "Nom"
-
-msgctxt "field:account.bank.statement.journal,rec_name:"
-msgid "Record Name"
-msgstr "Nom del registre"
-
-msgctxt "field:account.bank.statement.journal,write_date:"
-msgid "Write Date"
-msgstr "Data de modificació"
-
-msgctxt "field:account.bank.statement.journal,write_uid:"
-msgid "Write User"
-msgstr "Usuari de modificació"
 
 msgctxt "field:account.bank.statement.line,account:"
 msgid "Account"
@@ -210,14 +134,6 @@ msgctxt "field:account.bank.statement.line,company_moves_amount:"
 msgid "Moves Amount"
 msgstr "Import de moviments"
 
-msgctxt "field:account.bank.statement.line,create_date:"
-msgid "Create Date"
-msgstr "Data de creació"
-
-msgctxt "field:account.bank.statement.line,create_uid:"
-msgid "Create User"
-msgstr "Usuari de creació"
-
 msgctxt "field:account.bank.statement.line,currency_digits:"
 msgid "currency digits"
 msgstr "Decimals de la moneda"
@@ -234,10 +150,6 @@ msgctxt "field:account.bank.statement.line,description:"
 msgid "Description"
 msgstr "Descripció"
 
-msgctxt "field:account.bank.statement.line,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:account.bank.statement.line,journal:"
 msgid "Journal"
 msgstr "Diari"
@@ -250,17 +162,9 @@ msgctxt "field:account.bank.statement.line,notes:"
 msgid "Notes"
 msgstr "Notes"
 
-msgctxt "field:account.bank.statement.line,rec_name:"
-msgid "Record Name"
-msgstr "Nom del registre"
-
 msgctxt "field:account.bank.statement.line,reconciled:"
 msgid "Reconciled"
 msgstr "Conciliat"
-
-msgctxt "field:account.bank.statement.line,sequence:"
-msgid "Sequence"
-msgstr "Seqüència"
 
 msgctxt "field:account.bank.statement.line,state:"
 msgid "State"
@@ -273,14 +177,6 @@ msgstr "Extracte"
 msgctxt "field:account.bank.statement.line,statement_currency:"
 msgid "Statement Currency"
 msgstr "Moneda de l'extracte"
-
-msgctxt "field:account.bank.statement.line,write_date:"
-msgid "Write Date"
-msgstr "Data de modificació"
-
-msgctxt "field:account.bank.statement.line,write_uid:"
-msgid "Write User"
-msgstr "Usuari de modificació"
 
 msgctxt "field:account.move.line,bank_amount:"
 msgid "Bank Amount"
@@ -301,10 +197,6 @@ msgstr "Import sense conciliar"
 msgctxt "field:account.move.open_bank_reconcile_lines.start,account:"
 msgid "Account"
 msgstr "Compte"
-
-msgctxt "field:account.move.open_bank_reconcile_lines.start,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "help:account.bank.statement,date:"
 msgid "Created date bank statement"
@@ -479,11 +371,13 @@ msgstr ""
 
 msgctxt "model:ir.message,text:format_error"
 msgid ""
-"The supplied file does not have the expected format.\\n This is the "
-"technical error returned by parser:\\n  %(error)s."
+"The supplied file does not have the expected format.\n"
+"This is the technical error returned by parser:\n"
+"%(error)s."
 msgstr ""
-"L'arxiu subministrat no té el format esperat. \\n Aquest és l'error tècnic "
-"retornat per l'analitzador: \\n %(error)s."
+"L'arxiu subministrat no té el format esperat.\n"
+"Aquest és l'error tècnic retornat per l'analitzador:\n"
+"%(error)s."
 
 msgctxt "model:ir.message,text:invalid_account_payment_type"
 msgid ""
@@ -500,14 +394,6 @@ msgstr "Cadena no vàlida per a la data: %(date)s"
 msgctxt "model:ir.message,text:invalid_number"
 msgid "Invalid string for number: %(number)s"
 msgstr "Cadena no vàlida per al número: %(number)s"
-
-msgctxt "model:ir.message,text:journal_accounts_not_bank_reconcile"
-msgid ""
-"The Account of Bank Journal \"%(bank_journal)s\", is not configured as "
-"\"Bank conciliation\"."
-msgstr ""
-"El compte del diari bancari \"%(bank_journal)s\" no està configurada com "
-"\"conciliació bancària\"."
 
 msgctxt "model:ir.message,text:line_reconciled"
 msgid ""
@@ -538,9 +424,9 @@ msgstr ""
 "No podeu importar un fitxer d'extracte bancari en un extracte bancari amb "
 "línies."
 
-msgctxt "model:ir.model.button,string:statement_search_reconcile_button"
-msgid "Search"
-msgstr "Cerca"
+msgctxt "model:ir.model.button,string:statement_cancel_button"
+msgid "Cancel"
+msgstr "Cancel·la"
 
 msgctxt "model:ir.model.button,string:statement_confirm_button"
 msgid "Confirm"
@@ -550,7 +436,7 @@ msgctxt "model:ir.model.button,string:statement_draft_button"
 msgid "Draft"
 msgstr "Esborany"
 
-msgctxt "model:ir.model.button,string:statement_cancel_button"
+msgctxt "model:ir.model.button,string:statement_line_cancel_button"
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -558,17 +444,17 @@ msgctxt "model:ir.model.button,string:statement_line_confirm_button"
 msgid "Confirm"
 msgstr "Confirma"
 
+msgctxt "model:ir.model.button,string:statement_line_draft_button"
+msgid "Draft"
+msgstr "Esborany"
+
 msgctxt "model:ir.model.button,string:statement_line_post_button"
 msgid "Post"
 msgstr "Comptabilitzar"
 
-msgctxt "model:ir.model.button,string:statement_line_cancel_button"
-msgid "Cancel"
-msgstr "Cancel·la"
-
-msgctxt "model:ir.model.button,string:statement_line_draft_button"
-msgid "Draft"
-msgstr "Esborany"
+msgctxt "model:ir.model.button,string:statement_search_reconcile_button"
+msgid "Search"
+msgstr "Cerca"
 
 msgctxt "model:ir.rule.group,name:rule_group_bank_statement"
 msgid "Bank Statement"
@@ -659,60 +545,12 @@ msgid "Statement Journals"
 msgstr "Diaris de l'extracte"
 
 msgctxt "view:account.bank.statement.line:"
-msgid "Bank Statement Line"
-msgstr "Línia d'extracte bancari"
-
-msgctxt "view:account.bank.statement.line:"
-msgid "Cancel"
-msgstr "Cancel·la"
-
-msgctxt "view:account.bank.statement.line:"
-msgid "Confirm"
-msgstr "Confirma"
-
-msgctxt "view:account.bank.statement.line:"
 msgid "Date"
 msgstr "Data"
-
-msgctxt "view:account.bank.statement.line:"
-msgid "Draft"
-msgstr "Esborrany"
-
-msgctxt "view:account.bank.statement.line:"
-msgid "Post"
-msgstr "Comptabilitzar"
-
-msgctxt "view:account.bank.statement.line:"
-msgid "Search"
-msgstr "Cerca"
-
-msgctxt "view:account.bank.statement:"
-msgid "Bank Statement"
-msgstr "Extracte bancari"
-
-msgctxt "view:account.bank.statement:"
-msgid "Cancel"
-msgstr "Cancel·la"
-
-msgctxt "view:account.bank.statement:"
-msgid "Confirm"
-msgstr "Confirma"
-
-msgctxt "view:account.bank.statement:"
-msgid "Draft"
-msgstr "Esborrany"
 
 msgctxt "view:account.bank.statement:"
 msgid "Time"
 msgstr "Hora"
-
-msgctxt "view:account.move.line:"
-msgid "Account Move Line"
-msgstr "Apunt comptable"
-
-msgctxt "view:account.move.line:"
-msgid "Account Move Lines"
-msgstr "Apunts comptables"
 
 msgctxt "view:account.move.line:"
 msgid "Bank Amount"

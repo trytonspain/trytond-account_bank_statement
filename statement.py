@@ -564,7 +564,11 @@ class Import(Wizard):
         BankStatement = pool.get('account.bank.statement')
         Attachment = pool.get('ir.attachment')
 
-        statement = BankStatement(Transaction().context['active_id'])
+        active_id = Transaction().context['active_id']
+        if not active_id:
+            return 'end'
+
+        statement = BankStatement(active_id)
         if statement.lines:
             raise UserError(gettext('account_bank_statement_already_has_lines'))
 
