@@ -22,7 +22,9 @@ this repository contains the full copyright notices and license terms. -->
           <field name="text">You cannot import a bank statement file in a bank  statement with lines.</field>
       </record>
       <record model="ir.message" id="format_error">
-          <field name="text">The supplied file does not have the expected format.\n This is the technical error returned by parser:\n  %(error)s.</field>
+          <field name="text">The supplied file does not have the expected format.
+This is the technical error returned by parser:
+%(error)s.</field>
       </record>
       <record model="ir.message" id="invalid_date">
           <field name="text">Invalid string for date: %(date)s</field>
