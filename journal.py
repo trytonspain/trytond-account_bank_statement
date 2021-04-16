@@ -23,7 +23,6 @@ class BankJournal(ModelSQL, ModelView):
             select=True)
     account = fields.Many2One('account.account', "Account", required=True,
         domain=[
-            ('bank_reconcile', '=', True),
             ('company', '=', Eval('company', -1)),
             ],
         depends=['company'])

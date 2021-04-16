@@ -8,10 +8,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="amount"/>
     <field name="statement_currency"/>
     <field name="state"/>
-    <field name="reconciled"/>
-    <button name="post"/>
-    <button name="search_reconcile" tree_invisible="1"/>
-    <button name="cancel" tree_invisible="1"/>
-    <button name="draft" tree_invisible="1"/>
-    <button name="confirm" tree_invisible="1"/>
+    <button name="post" string="Post"/>
+    <button name="cancel" string="Cancel" tree_invisible="1"/>
+    <button name="draft" string="Draft" tree_invisible="1"/>
+    <button name="confirm" string="Confirm" tree_invisible="1"/>
 </tree>

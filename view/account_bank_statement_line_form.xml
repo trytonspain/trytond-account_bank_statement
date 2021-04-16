@@ -28,10 +28,9 @@ contains the full copyright notices and license terms. -->
     <group id="status" colspan="4" col="-1">
         <label name="state"/>
         <field name="state"/>
-        <button name="search_reconcile"/>
-        <button name="cancel"/>
-        <button name="draft"/>
-        <button name="confirm"/>
-        <button name="post"/>
+        <button name="cancel" string="Cancel"/>
+        <button name="draft" string="Draft"/>
+        <button name="confirm" string="Confirm"/>
+        <button name="post" string="Post"/>
     </group>
 </form>

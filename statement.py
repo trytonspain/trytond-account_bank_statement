@@ -173,18 +173,6 @@ class Statement(Workflow, ModelSQL, ModelView):
                     statement=statement.rec_name))
         super(Statement, cls).delete(statements)
 
-    @classmethod
-    def search_reconcile(cls, statements):
-        StatementLine = Pool().get('account.bank.statement.line')
-
-        st_lines = []
-        for statement in statements:
-            for line in statement.lines:
-                st_lines.append(line)
-
-        if st_lines:
-            StatementLine.search_reconcile(st_lines)
-
 
 class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
     'Bank Statement Line'
@@ -214,18 +202,8 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
             ('canceled', 'Canceled'),
             ('posted', 'Posted'),
             ], 'State', required=True, readonly=True)
-    bank_lines = fields.One2Many('account.bank.reconciliation',
-        'bank_statement_line', 'Bank Lines', domain=[
-            ('account', '=', Eval('account')),
-            ('move_line.move.company', '=', Eval('company')),
-            ('bank_statement_line', 'in', (None, Eval('id'))),
-            ],
-        states=POSTED_STATES,
-        depends=POSTED_DEPENDS + ['company', 'id', 'account'])
     account = fields.Function(fields.Many2One('account.account',
             'Account'), 'get_account')
-    reconciled = fields.Function(fields.Boolean('Reconciled'),
-        'get_accounting_vals')
     moves_amount = fields.Function(fields.Numeric('Moves Amount',
             digits=(16, Eval('currency_digits', 2)),
             depends=['currency_digits']),
@@ -240,7 +218,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
             'get_company_currency')
     company_moves_amount = fields.Function(fields.Numeric('Moves Amount',
             digits=(16, Eval('company_currency_digits', 2)),
-            depends=['company_currency_digits', 'bank_lines']),
+            depends=['company_currency_digits']),
             'get_accounting_vals')
     company_amount = fields.Function(fields.Numeric('Company Amount',
             digits=(16, Eval('company_currency_digits', 2)),
@@ -282,10 +260,6 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
                         'tryton-undo',
                         'tryton-back'),
                     'depends': ['state'],
-                    },
-                'search_reconcile': {
-                    'invisible': ~Eval('state').in_(['confirmed']),
-                    'icon': 'tryton-launch',
                     },
                 })
         cls.__rpc__.update({
@@ -350,27 +324,6 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
             name + '_utc': value,
             })
 
-    def _search_bank_line_reconciliation(self):
-        BankLines = Pool().get('account.bank.reconciliation')
-        lines = BankLines.search([
-                ('amount', '=', self.company_amount),
-                ('account', '=', self.account.id),
-                ('bank_statement_line', '=', None),
-                ])
-        if len(lines) == 1:
-            line, = lines
-            line.bank_statement_line = self
-            line.save()
-
-    def _search_reconciliation(self):
-        self._search_bank_line_reconciliation()
-
-    @classmethod
-    @ModelView.button
-    def search_reconcile(cls, st_lines):
-        for st_line in st_lines:
-            st_line._search_reconciliation()
-
     @staticmethod
     def default_company():
         return Transaction().context.get('company')
@@ -412,7 +365,7 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
         res = {}
         line_ids = [l.id for l in lines]
         for name in names:
-            value = False if name == 'reconciled' else Decimal('0.0')
+            value = Decimal('0.0')
             res[name] = {}.fromkeys(line_ids, value)
 
         Currency = Pool().get('currency.currency')
@@ -426,14 +379,15 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
                         line.company_currency)
             if 'company_amount' in names:
                 res['company_amount'][line.id] = company_amount
-            if 'reconciled' in names:
-                res['reconciled'][line.id] = (amount == company_amount)
         return res
 
-    @fields.depends('bank_lines', 'company_currency')
+    @fields.depends('company_currency', 'date')
     def on_change_with_moves_amount(self, name=None):
-        amount = sum([x.amount for x in self.bank_lines if x.amount],
-            Decimal('0.0'))
+        if hasattr(self, 'statement') and self.statement:
+            amount = sum([x.amount for x in self.statement.lines if x.amount],
+                Decimal('0.0'))
+        else:
+            amount = Decimal('0.0')
         if self.company_currency:
             amount = self.company_currency.round(amount)
         return amount
@@ -460,32 +414,12 @@ class StatementLine(sequence_ordered(), Workflow, ModelSQL, ModelView):
     @ModelView.button
     @Workflow.transition('canceled')
     def cancel(cls, lines):
-        Line = Pool().get('account.bank.reconciliation')
 
         with Transaction().set_context(from_account_bank_statement_line=True):
-            unlink = []
-            for line in lines:
-                unlink += line.bank_lines
-            Line.write(unlink, {
-                    'bank_statement_line': None,
-                    })
-            Line.delete(unlink)
             cls.write(lines, {
                 'state': 'canceled',
                 })
 
-    @classmethod
-    def validate(cls, lines):
-        for line in lines:
-            line.check_amounts()
-
-    def check_amounts(self):
-        if self.state == 'posted' and self.company_amount != self.moves_amount:
-            raise UserError(gettext(
-                'account_bank_statement.different_amounts',
-                    moves_amount=self.moves_amount,
-                    amount=self.company_amount,
-                    line=self.rec_name))
 
     def get_journal(self, name):
         return self.statement.journal.id
@@ -576,7 +510,6 @@ class Import(Wizard):
 
         if self.start.confirm:
             BankStatement.confirm([statement])
-            BankStatement.search_reconcile([statement])
 
         if self.start.attachment:
             attach = Attachment(
@@ -626,7 +559,7 @@ class Import(Wizard):
 
     def string_to_number(self, text, decimal_separator='.',
             thousands_separator=','):
-        text = text.replace(thousands_separator,'')
+        text = text.replace(thousands_separator, '')
         if decimal_separator != '.':
             text = text.replace(decimal_separator, '.')
         try:

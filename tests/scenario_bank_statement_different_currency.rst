@@ -119,21 +119,6 @@ Create Bank Statement Lines::
     >>> statement_line.state
     'confirmed'
 
-Select statement move to reconcile statement line::
-
-    >>> MoveLine = Model.get('account.move.line')
-    >>> line = MoveLine(1)
-    >>> BankLine = Model.get('account.bank.reconciliation')
-    >>> bank_line, = BankLine.find([])
-    >>> bank_line.amount = Decimal('80.0')
-    >>> bank_line.bank_statement_line = statement_line
-    >>> bank_line.save()
-    >>> bank_line.reload()
-    >>> statement_line.reload()
-    >>> statement_line.moves_amount
-    Decimal('80.00')
-    >>> statement_line.company_amount
-    Decimal('80.00')
 
 Post line::
 
@@ -146,5 +131,3 @@ Cancel line::
     >>> statement_line.click('cancel')
     >>> statement_line.state
     'canceled'
-    >>> statement_line.bank_lines
-    []
